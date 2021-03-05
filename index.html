@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>出席管理システム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="side">
+  </div>
+  <div class="header">
+    <div class="name">
+      <p id="name">○○さん こんにちは</p>
+    </div>
+    <div class="count">
+      <p id="count">本日の出席人数：　１０人</p>  <!--Nuber of peopleの略-->
+    </div>
+  </div>
+
+  <div class="tab">
+    <p class="grade" id="three" onclick="hello()">３年</p>
+    <p class="grade" id="two">２年</p>
+    <p class="grade" id="one">１年</p>
+  </div>
+  <div class="btn">
+    <button class="button" type="button" name="button" id="btn" value="伊藤 聡馬"　onclick="kansu()">伊藤 聡馬</button>
+    <button class="button" type="button" name="button" id="btna" value="岸田 健吾"　onclick="kansu()">岸田 健吾</button>
+    <button class="button" type="button" name="button" id="btnb" value="溝上 幸太"　onclick="kansu()">溝上 幸太</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,3 +1,12 @@
+function openHome(){
+  alert('ホーム画面を開きます');
+}
+function openAna(){
+  alert('分析画面を開きます');
+}
+function openSet(){
+  alert('設定画面を開きます');
+}
 function kansu(){
   alert('Hello');
   var name = document.getElementById('btn').value;
@@ -8,3 +17,4 @@ function kansu(){
 function hello(){
   alert('三年生');
 }
+

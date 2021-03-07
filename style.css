@@ -53,7 +53,7 @@
 .name{
   margin-left: 10px;
   height: 60px;
-  width: 420px;
+  width: 600px;
   margin-bottom: 15px;
   background-color: #DDD;
   border-radius: 5px;
@@ -65,7 +65,7 @@
   margin-top: 10px;
 }
 .count{
-  margin-left: 300px;
+  margin-left: 150px;
   margin-right: 10px;
   margin-bottom: 15px;
   height: 60px;
@@ -74,6 +74,7 @@
   font-family: BIZ UDPゴシック;
   text-align: center;
   background-color: #CFCFFF;
+  border-radius: 5px;
 }
 #count{
   margin-top: 10px;

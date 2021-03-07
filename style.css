@@ -1,10 +1,50 @@
 .side{
+  z-index: 0;
   top: 0px;
   left: 0px;
   position: absolute; /*position: absolute;は、要素を絶対配置する。*/
   height: 100%;
   width: 100px;
   background-color: #000044;
+}
+.side_home{
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100px;
+  color: #FFF;
+  position: absolute;
+}
+.side_analyze{
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100px;
+  margin-top: 100px;
+  color: #FFF;
+  position: absolute;
+}
+.side_setting{
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100px;
+  margin-top:210px;
+  color: #FFF;
+  position: absolute;
+}
+.side_icon{
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 60px;
+  position: absolute;
+}
+.index{
+  margin-top: 75px;
+  width: 100px;
+  text-align: center;
+  font-family: BIZ UDPゴシック;
 }
 .header{
   margin-left: 110px;
@@ -71,3 +111,4 @@
   border-radius: 7px;
   border: none;
 }
+

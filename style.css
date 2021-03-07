@@ -1,115 +1,47 @@
-.side{
-  z-index: 0;
-  top: 0px;
-  left: 0px;
-  position: absolute; /*position: absolute;は、要素を絶対配置する。*/
-  height: 100%;
-  width: 100px;
-  background-color: #000044;
-}
-.side_home{
-  z-index: 1;
-  top: 0;
-  left: 0;
-  height: 100px;
-  color: #FFF;
-  position: absolute;
-}
-.side_analyze{
-  z-index: 1;
-  top: 0;
-  left: 0;
-  height: 100px;
-  margin-top: 100px;
-  color: #FFF;
-  position: absolute;
-}
-.side_setting{
-  z-index: 1;
-  top: 0;
-  left: 0;
-  height: 100px;
-  margin-top:210px;
-  color: #FFF;
-  position: absolute;
-}
-.side_icon{
-  margin-top: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
-  width: 60px;
-  position: absolute;
-}
-.index{
-  margin-top: 75px;
-  width: 100px;
-  text-align: center;
-  font-family: BIZ UDPゴシック;
-}
-.header{
-  margin-left: 110px;
-  display: flex;
-}
-.name{
-  margin-left: 10px;
-  height: 60px;
-  width: 600px;
-  margin-bottom: 15px;
-  background-color: #DDD;
-  border-radius: 5px;
-  font-size: 40px;
-  font-family: BIZ UDPゴシック;
-  text-align: center;
-}
-#name{
-  margin-top: 10px;
-}
-.count{
-  margin-left: 150px;
-  margin-right: 10px;
-  margin-bottom: 15px;
-  height: 60px;
-  width: 500px;
-  font-size: 40px;
-  font-family: BIZ UDPゴシック;
-  text-align: center;
-  background-color: #CFCFFF;
-  border-radius: 5px;
-}
-#count{
-  margin-top: 10px;
-}
-.tab{
-  margin-left: 90px;
-  margin-right: 0;
-  height: 65px;
-  display: flex;
-  background-color: #DDD;
-}
-.grade{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 15px;
-  margin-right: 15px;
-  width: 100px;
-  font-size: 40px;
-  font-family: ＭＳ ゴシック;
-  vertical-align: top;
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>ホーム - 出席管理システム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="side">
+  </div>
+  <div id="side_home" class="side_home" onclick="openHome()">
+    <img class="side_icon" src="home.png" alt="">
+    <p class="index" id="home">ホーム</p>
+  </div>
+  <div id="side_analyze" class="side_analyze" onclick="openAna()">
+    <img class="side_icon" src="analyze.png" alt="">
+    <p class="index" id="analyze">分析</p>
+  </div>
+  <div id="side_setting" class="side_setting" onclick="openSet()">
+    <img class="side_icon" src="setting.png" alt="">
+    <p class="index" id="setting">設定</p>
+  </div>
+  <p id="ClockArea"></p>
+  <div class="header">
+    <div class="name">
+      <p id="name">○○さん こんにちは</p>
+    </div>
+    <div class="count">
+      <p id="count">本日の出席人数：　0人</p>  <!--Number of peopleの略-->
+    </div>
+  </div>
 
-}
-.btn{
-  margin-top: 15px;
-  margin-left: 110px;
-}
-.button{
-  margin-left: 15px;
-  margin-right: 15px;
-  height: 55px;
-  width: 200px;
-  background-color: #CFCFFF;
-  font-size: 25px;
-  font-family: ＭＳ ゴシック;
-  border-radius: 7px;
-  border: none;
-}
+  <div class="tab">
+    <p class="grade" id="three" onclick="hello()">１年</p>
+    <p class="grade" id="two">２年</p>
+    <p class="grade" id="one">３年</p>
+  </div>
+  <div class="btn">
+    <button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button>
+    <button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button>
+    <button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
 

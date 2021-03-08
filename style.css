@@ -5,7 +5,7 @@
   position: absolute; /*position: absolute;は、要素を絶対配置する。*/
   height: 100%;
   width: 100px;
-  background-color: #000044;
+  background-color: #02002E;
 }
 .side_home{
   z-index: 1;
@@ -13,6 +13,7 @@
   left: 0;
   height: 100px;
   color: #FFF;
+  background-color: #000B70;
   position: absolute;
 }
 .side_analyze{
@@ -46,6 +47,19 @@
   text-align: center;
   font-family: BIZ UDPゴシック;
 }
+#ClockArea{
+  z-index: 2;
+  top: auto;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 8px;
+  width: 100px;
+  color: #FFF;
+  font-size: 25px;
+  font-family: HGP創英角ｺﾞｼｯｸUB;
+  text-align: center;
+  position: absolute;
+}
 .header{
   margin-left: 110px;
   display: flex;
@@ -53,7 +67,7 @@
 .name{
   margin-left: 10px;
   height: 60px;
-  width: 600px;
+  width: 420px;
   margin-bottom: 15px;
   background-color: #DDD;
   border-radius: 5px;
@@ -63,9 +77,10 @@
 }
 #name{
   margin-top: 10px;
+  font-size: 30px;
 }
 .count{
-  margin-left: 150px;
+  margin-left: 300px;
   margin-right: 10px;
   margin-bottom: 15px;
   height: 60px;
@@ -74,7 +89,6 @@
   font-family: BIZ UDPゴシック;
   text-align: center;
   background-color: #CFCFFF;
-  border-radius: 5px;
 }
 #count{
   margin-top: 10px;
@@ -84,7 +98,7 @@
   margin-right: 0;
   height: 65px;
   display: flex;
-  background-color: #DDD;
+  background-color: #BFBFBF;
 }
 .grade{
   margin-top: 10px;
@@ -95,6 +109,7 @@
   font-size: 40px;
   font-family: ＭＳ ゴシック;
   vertical-align: top;
+
 }
 .btn{
   margin-top: 15px;
@@ -105,7 +120,7 @@
   margin-right: 15px;
   height: 55px;
   width: 200px;
-  background-color: #CFCFFF;
+  background-color: #BDD7EE;
   font-size: 25px;
   font-family: ＭＳ ゴシック;
   border-radius: 7px;

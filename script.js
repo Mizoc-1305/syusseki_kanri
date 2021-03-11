@@ -34,8 +34,6 @@ function get_time() {
 function check(element) {
   var count = 0;
   var count = count + 1;
-}
-function kansu(element) {
   var id = element.id;
 
   var nop = document.getElementById('count');

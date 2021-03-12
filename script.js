@@ -31,6 +31,7 @@ function append_people(text) {
   var syusseki_people = document.getElementById('syusseki_people');
   var new_element = document.createElement('p');
   new_element.textContent = text;
+  syusseki_people.appendChild(new_element);
 }
 
 

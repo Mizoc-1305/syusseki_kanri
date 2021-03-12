@@ -1,3 +1,4 @@
+  var count = 0;　//人数を数える変数
 
 function openHome() {
   //alert('ホーム画面を開きます');
@@ -29,8 +30,7 @@ function get_time() {
 
 
 function check(element) {
-  var count = 0;
-  var count = count + 1;
+  count = count + 1;
   var id = element.id;
 
   var nop = document.getElementById('count');

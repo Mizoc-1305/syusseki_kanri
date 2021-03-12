@@ -45,7 +45,7 @@ function check(element) {
   nop.innerHTML = '本日の出席人数：　' + count + '人';
   hello.innerHTML = name + 'さん こんにちは';
   var what_time = get_time();
-  var value = what_time[0] + " " + name; 
+  var value = what_time[0] + " " + name;
   var key = what_time[1];
   value_array.push(value);
   localStorage.setItem(key, JSON.stringify(value_array));

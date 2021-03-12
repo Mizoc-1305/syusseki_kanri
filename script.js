@@ -133,7 +133,6 @@ function check(element) {
   var check = window.confirm(name + 'さん でいいですか？');
 
   if (check){
-    clicked_check = 1;
     var clicked = document.getElementById(id);
     var hello = document.getElementById('name');
     hello.innerHTML = name + 'さん こんにちは';

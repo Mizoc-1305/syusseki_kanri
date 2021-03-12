@@ -34,6 +34,13 @@ function append_people(text) {
   syusseki_people.appendChild(new_element);
 }
 
+function tab(element){
+  let id = element.id;
+
+  var grade = document.getElementById(id);
+  grade.style.backgroundColor = '#BDD7EE';
+}
+
 
 function check(element) {
   count = count + 1;
@@ -41,6 +48,7 @@ function check(element) {
 
   var nop = document.getElementById('count');
   var name = document.getElementById(id).value;
+  var clicked = document.getElementById(id);
   var hello = document.getElementById('name');
   nop.innerHTML = '本日の出席人数：　' + count + '人';
   hello.innerHTML = name + 'さん こんにちは';
@@ -51,6 +59,7 @@ function check(element) {
   localStorage.setItem(key, JSON.stringify(value_array));
   append_people(value);
   document.getElementById(id).disabled = true;
+  clicked.style.backgroundColor = '#BFBFBF';
 }
 function hello() {
   alert('1年生');

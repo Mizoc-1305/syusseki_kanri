@@ -1,4 +1,5 @@
-  var count = 0;　//人数を数える変数
+var count = 0;　//人数を数える変数
+var value_array = [];
 
 function openHome() {
   //alert('ホーム画面を開きます');
@@ -12,20 +13,19 @@ function openSet() {
   //alert('設定画面を開きます');
   window.location.href = 'setting.html';
 }
-function write_log(text) {
 
-}
 function get_time() {
   var now = new Date();
   var year = now.getFullYear();
   var month = now.getMonth();
+  alert(month);
   var date = now.getDate();
   var hour = now.getHours();
   var minute = now.getMinutes();
   var second = now.getSeconds();
   var time = year + "/" + month + "/" + date + "/" + hour + ":" + minute + ":" + second;
   var month_date = month + "/" + date
-  return time, month_date;
+  return [time, month_date];
 }
 
 
@@ -39,8 +39,10 @@ function check(element) {
   nop.innerHTML = '本日の出席人数：　' + count + '人';
   hello.innerHTML = name + 'さん こんにちは';
   var what_time = get_time();
-  var info = what_time + " " + name;
-  write_log(info);
+  alert(what_time[0])
+  var key = what_time[1];
+  value_array.push(name);
+  localStorage.setItem(key, JSON.stringify(value_array));
   document.getElementById(id).disabled = true;
 }
 function hello() {

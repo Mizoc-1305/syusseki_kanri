@@ -22,9 +22,14 @@ function get_time() {
   var hour = now.getHours();
   var minute = now.getMinutes();
   var second = now.getSeconds();
-  var time = year + "/" + month + "/" + date + "/" + hour + ":" + minute + ":" + second;
+  var time = year + "/" + month + "/" + date + " " + hour + ":" + minute;
   var month_date = month + "/" + date
   return [time, month_date];
+}
+
+function append_people(){
+  var susseki_people = document.getElementById('susseki_people')
+  
 }
 
 
@@ -38,8 +43,9 @@ function check(element) {
   nop.innerHTML = '本日の出席人数：　' + count + '人';
   hello.innerHTML = name + 'さん こんにちは';
   var what_time = get_time();
+  var value = what_time[0] + " " + name; 
   var key = what_time[1];
-  value_array.push(name);
+  value_array.push(value);
   localStorage.setItem(key, JSON.stringify(value_array));
   document.getElementById(id).disabled = true;
 }

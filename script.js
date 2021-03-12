@@ -39,6 +39,24 @@ function tab(element){
 
   var grade = document.getElementById(id);
   grade.style.backgroundColor = '#BDD7EE';
+
+  if (id == 'one') {
+    var else_1 = document.getElementById('two');
+    var else_2 = document.getElementById('three');
+    else_1.style.backgroundColor = '#BFBFBF';
+    else_2.style.backgroundColor = '#BFBFBF';
+  } else if (id == 'two') {
+    var else_1 = document.getElementById('one');
+    var else_2 = document.getElementById('three');
+    else_1.style.backgroundColor = '#BFBFBF';
+    else_2.style.backgroundColor = '#BFBFBF';
+  } else if (id == 'three') {
+    var else_1 = document.getElementById('one');
+    var else_2 = document.getElementById('two');
+    else_1.style.backgroundColor = '#BFBFBF';
+    else_2.style.backgroundColor = '#BFBFBF';
+  }
+
 }
 
 
@@ -60,10 +78,14 @@ function check(element) {
   append_people(value);
   document.getElementById(id).disabled = true;
   clicked.style.backgroundColor = '#BFBFBF';
+
+  function delHello(){
+    var hello = document.getElementById('name');
+    hello.innerHTML = '';
+  }
+  window.setTimeout(delHello,2000);
 }
-function hello() {
-  alert('1年生');
-}
+
 
 
 function set(num) {

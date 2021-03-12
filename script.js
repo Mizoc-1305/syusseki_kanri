@@ -41,7 +41,7 @@ function check(element) {
   var what_time = get_time();
   var info = what_time + " " + name;
   write_log(info);
-  this.disabled = true;
+  document.getElementById(id).disabled = true;
 }
 function hello() {
   alert('1年生');

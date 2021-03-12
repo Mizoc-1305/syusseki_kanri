@@ -19,11 +19,13 @@ function get_time() {
   var year = now.getFullYear();
   var month = now.getMonth() + 1;
   var date = now.getDate();
+  var day_of_week = now.getDay()
+  var day = [ "日", "月", "火", "水", "木", "金", "土" ][day_of_week] 
   var hour = now.getHours();
   var minute = now.getMinutes();
   var second = now.getSeconds();
   var time = year + "/" + month + "/" + date + " " + hour + ":" + minute;
-  var month_date = month + "/" + date
+  var month_date = month + "/" + date 
   return [time, month_date];
 }
 
@@ -31,12 +33,14 @@ function append_people(text) {
   var syusseki_people = document.getElementById('syusseki_people');
   var new_element = document.createElement('p');
   new_element.textContent = text;
+  new_element.className = "person";
   syusseki_people.appendChild(new_element);
+  var new_element_hr = document.createElement('hr');
+  syusseki_people.appendChild(new_element_hr);
 }
 
 function tab(element){
   let id = element.id;
-
   var grade = document.getElementById(id);
   grade.style.backgroundColor = '#BDD7EE';
 }
@@ -65,7 +69,7 @@ function hello() {
   alert('1年生');
 }
 
-
+var day_area = document.getElementById("day")
 function set(num) {
   var ret;
   if (num < 10) { ret = "0" + num; }

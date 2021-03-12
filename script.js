@@ -27,9 +27,11 @@ function get_time() {
   return [time, month_date];
 }
 
-function append_people(){
-  var susseki_people = document.getElementById('susseki_people')
-  
+function append_people(text){
+  var syusseki_people = document.getElementById('syusseki_people');
+  var new_element = document.createElement('p');
+  new_element.textContent = text;
+  syusseki_people.appendChild(new_element);
 }
 
 
@@ -47,6 +49,7 @@ function check(element) {
   var key = what_time[1];
   value_array.push(value);
   localStorage.setItem(key, JSON.stringify(value_array));
+  append_people(value);
   document.getElementById(id).disabled = true;
 }
 function hello() {

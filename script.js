@@ -12,11 +12,7 @@ function openSet() {
   window.location.href = 'setting.html';
 }
 function write_log(text) {
-  var fs = WScript.CreateObject("Scripting.FileSystemObject");
-  alert("success");
-  var file = fs.OpenTextFile("log.txt", 2);
-  file.Write(text);
-  file.Close();
+
 }
 function get_time() {
   var now = new Date();
@@ -27,7 +23,8 @@ function get_time() {
   var minute = now.getMinutes();
   var second = now.getSeconds();
   var time = year + "/" + month + "/" + date + "/" + hour + ":" + minute + ":" + second;
-  return time;
+  var month_date = month + "/" + date
+  return time, month_date;
 }
 
 
@@ -44,6 +41,7 @@ function check(element) {
   var what_time = get_time();
   var info = what_time + " " + name;
   write_log(info);
+  this.disabled = true;
 }
 function hello() {
   alert('1年生');
@@ -52,8 +50,8 @@ function hello() {
 
 function set(num) {
   var ret;
-  if(num < 10) {ret = "0" + num;}
-  else{ret = num;}
+  if (num < 10) { ret = "0" + num; }
+  else { ret = num; }
   return ret;
 }
 
@@ -62,8 +60,8 @@ function time() {
   //var year = set( nowTime.getFullYear() );
   //var mouth = set( nowTime.getMonth() );
   //var day = set( nowTime.getDate() );
-  var nowHour = set( nowTime.getHours() );
-  var nowMin  = set( nowTime.getMinutes() );
+  var nowHour = set(nowTime.getHours());
+  var nowMin = set(nowTime.getMinutes());
   //var nowSec  = set( nowTime.getSeconds() );
   //var msg_1 = year + "   " + month + "  " + day;
   var msg = nowHour + ":" + nowMin;
@@ -73,4 +71,4 @@ function time() {
 }
 
 
-setInterval('time()',500);
+setInterval('time()', 500);

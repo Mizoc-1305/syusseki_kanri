@@ -1,5 +1,5 @@
-var count = 0;　//人数を数える変数
 var value_array = [];
+var time_array = [];
 
 function side_tab(element) {
   let id = element.id;
@@ -24,23 +24,54 @@ function side_tab(element) {
   }
 
 }
+function append_people(text) {
+  var syusseki_people = document.getElementById('syusseki_people');
+  var new_element = document.createElement('p');
+  new_element.textContent = text;
+  new_element.className = "person";
+  syusseki_people.appendChild(new_element);
+  var new_element_hr = document.createElement('hr');
+  syusseki_people.appendChild(new_element_hr);
+}
+function pull_array() {
+  var people_on_the_day = localStorage.getItem('3/12');
+  var when_people_arrive = localStorage.getItem('3/12_time');
+  people_on_the_day = JSON.parse(people_on_the_day);
+  when_people_arrive = JSON.parse(when_people_arrive);
+  for (let index = 0; index < people_on_the_day.length; index++) {
+    var name = people_on_the_day[index];
+    var time = when_people_arrive[index];
+    append_people(time + " " + name);
+  }
+}
+function reload_NoA(id) {
+  var people_on_the_day = localStorage.getItem('3/12');
+  people_on_the_day = JSON.parse(people_on_the_day);
+  var count = people_on_the_day.length
+  var people = document.getElementById(id);
+  people.innerHTML = count;
+}
 
-function pageChange(html,element) {
+
+function pageChange(html, element) {
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html;
   side_tab(element);
 }
 function openHome(element) {
-  html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p id="count">本日の出席人数：　0人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this)">１年</p><p class="grade" id="two" onclick="tab(this)">２年</p><p class="grade" id="three" onclick="tab(this)">３年</p></div><div class="btn"><button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button><button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button><button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button><button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button></div><div id="syusseki_people"></div>';
-  pageChange(html_home,element);
+  html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this)">１年</p><p class="grade" id="two" onclick="tab(this)">２年</p><p class="grade" id="three" onclick="tab(this)">３年</p></div><div class="btn"><button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button><button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button><button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button><button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button></div>';
+  pageChange(html_home, element);
+  reload_NoA('count');
 }
 function openAna(element) {
-  html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea">3月12日</p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">10</span>人</p></div></div>'
-  pageChange(html_ana,element);
+  html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea">3月12日</p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">10</span>人</p></div><div id="syusseki_people"></div></div>'
+  pageChange(html_ana, element);
+  pull_array();
+  reload_NoA('people');
 }
 function openSet(element) {
   html_set = '<div class="menu_tile"><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
-  pageChange(html_set,element);
+  pageChange(html_set, element);
 }
 
 function get_time() {
@@ -53,19 +84,9 @@ function get_time() {
   var hour = now.getHours();
   var minute = now.getMinutes();
   var second = now.getSeconds();
-  var time = year + "/" + month + "/" + date + " " + hour + ":" + minute;
+  var time = hour + ":" + minute;
   var month_date = month + "/" + date
   return [time, month_date];
-}
-
-function append_people(text) {
-  var syusseki_people = document.getElementById('syusseki_people');
-  var new_element = document.createElement('p');
-  new_element.textContent = text;
-  new_element.className = "person";
-  syusseki_people.appendChild(new_element);
-  var new_element_hr = document.createElement('hr');
-  syusseki_people.appendChild(new_element_hr);
 }
 
 function tab(element) {
@@ -94,21 +115,23 @@ function tab(element) {
 
 
 function check(element) {
-  count = count + 1;
   var id = element.id;
 
   var nop = document.getElementById('count');
   var name = document.getElementById(id).value;
   var clicked = document.getElementById(id);
   var hello = document.getElementById('name');
-  nop.innerHTML = '本日の出席人数：　' + count + '人';
   hello.innerHTML = name + 'さん こんにちは';
   var what_time = get_time();
-  var value = what_time[0] + " " + name;
+  var value = name;
   var key = what_time[1];
+  time_array.push(what_time[0]);
+  localStorage.setItem(key + "_time", JSON.stringify(time_array));
   value_array.push(value);
   localStorage.setItem(key, JSON.stringify(value_array));
-  append_people(value);
+  var people_on_the_day = localStorage.getItem('3/12');
+  people_on_the_day = JSON.parse(people_on_the_day);
+  nop.innerHTML = people_on_the_day.length;
   document.getElementById(id).disabled = true;
   clicked.style.backgroundColor = '#BFBFBF';
 

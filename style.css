@@ -2,7 +2,7 @@
   z-index: 0;
   top: 0px;
   left: 0px;
-  position: absolute; /*position: absolute;は、要素を絶対配置する。*/
+  position: fixed;; /*position: fixed;は、要素を固定する。*/
   height: 100%;
   width: 100px;
   background-color: #02002E;
@@ -90,7 +90,7 @@
   text-align: center;
   background-color: #CFCFFF;
 }
-#count{
+.count p{
   margin-top: 10px;
 }
 .tab{
@@ -135,7 +135,7 @@
 .person{
   margin-top: 30px;
   margin-bottom: 5px;
-  padding-left: 200px;
+  padding-left: 50px;
   padding-bottom: 0px;
 
   font-size: 35px;

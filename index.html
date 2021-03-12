@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
+
 <head>
   <meta charset="utf-8">
   <title>ホーム - 出席管理システム</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="side">
-  <div id="side_home" class="side_home" onclick="openHome(this)">
-    <img class="side_icon" src="home.png" alt="">
-    <p class="index" id="home">ホーム</p>
+    <div id="side_home" class="side_home" onclick="openHome(this)">
+      <img class="side_icon" src="home.png" alt="">
+      <p class="index" id="home">ホーム</p>
+    </div>
+    <div id="side_analyze" class="side_analyze" onclick="openAna(this)">
+      <img class="side_icon" src="analyze.png" alt="">
+      <p class="index" id="analyze">分析</p>
+    </div>
+    <div id="side_setting" class="side_setting" onclick="openSet(this)">
+      <img class="side_icon" src="setting.png" alt="">
+      <p class="index" id="setting">設定</p>
+    </div>
+    <p id="ClockArea"></p>
   </div>
-  <div id="side_analyze" class="side_analyze" onclick="openAna(this)">
-    <img class="side_icon" src="analyze.png" alt="">
-    <p class="index" id="analyze">分析</p>
-  </div>
-  <div id="side_setting" class="side_setting" onclick="openSet(this)">
-    <img class="side_icon" src="setting.png" alt="">
-    <p class="index" id="setting">設定</p>
-  </div>
-  </div>
-  <p id="ClockArea"></p>
+
   <div id="change_area">
     <div class="header">
       <div class="name">
@@ -28,12 +31,13 @@
       </div>
       <p id="day"></p>
       <div class="count">
-        <p id="count">本日の出席人数：　0人</p>  <!--Number of peopleの略-->
+        <p>本日の出席人数：<span id="count">0</span>人</p>
+        <!--Number of peopleの略-->
       </div>
     </div>
-  
+
     <div class="tab">
-  
+
       <p class="grade" id="one" onclick="tab(this)">１年</p>
       <p class="grade" id="two" onclick="tab(this)">２年</p>
       <p class="grade" id="three" onclick="tab(this)">３年</p>
@@ -44,9 +48,8 @@
       <button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button>
       <button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button>
     </div>
-    <div id="syusseki_people">
-    </div>
   </div>
   <script src="script.js"></script>
 </body>
+
 </html>

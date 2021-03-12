@@ -1,17 +1,46 @@
 var count = 0;　//人数を数える変数
 var value_array = [];
 
-function openHome() {
-  //alert('ホーム画面を開きます');
-  window.location.href = 'index.html';
+function side_tab(element) {
+  let id = element.id;
+  var grade = document.getElementById(id);
+  grade.style.backgroundColor = '#000B70';
+
+  if (id == 'side_home') {
+    var else_1 = document.getElementById('side_analyze');
+    var else_2 = document.getElementById('side_setting');
+    else_1.style.backgroundColor = '#02002E';
+    else_2.style.backgroundColor = '#02002E';
+  } else if (id == 'side_analyze') {
+    var else_1 = document.getElementById('side_home');
+    var else_2 = document.getElementById('side_setting');
+    else_1.style.backgroundColor = '#02002E';
+    else_2.style.backgroundColor = '#02002E';
+  } else if (id == 'side_setting') {
+    var else_1 = document.getElementById('side_home');
+    var else_2 = document.getElementById('side_analyze');
+    else_1.style.backgroundColor = '#02002E';
+    else_2.style.backgroundColor = '#02002E';
+  }
+
 }
-function openAna() {
-  //alert('分析画面を開きます');
-  window.location.href = 'analyze.html';
+
+function pageChange(html,element) {
+  var change_area = document.getElementById('change_area');
+  change_area.innerHTML = html;
+  side_tab(element);
 }
-function openSet() {
-  //alert('設定画面を開きます');
-  window.location.href = 'setting.html';
+function openHome(element) {
+  html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p id="count">本日の出席人数：　0人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this)">１年</p><p class="grade" id="two" onclick="tab(this)">２年</p><p class="grade" id="three" onclick="tab(this)">３年</p></div><div class="btn"><button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button><button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button><button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button><button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button></div><div id="syusseki_people"></div>';
+  pageChange(html_home,element);
+}
+function openAna(element) {
+  html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea">3月12日</p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">10</span>人</p></div></div>'
+  pageChange(html_ana,element);
+}
+function openSet(element) {
+  html_set = '<div class="menu_tile"><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
+  pageChange(html_set,element);
 }
 
 function get_time() {
@@ -20,12 +49,12 @@ function get_time() {
   var month = now.getMonth() + 1;
   var date = now.getDate();
   var day_of_week = now.getDay()
-  var day = [ "日", "月", "火", "水", "木", "金", "土" ][day_of_week] 
+  var day = ["日", "月", "火", "水", "木", "金", "土"][day_of_week]
   var hour = now.getHours();
   var minute = now.getMinutes();
   var second = now.getSeconds();
   var time = year + "/" + month + "/" + date + " " + hour + ":" + minute;
-  var month_date = month + "/" + date 
+  var month_date = month + "/" + date
   return [time, month_date];
 }
 
@@ -39,7 +68,7 @@ function append_people(text) {
   syusseki_people.appendChild(new_element_hr);
 }
 
-function tab(element){
+function tab(element) {
   let id = element.id;
   var grade = document.getElementById(id);
   grade.style.backgroundColor = '#BDD7EE';
@@ -83,15 +112,14 @@ function check(element) {
   document.getElementById(id).disabled = true;
   clicked.style.backgroundColor = '#BFBFBF';
 
-  function delHello(){
+  function delHello() {
     var hello = document.getElementById('name');
     hello.innerHTML = '';
   }
-  window.setTimeout(delHello,2000);
+  window.setTimeout(delHello, 2000);
 }
 
 
-var day_area = document.getElementById("day")
 function set(num) {
   var ret;
   if (num < 10) { ret = "0" + num; }

@@ -7,43 +7,45 @@
 </head>
 <body>
   <div class="side">
-  </div>
-  <div id="side_home" class="side_home" onclick="openHome()">
+  <div id="side_home" class="side_home" onclick="openHome(this)">
     <img class="side_icon" src="home.png" alt="">
     <p class="index" id="home">ホーム</p>
   </div>
-  <div id="side_analyze" class="side_analyze" onclick="openAna()">
+  <div id="side_analyze" class="side_analyze" onclick="openAna(this)">
     <img class="side_icon" src="analyze.png" alt="">
     <p class="index" id="analyze">分析</p>
   </div>
-  <div id="side_setting" class="side_setting" onclick="openSet()">
+  <div id="side_setting" class="side_setting" onclick="openSet(this)">
     <img class="side_icon" src="setting.png" alt="">
     <p class="index" id="setting">設定</p>
   </div>
+  </div>
   <p id="ClockArea"></p>
-  <div class="header">
-    <div class="name">
-      <p id="name"></p>
+  <div id="change_area">
+    <div class="header">
+      <div class="name">
+        <p id="name"></p>
+      </div>
+      <p id="day"></p>
+      <div class="count">
+        <p id="count">本日の出席人数：　0人</p>  <!--Number of peopleの略-->
+      </div>
     </div>
-    <p id="day"></p>
-    <div class="count">
-      <p id="count">本日の出席人数：　0人</p>  <!--Number of peopleの略-->
+  
+    <div class="tab">
+  
+      <p class="grade" id="one" onclick="tab(this)">１年</p>
+      <p class="grade" id="two" onclick="tab(this)">２年</p>
+      <p class="grade" id="three" onclick="tab(this)">３年</p>
     </div>
-  </div>
-
-  <div class="tab">
-
-    <p class="grade" id="one" onclick="tab(this)">１年</p>
-    <p class="grade" id="two" onclick="tab(this)">２年</p>
-    <p class="grade" id="three" onclick="tab(this)">３年</p>
-  </div>
-  <div class="btn">
-    <button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button>
-    <button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button>
-    <button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button>
-    <button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button>
-  </div>
-  <div id="syusseki_people">
+    <div class="btn">
+      <button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button>
+      <button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button>
+      <button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button>
+      <button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button>
+    </div>
+    <div id="syusseki_people">
+    </div>
   </div>
   <script src="script.js"></script>
 </body>

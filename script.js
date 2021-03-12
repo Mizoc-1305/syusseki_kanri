@@ -17,8 +17,7 @@ function openSet() {
 function get_time() {
   var now = new Date();
   var year = now.getFullYear();
-  var month = now.getMonth();
-  alert(month);
+  var month = now.getMonth()+1;
   var date = now.getDate();
   var hour = now.getHours();
   var minute = now.getMinutes();
@@ -39,7 +38,6 @@ function check(element) {
   nop.innerHTML = '本日の出席人数：　' + count + '人';
   hello.innerHTML = name + 'さん こんにちは';
   var what_time = get_time();
-  alert(what_time[0])
   var key = what_time[1];
   value_array.push(name);
   localStorage.setItem(key, JSON.stringify(value_array));

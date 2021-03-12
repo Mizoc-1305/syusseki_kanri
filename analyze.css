@@ -41,6 +41,9 @@
   width: 60px;
   position: absolute;
 }
+.main_analyze{
+  margin-left: 120px;
+}
 .index{
   margin-top: 75px;
   width: 100px;
@@ -64,4 +67,7 @@
 #dateArea{
   font-size: 50px;
   color: #000000;
+}
+.how_many_present{
+  font-size: 40px;
 }

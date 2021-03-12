@@ -119,27 +119,34 @@ function check(element) {
 
   var nop = document.getElementById('count');
   var name = document.getElementById(id).value;
-  var clicked = document.getElementById(id);
-  var hello = document.getElementById('name');
-  hello.innerHTML = name + 'さん こんにちは';
-  var what_time = get_time();
-  var value = name;
-  var key = what_time[1];
-  time_array.push(what_time[0]);
-  localStorage.setItem(key + "_time", JSON.stringify(time_array));
-  value_array.push(value);
-  localStorage.setItem(key, JSON.stringify(value_array));
-  var people_on_the_day = localStorage.getItem('3/12');
-  people_on_the_day = JSON.parse(people_on_the_day);
-  nop.innerHTML = people_on_the_day.length;
-  document.getElementById(id).disabled = true;
-  clicked.style.backgroundColor = '#BFBFBF';
 
-  function delHello() {
+  var check = window.confirm(name + 'さん でいいですか？');
+
+  if (check){
+    var clicked = document.getElementById(id);
     var hello = document.getElementById('name');
-    hello.innerHTML = '';
+    hello.innerHTML = name + 'さん こんにちは';
+    var what_time = get_time();
+    var value = name;
+    var key = what_time[1];
+    time_array.push(what_time[0]);
+    localStorage.setItem(key + "_time", JSON.stringify(time_array));
+    value_array.push(value);
+    localStorage.setItem(key, JSON.stringify(value_array));
+    var people_on_the_day = localStorage.getItem('3/12');
+    people_on_the_day = JSON.parse(people_on_the_day);
+    nop.innerHTML = people_on_the_day.length;
+    document.getElementById(id).disabled = true;
+    clicked.style.backgroundColor = '#BFBFBF';
+
+    function delHello() {
+      var hello = document.getElementById('name');
+      hello.innerHTML = '';
+    }
+    window.setTimeout(delHello, 2000);
   }
-  window.setTimeout(delHello, 2000);
+
+
 }
 
 

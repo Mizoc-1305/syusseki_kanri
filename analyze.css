@@ -42,7 +42,11 @@
   position: absolute;
 }
 .main_analyze{
+<<<<<<< HEAD
   margin-left: 90px;
+=======
+  margin-left: 120px;
+>>>>>>> 8771d78a2d167e78b4e9b9685e3c01cc0d4882d3
 }
 .index{
   margin-top: 75px;
@@ -72,6 +76,7 @@
   font-family: BIZ UDPゴシック;
   color: #000000;
 }
+<<<<<<< HEAD
 .NoA{
   margin: 0;
   width: 100%;
@@ -106,4 +111,8 @@ hr{
   margin: 0;
   padding: 0;
   padding-left: 200px;
+=======
+.how_many_present{
+  font-size: 40px;
+>>>>>>> 8771d78a2d167e78b4e9b9685e3c01cc0d4882d3
 }

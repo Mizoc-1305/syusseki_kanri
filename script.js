@@ -27,17 +27,11 @@ function get_time() {
   return [time, month_date];
 }
 
-<<<<<<< HEAD
-function append_people(){
-  var susseki_people = document.getElementById('susseki_people')
-  
-=======
 function append_people(text){
   var syusseki_people = document.getElementById('syusseki_people');
   var new_element = document.createElement('p');
   new_element.textContent = text;
   syusseki_people.appendChild(new_element);
->>>>>>> 8771d78a2d167e78b4e9b9685e3c01cc0d4882d3
 }
 
 
@@ -51,7 +45,7 @@ function check(element) {
   nop.innerHTML = '本日の出席人数：　' + count + '人';
   hello.innerHTML = name + 'さん こんにちは';
   var what_time = get_time();
-  var value = what_time[0] + " " + name; 
+  var value = what_time[0] + " " + name;
   var key = what_time[1];
   value_array.push(value);
   localStorage.setItem(key, JSON.stringify(value_array));

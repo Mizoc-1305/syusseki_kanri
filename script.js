@@ -17,7 +17,7 @@ function openSet() {
 function get_time() {
   var now = new Date();
   var year = now.getFullYear();
-  var month = now.getMonth()+1;
+  var month = now.getMonth() + 1;
   var date = now.getDate();
   var hour = now.getHours();
   var minute = now.getMinutes();
@@ -27,11 +27,10 @@ function get_time() {
   return [time, month_date];
 }
 
-function append_people(text){
+function append_people(text) {
   var syusseki_people = document.getElementById('syusseki_people');
   var new_element = document.createElement('p');
   new_element.textContent = text;
-  syusseki_people.appendChild(new_element);
 }
 
 

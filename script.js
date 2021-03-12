@@ -1,6 +1,10 @@
 var value_array = [];
 var time_array = [];
 
+window.addEventListener('beforeunload', function(e) {
+    e.returnValue = '';
+}, false); //リロード前に確認ダイアログを表示
+
 function side_tab(element) {
   let id = element.id;
   var grade = document.getElementById(id);
@@ -74,6 +78,12 @@ function openSet(element) {
   pageChange(html_set, element);
 }
 
+function set(num){
+  var ret;
+  if(num < 10) {ret = "0" + num;}
+  else{ret = num;}
+  return ret;
+}
 function get_time() {
   var now = new Date();
   var year = now.getFullYear();
@@ -81,9 +91,9 @@ function get_time() {
   var date = now.getDate();
   var day_of_week = now.getDay()
   var day = ["日", "月", "火", "水", "木", "金", "土"][day_of_week]
-  var hour = now.getHours();
-  var minute = now.getMinutes();
-  var second = now.getSeconds();
+  var hour = set( now.getHours() );
+  var minute =set( now.getMinutes() );
+  var second = set( now.getSeconds() );
   var time = hour + ":" + minute;
   var month_date = month + "/" + date
   return [time, month_date];
@@ -123,6 +133,7 @@ function check(element) {
   var check = window.confirm(name + 'さん でいいですか？');
 
   if (check){
+    clicked_check = 1;
     var clicked = document.getElementById(id);
     var hello = document.getElementById('name');
     hello.innerHTML = name + 'さん こんにちは';
@@ -143,7 +154,7 @@ function check(element) {
       var hello = document.getElementById('name');
       hello.innerHTML = '';
     }
-    window.setTimeout(delHello, 2000);
+    window.setTimeout(delHello, 3000);
   }
 
 

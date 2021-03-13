@@ -52,8 +52,8 @@ function append_people(text) {
   syusseki_people.appendChild(new_element_hr);
 }
 function pull_array() {
-  var people_on_the_day = localStorage.getItem('3/13');
-  var when_people_arrive = localStorage.getItem('3/13_time');
+  var people_on_the_day = localStorage.getItem(get_time()[1]);
+  var when_people_arrive = localStorage.getItem(get_time()[1]+"_time");
   people_on_the_day = JSON.parse(people_on_the_day);
   when_people_arrive = JSON.parse(when_people_arrive);
   for (let index = 0; index < people_on_the_day.length; index++) {
@@ -63,7 +63,7 @@ function pull_array() {
   }
 }
 function reload_NoA(id) {
-  var people_on_the_day = localStorage.getItem('3/13');
+  var people_on_the_day = localStorage.getItem(get_time()[1]);
   people_on_the_day = JSON.parse(people_on_the_day);
   var count = people_on_the_day.length
   var people = document.getElementById(id);

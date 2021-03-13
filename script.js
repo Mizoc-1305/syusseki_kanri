@@ -1,9 +1,9 @@
 var value_array = [];
 var time_array = [];
 
-window.addEventListener('beforeunload', function (e) {
+/*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
-}, false); //リロード前に確認ダイアログを表示
+}, false);*/ //リロード前に確認ダイアログを表示
 
 function get_time() {
   var now = new Date();

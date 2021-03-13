@@ -1,6 +1,6 @@
 var value_array = [];
 var time_array = [];
-
+var tab_where;
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
 }, false);*/ //リロード前に確認ダイアログを表示
@@ -39,6 +39,31 @@ function side_tab(id) {
     var else_2 = document.getElementById('side_analyze');
     else_1.style.backgroundColor = '#02002E';
     else_2.style.backgroundColor = '#02002E';
+  }
+
+}
+function tab(id) {
+  var grade = document.getElementById(id);
+  grade.style.backgroundColor = '#BDD7EE';
+
+  if (id == 'one') {
+    var else_1 = document.getElementById('two');
+    var else_2 = document.getElementById('three');
+    else_1.style.backgroundColor = '#BFBFBF';
+    else_2.style.backgroundColor = '#BFBFBF';
+    tab_where = 'one'
+  } else if (id == 'two') {
+    var else_1 = document.getElementById('one');
+    var else_2 = document.getElementById('three');
+    else_1.style.backgroundColor = '#BFBFBF';
+    else_2.style.backgroundColor = '#BFBFBF';
+    tab_where = 'two'
+  } else if (id == 'three') {
+    var else_1 = document.getElementById('one');
+    var else_2 = document.getElementById('two');
+    else_1.style.backgroundColor = '#BFBFBF';
+    else_2.style.backgroundColor = '#BFBFBF';
+    tab_where = 'three'
   }
 
 }
@@ -88,7 +113,13 @@ function reload_people() {
     }
   }
 }
-
+function reload_tab() {
+  var grade = document.getElementById('one');
+  grade.style.backgroundColor = '#BDD7EE';
+  tab_where = 'one'
+  var grade = document.getElementById('side_home');
+  grade.style.backgroundColor = '#000B70';
+}
 
 function pageChange(html, id) {
   var change_area = document.getElementById('change_area');
@@ -96,13 +127,16 @@ function pageChange(html, id) {
   side_tab(id);
 }
 function openHome(element) {
-  html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this)">１年</p><p class="grade" id="two" onclick="tab(this)">２年</p><p class="grade" id="three" onclick="tab(this)">３年</p></div><div class="btn"><button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button><button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button><button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button><button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button></div>';
+  html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"><button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button><button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button><button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button><button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button></div>';
   pageChange(html_home, element);
   reload_NoA('count');
-  reload_people()
+  reload_people();
+  tab(tab_where);
 }
 window.onload = function () {
-  openHome("side_home");
+  reload_NoA('count');
+  reload_people();
+  reload_tab();
 }
 function openAna(element) {
   html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea">3月12日</p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">10</span>人</p></div><div id="syusseki_people"></div></div>'
@@ -121,31 +155,6 @@ function set(num) {
   else { ret = num; }
   return ret;
 }
-
-function tab(element) {
-  let id = element.id;
-  var grade = document.getElementById(id);
-  grade.style.backgroundColor = '#BDD7EE';
-
-  if (id == 'one') {
-    var else_1 = document.getElementById('two');
-    var else_2 = document.getElementById('three');
-    else_1.style.backgroundColor = '#BFBFBF';
-    else_2.style.backgroundColor = '#BFBFBF';
-  } else if (id == 'two') {
-    var else_1 = document.getElementById('one');
-    var else_2 = document.getElementById('three');
-    else_1.style.backgroundColor = '#BFBFBF';
-    else_2.style.backgroundColor = '#BFBFBF';
-  } else if (id == 'three') {
-    var else_1 = document.getElementById('one');
-    var else_2 = document.getElementById('two');
-    else_1.style.backgroundColor = '#BFBFBF';
-    else_2.style.backgroundColor = '#BFBFBF';
-  }
-
-}
-
 
 function check(element) {
   var id = element.id;

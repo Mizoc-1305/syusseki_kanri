@@ -1,12 +1,26 @@
 var value_array = [];
 var time_array = [];
 
-window.addEventListener('beforeunload', function(e) {
-    e.returnValue = '';
+window.addEventListener('beforeunload', function (e) {
+  e.returnValue = '';
 }, false); //リロード前に確認ダイアログを表示
 
-function side_tab(element) {
-  let id = element.id;
+function get_time() {
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth() + 1;
+  var date = now.getDate();
+  var day_of_week = now.getDay()
+  var day = ["日", "月", "火", "水", "木", "金", "土"][day_of_week]
+  var hour = set(now.getHours());
+  var minute = set(now.getMinutes());
+  var second = set(now.getSeconds());
+  var time = hour + ":" + minute;
+  var month_date = month + "/" + date
+  return [time, month_date];
+}
+
+function side_tab(id) {
   var grade = document.getElementById(id);
   grade.style.backgroundColor = '#000B70';
 
@@ -38,8 +52,8 @@ function append_people(text) {
   syusseki_people.appendChild(new_element_hr);
 }
 function pull_array() {
-  var people_on_the_day = localStorage.getItem('3/12');
-  var when_people_arrive = localStorage.getItem('3/12_time');
+  var people_on_the_day = localStorage.getItem('3/13');
+  var when_people_arrive = localStorage.getItem('3/13_time');
   people_on_the_day = JSON.parse(people_on_the_day);
   when_people_arrive = JSON.parse(when_people_arrive);
   for (let index = 0; index < people_on_the_day.length; index++) {
@@ -49,23 +63,46 @@ function pull_array() {
   }
 }
 function reload_NoA(id) {
-  var people_on_the_day = localStorage.getItem('3/12');
+  var people_on_the_day = localStorage.getItem('3/13');
   people_on_the_day = JSON.parse(people_on_the_day);
   var count = people_on_the_day.length
   var people = document.getElementById(id);
   people.innerHTML = count;
 }
+function reload_people() {
+  var IDs = [];
+  var buttons_length = document.getElementsByClassName("button").length;
+  for (let index = 1; index < buttons_length + 1; index++) {
+    IDs.push("btn_" + index);
+  }
+  var attended_people = localStorage.getItem(get_time()[1]);
+  attended_people = JSON.parse(attended_people);
+  for (let index2 = 0; index2 < buttons_length; index2++) {
+    var values = document.getElementById(IDs[index2]).value;
+    for (let index3 = 0; index3 < attended_people.length; index3++) {
+      var attended_person = attended_people[index3];
+      if (values == attended_person) {
+        document.getElementById(IDs[index2]).disabled = true;
+        document.getElementById(IDs[index2]).style.backgroundColor = '#BFBFBF';
+      }
+    }
+  }
+}
 
 
-function pageChange(html, element) {
+function pageChange(html, id) {
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html;
-  side_tab(element);
+  side_tab(id);
 }
 function openHome(element) {
   html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this)">１年</p><p class="grade" id="two" onclick="tab(this)">２年</p><p class="grade" id="three" onclick="tab(this)">３年</p></div><div class="btn"><button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button><button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button><button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button><button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button></div>';
   pageChange(html_home, element);
   reload_NoA('count');
+  reload_people()
+}
+window.onload = function () {
+  openHome("side_home");
 }
 function openAna(element) {
   html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea">3月12日</p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">10</span>人</p></div><div id="syusseki_people"></div></div>'
@@ -78,25 +115,11 @@ function openSet(element) {
   pageChange(html_set, element);
 }
 
-function set(num){
+function set(num) {
   var ret;
-  if(num < 10) {ret = "0" + num;}
-  else{ret = num;}
+  if (num < 10) { ret = "0" + num; }
+  else { ret = num; }
   return ret;
-}
-function get_time() {
-  var now = new Date();
-  var year = now.getFullYear();
-  var month = now.getMonth() + 1;
-  var date = now.getDate();
-  var day_of_week = now.getDay()
-  var day = ["日", "月", "火", "水", "木", "金", "土"][day_of_week]
-  var hour = set( now.getHours() );
-  var minute =set( now.getMinutes() );
-  var second = set( now.getSeconds() );
-  var time = hour + ":" + minute;
-  var month_date = month + "/" + date
-  return [time, month_date];
 }
 
 function tab(element) {
@@ -132,18 +155,33 @@ function check(element) {
 
   var check = window.confirm(name + 'さん でいいですか？');
 
-  if (check){
+  if (check) {
     var clicked = document.getElementById(id);
     var hello = document.getElementById('name');
     hello.innerHTML = name + 'さん こんにちは';
     var what_time = get_time();
     var value = name;
     var key = what_time[1];
-    time_array.push(what_time[0]);
-    localStorage.setItem(key + "_time", JSON.stringify(time_array));
-    value_array.push(value);
-    localStorage.setItem(key, JSON.stringify(value_array));
-    var people_on_the_day = localStorage.getItem('3/12');
+    if(localStorage.hasOwnProperty(key + "_time")) {
+      time_array = localStorage.getItem(key + "_time");
+      time_array = JSON.parse(time_array);
+      time_array.push(what_time[0]);
+      localStorage.setItem(key + "_time", JSON.stringify(time_array));
+    }else{
+      time_array.push(what_time[0]);
+      localStorage.setItem(key + "_time", JSON.stringify(time_array));
+    }
+    if(localStorage.hasOwnProperty(key)) {
+      value_array = localStorage.getItem(key);
+      value_array = JSON.parse(value_array);
+      value_array.push(value);
+      localStorage.setItem(key, JSON.stringify(value_array));
+    }else{
+      value_array.push(value);
+      localStorage.setItem(key, JSON.stringify(value_array));
+    }
+
+    var people_on_the_day = localStorage.getItem(key);
     people_on_the_day = JSON.parse(people_on_the_day);
     nop.innerHTML = people_on_the_day.length;
     document.getElementById(id).disabled = true;

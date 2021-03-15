@@ -1,6 +1,7 @@
 var value_array = [];
 var time_array = [];
 var tab_where;
+var day_array = [];
 var member = [["徳川 家康", "豊臣 秀吉", "南方 熊楠", "黒田 官兵衛", "溝上 幸太"], ["ナポレオン", "織田 信長", "武田 信玄", "源 頼朝", "岸田 健吾"], ["大久保 利通", "西郷 隆盛", "足利 尊氏", "ペリー", "木戸 孝允"]]
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
@@ -54,7 +55,7 @@ function reload_member(members) {
   for (let index2 = 0; index2 < number; index2++) {
     var new_button = document.createElement("button");
     new_button.id = IDs[index2];
-    new_button.onclick = function () {check(this);}
+    new_button.onclick = function () { check(this); }
     new_button.className = "button";
     new_button.type = "button";
     new_button.name = "button";
@@ -64,10 +65,17 @@ function reload_member(members) {
   }
 }
 
-function append_people(text) {
+function append_people(time, name) {
   var syusseki_people = document.getElementById('syusseki_people');
+  if (member[0].indexOf(name) != -1) {
+    var grade = "1";
+  } else if (member[1].indexOf(name) != -1) {
+    var grade = "2";
+  } else {
+    var grade = "3"
+  }
   var new_element = document.createElement('p');
-  new_element.textContent = text;
+  new_element.textContent = time + " " + grade + "年 " + name;
   new_element.className = "person";
   syusseki_people.appendChild(new_element);
   var new_element_hr = document.createElement('hr');
@@ -81,7 +89,7 @@ function pull_array() {
   for (let index = 0; index < people_on_the_day.length; index++) {
     var name = people_on_the_day[index];
     var time = when_people_arrive[index];
-    append_people(time + " " + name);
+    append_people(time, name);
   }
 }
 function reload_NoA(id) {
@@ -114,7 +122,20 @@ function reload_people() {
     }
   }
 }
-
+function day_manage() {
+  var today = get_time()[1];
+  if (localStorage.hasOwnProperty("day")) {
+    day_array = localStorage.getItem("day");
+    day_array = JSON.parse(day_array);
+    if (day_array[day_array.length - 1] != today) {
+      day_array.push(today);
+      localStorage.setItem("day", JSON.stringify(day_array));
+    }
+  } else {
+    day_array.push(today);
+    localStorage.setItem("day", JSON.stringify(day_array));
+  }
+}
 function tab(id) {
   var grade = document.getElementById(id);
   grade.style.backgroundColor = '#BDD7EE';
@@ -223,6 +244,7 @@ function check(element) {
     var people_on_the_day = localStorage.getItem(key);
     people_on_the_day = JSON.parse(people_on_the_day);
     nop.innerHTML = people_on_the_day.length;
+    day_manage();
     document.getElementById(id).disabled = true;
     clicked.style.backgroundColor = '#BFBFBF';
 

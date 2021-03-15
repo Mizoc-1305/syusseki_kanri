@@ -1,6 +1,7 @@
 var value_array = [];
 var time_array = [];
 var tab_where;
+var member = [["徳川 家康", "豊臣 秀吉", "南方 熊楠", "黒田 官兵衛", "溝上 幸太"], ["ナポレオン", "織田 信長", "武田 信玄", "源 頼朝", "岸田 健吾"], ["大久保 利通", "西郷 隆盛", "足利 尊氏", "ペリー", "木戸 孝允"]]
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
 }, false);*/ //リロード前に確認ダイアログを表示
@@ -42,31 +43,27 @@ function side_tab(id) {
   }
 
 }
-function tab(id) {
-  var grade = document.getElementById(id);
-  grade.style.backgroundColor = '#BDD7EE';
-
-  if (id == 'one') {
-    var else_1 = document.getElementById('two');
-    var else_2 = document.getElementById('three');
-    else_1.style.backgroundColor = '#BFBFBF';
-    else_2.style.backgroundColor = '#BFBFBF';
-    tab_where = 'one'
-  } else if (id == 'two') {
-    var else_1 = document.getElementById('one');
-    var else_2 = document.getElementById('three');
-    else_1.style.backgroundColor = '#BFBFBF';
-    else_2.style.backgroundColor = '#BFBFBF';
-    tab_where = 'two'
-  } else if (id == 'three') {
-    var else_1 = document.getElementById('one');
-    var else_2 = document.getElementById('two');
-    else_1.style.backgroundColor = '#BFBFBF';
-    else_2.style.backgroundColor = '#BFBFBF';
-    tab_where = 'three'
+function reload_member(members) {
+  var btn = document.getElementsByClassName("btn")[0];
+  btn.innerHTML = "";
+  var number = members.length;
+  var IDs = [];
+  for (let index = 1; index < number + 1; index++) {
+    IDs.push("btn_" + index);
   }
-
+  for (let index2 = 0; index2 < number; index2++) {
+    var new_button = document.createElement("button");
+    new_button.id = IDs[index2];
+    new_button.onclick = function () {check(this);}
+    new_button.className = "button";
+    new_button.type = "button";
+    new_button.name = "button";
+    new_button.value = members[index2];
+    new_button.textContent = members[index2];
+    btn.appendChild(new_button);
+  }
 }
+
 function append_people(text) {
   var syusseki_people = document.getElementById('syusseki_people');
   var new_element = document.createElement('p');
@@ -78,7 +75,7 @@ function append_people(text) {
 }
 function pull_array() {
   var people_on_the_day = localStorage.getItem(get_time()[1]);
-  var when_people_arrive = localStorage.getItem(get_time()[1]+"_time");
+  var when_people_arrive = localStorage.getItem(get_time()[1] + "_time");
   people_on_the_day = JSON.parse(people_on_the_day);
   when_people_arrive = JSON.parse(when_people_arrive);
   for (let index = 0; index < people_on_the_day.length; index++) {
@@ -90,7 +87,11 @@ function pull_array() {
 function reload_NoA(id) {
   var people_on_the_day = localStorage.getItem(get_time()[1]);
   people_on_the_day = JSON.parse(people_on_the_day);
-  var count = people_on_the_day.length
+  if (people_on_the_day == null) {
+    var count = 0;
+  } else {
+    var count = people_on_the_day.length
+  }
   var people = document.getElementById(id);
   people.innerHTML = count;
 }
@@ -113,6 +114,35 @@ function reload_people() {
     }
   }
 }
+
+function tab(id) {
+  var grade = document.getElementById(id);
+  grade.style.backgroundColor = '#BDD7EE';
+
+  if (id == 'one') {
+    var else_1 = document.getElementById('two');
+    var else_2 = document.getElementById('three');
+    else_1.style.backgroundColor = '#BFBFBF';
+    else_2.style.backgroundColor = '#BFBFBF';
+    tab_where = 'one';
+    reload_member(member[0]);
+  } else if (id == 'two') {
+    var else_1 = document.getElementById('one');
+    var else_2 = document.getElementById('three');
+    else_1.style.backgroundColor = '#BFBFBF';
+    else_2.style.backgroundColor = '#BFBFBF';
+    tab_where = 'two';
+    reload_member(member[1]);
+  } else if (id == 'three') {
+    var else_1 = document.getElementById('one');
+    var else_2 = document.getElementById('two');
+    else_1.style.backgroundColor = '#BFBFBF';
+    else_2.style.backgroundColor = '#BFBFBF';
+    tab_where = 'three';
+    reload_member(member[2]);
+  }
+  reload_people();
+}
 function reload_tab() {
   var grade = document.getElementById('one');
   grade.style.backgroundColor = '#BDD7EE';
@@ -127,19 +157,20 @@ function pageChange(html, id) {
   side_tab(id);
 }
 function openHome(element) {
-  html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"><button class="button" type="button" name="button" id="btn_1" value="伊藤 聡馬" onclick="check(this)">伊藤 聡馬</button><button class="button" type="button" name="button" id="btn_2" value="岸田 健吾" onclick="check(this)">岸田 健吾</button><button class="button" type="button" name="button" id="btn_3" value="溝上 幸太" onclick="check(this)">溝上 幸太</button><button class="button" type="button" name="button" id="btn_4" value="坂本 光志朗" onclick="check(this)">坂本 光志朗</button></div>';
+  html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
   pageChange(html_home, element);
+  tab(tab_where);
   reload_NoA('count');
   reload_people();
-  tab(tab_where);
 }
 window.onload = function () {
-  reload_NoA('count');
+  tab('one');
   reload_people();
   reload_tab();
+  reload_NoA('count');
 }
 function openAna(element) {
-  html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea">3月12日</p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">10</span>人</p></div><div id="syusseki_people"></div></div>'
+  html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea">3月12日</p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><div id="syusseki_people"></div></div>'
   pageChange(html_ana, element);
   pull_array();
   reload_NoA('people');
@@ -158,7 +189,6 @@ function set(num) {
 
 function check(element) {
   var id = element.id;
-
   var nop = document.getElementById('count');
   var name = document.getElementById(id).value;
 
@@ -171,21 +201,21 @@ function check(element) {
     var what_time = get_time();
     var value = name;
     var key = what_time[1];
-    if(localStorage.hasOwnProperty(key + "_time")) {
+    if (localStorage.hasOwnProperty(key + "_time")) {
       time_array = localStorage.getItem(key + "_time");
       time_array = JSON.parse(time_array);
       time_array.push(what_time[0]);
       localStorage.setItem(key + "_time", JSON.stringify(time_array));
-    }else{
+    } else {
       time_array.push(what_time[0]);
       localStorage.setItem(key + "_time", JSON.stringify(time_array));
     }
-    if(localStorage.hasOwnProperty(key)) {
+    if (localStorage.hasOwnProperty(key)) {
       value_array = localStorage.getItem(key);
       value_array = JSON.parse(value_array);
       value_array.push(value);
       localStorage.setItem(key, JSON.stringify(value_array));
-    }else{
+    } else {
       value_array.push(value);
       localStorage.setItem(key, JSON.stringify(value_array));
     }

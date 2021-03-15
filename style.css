@@ -134,10 +134,22 @@
 .syusseki_people{
   margin-left: 90px;
 }
+.before {
+  position: fixed;
+  width: 30px;
+  margin-top: 200px;
+  margin-left: 30px;
+}
+.next {
+  position: fixed;
+  width: 30px;
+  margin-top: 200px;
+  margin-left: 1100px;
+}
 .person{
   margin-top: 30px;
   margin-bottom: 5px;
-  padding-left: 50px;
+  padding-left: 80px;
   padding-bottom: 0px;
 
   font-size: 35px;
@@ -147,7 +159,9 @@
 hr{
   margin: 0;
   padding: 0;
+  margin-left: 80px;
   padding-left: 200px;
+  width: 800px;
 }
 .menu_newList{
   margin-left: 150px;

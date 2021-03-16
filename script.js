@@ -2,7 +2,8 @@ var value_array = [];
 var time_array = [];
 var tab_where;
 var day_array = [];
-var day_index = JSON.parse(localStorage.getItem("day")).length;
+var day_lentgh = JSON.parse(localStorage.getItem("day")).length;
+var day_index = day_lentgh - 1;
 var member = [["徳川 家康", "豊臣 秀吉", "南方 熊楠", "黒田 官兵衛", "溝上 幸太"], ["ナポレオン", "織田 信長", "武田 信玄", "源 頼朝", "岸田 健吾"], ["大久保 利通", "西郷 隆盛", "足利 尊氏", "ペリー", "木戸 孝允"]]
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
@@ -137,21 +138,54 @@ function day_manage() {
     localStorage.setItem("day", JSON.stringify(day_array));
   }
 }
+
 function next() {
-  day_index = day_index - 1;
-  var someday_data = JSON.parse(localStorage.getItem("day"));
-  var day_key = someday_data[day_index];
-  var the_days_name = JSON.parse(localStorage.getItem(day_key));
-  var the_days_time = JSON.parse(localStorage.getItem(day_key + "_time"));
-  alert(the_days_time + " " + the_days_name);
+  if (day_index < day_lentgh - 1) {
+    day_index = day_index + 1;
+    document.getElementById('syusseki_people').innerHTML = "";
+    var someday_data = JSON.parse(localStorage.getItem("day"));
+    var day_key = someday_data[day_index];
+    var the_days_name = JSON.parse(localStorage.getItem(day_key));
+    var the_days_time = JSON.parse(localStorage.getItem(day_key + "_time"));
+    if (the_days_name == null) {
+      var count = 0;
+    } else {
+      var count = the_days_name.length
+    }
+    var people = document.getElementById('people');
+    people.innerHTML = count;
+    var day_area = document.getElementById('dateArea');
+    day_area.innerHTML = day_key;
+    for (let index = 0; index < the_days_name.length; index++) {
+      var name = the_days_name[index];
+      var time = the_days_time[index];
+      append_people(time, name);
+    }
+  }
 }
 function before() {
-  day_index = day_index - 1;
-  var someday_data = JSON.parse(localStorage.getItem("day"));
-  var day_key = someday_data[day_index];
-  var the_days_name = JSON.parse(localStorage.getItem(day_key));
-  var the_days_time = JSON.parse(localStorage.getItem(day_key + "_time"));
-  alert(the_days_time + " " + the_days_name);
+  if (day_index > 0) {
+    day_index = day_index - 1;
+    document.getElementById('syusseki_people').innerHTML = "";
+    var someday_data = JSON.parse(localStorage.getItem("day"));
+    var day_key = someday_data[day_index];
+    var the_days_name = JSON.parse(localStorage.getItem(day_key));
+    var the_days_time = JSON.parse(localStorage.getItem(day_key + "_time"));
+    if (the_days_name == null) {
+      var count = 0;
+    } else {
+      var count = the_days_name.length
+    }
+    var people = document.getElementById('people');
+    people.innerHTML = count;
+    var day_area = document.getElementById('dateArea');
+    day_area.innerHTML = day_key;
+    for (let index = 0; index < the_days_name.length; index++) {
+      var name = the_days_name[index];
+      var time = the_days_time[index];
+      append_people(time, name);
+    }
+  }
 }
 function tab(id) {
   var grade = document.getElementById(id);
@@ -208,8 +242,11 @@ window.onload = function () {
   reload_NoA('count');
 }
 function openAna(element) {
-  html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea">3月12日</p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
+  html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
   pageChange(html_ana, element);
+  day_lentgh = JSON.parse(localStorage.getItem("day")).length;
+  day_index = day_lentgh - 1;
+  document.getElementById('dateArea').innerHTML = get_time()[1];
   pull_array();
   reload_NoA('people');
 }

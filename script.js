@@ -5,6 +5,7 @@ var day_array = [];
 var day_lentgh = JSON.parse(localStorage.getItem("day")).length;
 var day_index = day_lentgh - 1;
 var member = [];
+var reader = new FileReader();
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
 }, false);*/ //リロード前に確認ダイアログを表示
@@ -263,26 +264,25 @@ function openSet(element) {
   pageChange(html_set, element);
 }
 function openNew(){
-  var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile"></div><button id="decide" onclick="new_list()">メンバーを追加</button></div>'
+  var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile"></div><button id="load" onclick="new_list()">名簿を読み込み</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_new;
   var form = document.forms.nameform;
-  var reader = new FileReader();
   form.namefile.addEventListener('change', function (e) {
     var result = e.target.files[0];
 
     reader.readAsText(result);
   })
-  function new_list() {
-    var csv_member = reader.result.split('\n')
-    var changed_array  = []
-    for (let index = 0; index < csv_member.length; index++) {
-      changed_array[index] = csv_member[index].split(',')
-
-    }
-    localStorage.setItem("member",JSON.stringify(changed_array));
-  }
 }
+function new_list() {
+  var csv_member = reader.result.split('\n')
+　var changed_array  = []
+  for (let index = 0; index < csv_member.length; index++) {
+    changed_array[index] = csv_member[index].split(',')
+  }
+  localStorage.setItem("member",JSON.stringify(changed_array));
+}
+
 function openAdd() {
   var html_add = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name"><p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p></div><button id="decide" onclick="new_member()">メンバーを追加</button></div>'
   var change_area = document.getElementById('change_area');

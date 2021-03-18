@@ -414,6 +414,7 @@ select{
 }
 
 .copyright{
-  margin-top: 390px;
-  margin-left: 990px;
+  position: absolute;
+  margin-top: 550px;
+  margin-left: 980px;
 }

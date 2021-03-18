@@ -263,7 +263,7 @@ function openSet(element) {
   pageChange(html_set, element);
 }
 function openNew(){
-  var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile"></div><button id="decide" onclick="new_list()">メンバーを追加</button></div>'
+  var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile"></div><button id="load" onclick="new_list()">名簿を読み込み</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_new;
   var form = document.forms.nameform;

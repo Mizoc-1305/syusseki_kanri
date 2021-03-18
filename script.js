@@ -262,7 +262,7 @@ function openSet(element) {
   pageChange(html_set, element);
 }
 function openNew() {
-  var html_new = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="text">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name"></div><button id="decide" onclick="new_people()">メンバーを追加</button></div>'
+  var html_new = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name"></div><button id="decide" onclick="new_people()">メンバーを追加</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_new;
 }

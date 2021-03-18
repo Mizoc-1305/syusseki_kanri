@@ -260,7 +260,7 @@ hr{
   margin-left: 90px;
 }
 .form{
-  margin-left: 200px;
+  margin-left: 130px;
 }
 .container {
   display: block;
@@ -320,7 +320,11 @@ hr{
 }
 .text{
   font-size: 40px;
-  font-family: BIZ UDゴシック;
+  font-family: BIZ UDPゴシック;
+}
+.choiceGrade{
+  font-size: 20px;
+  font-family: BIZ UDPゴシック
 }
 .textbox{
   position: absolute;

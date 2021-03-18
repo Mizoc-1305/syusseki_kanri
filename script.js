@@ -259,19 +259,18 @@ function openAna(element) {
 }
 function setting_export() {
   var values = [];
-	var keys = Object.keys(localStorage),
+	var keys = Object.keys(localStorage)
 	var i = keys.length;
 
 	while ( i-- ) {
-		values.push( keys[i] + ': ' + localStorage.getItem(keys[i])+"," );
+		values.push( keys[i] + ': ' + localStorage.getItem(keys[i]));
 	}
-    const data = getData();
-  const blob = new Blob([JSON.stringify(data, null, '  ')],
-{type: 'application\/json'});
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'sample.json';
+  values = JSON.stringify(values);
+  values = values.replace(,"");
+  values = values.replace(':','":');
+  var link = document.createElement('a');
+  link.href = "data:text/plain," + encodeURIComponent(values);
+  link.download = 'setting.json';
   link.click();
 }
 function openSet(element) {

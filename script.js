@@ -317,13 +317,17 @@ function openAdd() {
 
 }
 function del_member() {
+  
   var del_name = document.getElementsByClassName('select')[0].value;
+  var checkDel = window.confirm(del_name + 'さんを削除してよろしいですか？');
   var del_grade = document.getElementsByClassName('radio');
-  for (var value = "", i = del_grade.length; i--;) {
-    if (del_grade[i].checked) {
-      var value = del_grade[i].value;
-      break;
-    }
+  if (checkDel){
+    for (var value = "", i = del_grade.length; i--;) {
+      if (del_grade[i].checked) {
+        var value = del_grade[i].value;
+        break;
+      }
+  }
   }
   member = JSON.parse(localStorage.getItem("member"))
   member[value].splice(member[value].indexOf(del_name),1);

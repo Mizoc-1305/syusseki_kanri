@@ -265,21 +265,21 @@ function openSet(element) {
   var reader = new FileReader();
   form.namefile.addEventListener('change', function (e) {
     var result = e.target.files[0];
-    
+
     reader.readAsText( result );
-  reader.addEventListener( 'load', function() { 
+  reader.addEventListener( 'load', function() {
     var csv_member = reader.result.split('\n')
     var changed_array  = []
     for (let index = 0; index < csv_member.length; index++) {
       changed_array[index] = csv_member[index].split(',')
-      
+
     }
     localStorage.setItem("member",JSON.stringify(changed_array));
   })
   })
 }
 function openNew(){
-  var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><input type="file" class="form_file" id="form_name"></div><button id="decide" onclick="new_people()">メンバーを追加</button></div>'
+  var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><input type="file" class="form_file" id="form_name"></div><button id="load" onclick="new_people()">名簿を読み込み</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_new;
 }

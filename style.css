@@ -318,6 +318,10 @@ hr{
   border-radius: 50%;
   background: white;
 }
+.text{
+  font-size: 60px;
+  font-family: BIZ UDゴシック;
+}
 .textbox{
   position: absolute;
   margin-left: 0px;

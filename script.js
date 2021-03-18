@@ -278,7 +278,7 @@ function openNew(){
     var changed_array  = []
     for (let index = 0; index < csv_member.length; index++) {
       changed_array[index] = csv_member[index].split(',')
-      
+
     }
     localStorage.setItem("member",JSON.stringify(changed_array));
   }

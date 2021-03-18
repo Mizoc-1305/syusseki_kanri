@@ -252,13 +252,13 @@ function openAna(element) {
   reload_NoA('people');
 }
 function openSet(element) {
-  html_set = '<div class="menu_tile"><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openNew()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
+  var html_set = '<div class="menu_tile"><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openNew()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
   pageChange(html_set, element);
 }
 function openNew() {
-  html_new = '<div class="form"><h2>メンバーの追加</h2><h4>学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text"></div><button id="decide" onclick="new_people()">メンバーを追加</button></div>'
+  var html_new = '<div class="form"><h2>メンバーの追加</h2><h4>学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text"></div><button id="decide" onclick="new_people()">メンバーを追加</button></div>'
   var change_area = document.getElementById('change_area');
-  change_area.innerHTML = html_set;
+  change_area.innerHTML = html_new;
 }
 
 function set(num) {
@@ -268,7 +268,7 @@ function set(num) {
   return ret;
 }
 function new_people() {
-
+  
 }
 function check(element) {
   var id = element.id;

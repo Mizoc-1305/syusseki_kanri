@@ -265,6 +265,7 @@ function setting_export() {
 	while ( i-- ) {
 		values.push( keys[i] + ': ' + localStorage.getItem(keys[i]));
 	}
+<<<<<<< HEAD
   values = JSON.stringify(values);
   values = values.replace(,"");
   values = values.replace(':','":');
@@ -272,15 +273,22 @@ function setting_export() {
   link.href = "data:text/plain," + encodeURIComponent(values);
   link.download = 'setting.json';
   link.click();
+=======
+  conso
+>>>>>>> f999a63fac356ffeb6498ec88f90e914d600bde1
 }
 function openSet(element) {
   var headSet = document.getElementById('title');
   headSet.innerHTML = '設定 - 出席管理システム';
 <<<<<<< HEAD
+<<<<<<< HEAD
   var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMember" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_tile_2"><div class="menu_setEx"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="menu_dataEx"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの書き出し</p></div></div>'
 =======
   var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_setEx"  onclick="setting_export()"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn" onclick="setting_import()"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="data_Ex" onclick="data_export()"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの書き出し</p></div>'
 >>>>>>> 32e4f3a2a7e7241de9b0916422728d45842b4565
+=======
+  var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_setEx"  onclick="setting_export()"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn" onclick="setting_import()"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="data_Ex" onclick="data_export()"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの書き出し</p></div>'
+>>>>>>> f999a63fac356ffeb6498ec88f90e914d600bde1
   pageChange(html_set, element);
 }
 function openNew(){
@@ -326,7 +334,10 @@ function openAdd() {
   change_area.innerHTML = html_add;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> f999a63fac356ffeb6498ec88f90e914d600bde1
 }
 function del_member() {
   var del_name = document.getElementsByClassName('select')[0].value;
@@ -354,7 +365,10 @@ function del_member() {
   tab(del_tab_where);
   reload_NoA('count');
   reload_people();
+<<<<<<< HEAD
 >>>>>>> 32e4f3a2a7e7241de9b0916422728d45842b4565
+=======
+>>>>>>> f999a63fac356ffeb6498ec88f90e914d600bde1
 }
 function openDel(){
   var html_del = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'

@@ -261,13 +261,19 @@ function openSet(element) {
   headSet.innerHTML = '設定 - 出席管理システム';
   var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
   pageChange(html_set, element);
+}
+function openNew(){
+  var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><input type="file" class="form_file" id="form_name"></div><button id="decide" onclick="new_list()">メンバーを追加</button></div>'
+  var change_area = document.getElementById('change_area');
+  change_area.innerHTML = html_new;
   var form = document.forms.nameform;
   var reader = new FileReader();
   form.namefile.addEventListener('change', function (e) {
     var result = e.target.files[0];
     
-    reader.readAsText( result );
-  reader.addEventListener( 'load', function() { 
+    reader.readAsText(result);
+  })
+  function new_list() {
     var csv_member = reader.result.split('\n')
     var changed_array  = []
     for (let index = 0; index < csv_member.length; index++) {
@@ -275,13 +281,7 @@ function openSet(element) {
       
     }
     localStorage.setItem("member",JSON.stringify(changed_array));
-  })
-  })
-}
-function openNew(){
-  var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><input type="file" class="form_file" id="form_name"></div><button id="decide" onclick="new_people()">メンバーを追加</button></div>'
-  var change_area = document.getElementById('change_area');
-  change_area.innerHTML = html_new;
+  }
 }
 function openAdd() {
   var html_add = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name"><p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p></div><button id="decide" onclick="new_member()">メンバーを追加</button></div>'
@@ -301,9 +301,6 @@ function set(num) {
   return ret;
 }
 
-function new_namelist(params) {
-
-}
 function new_member() {
   var new_name = document.getElementById('form_name').value;
   var new_grade = document.getElementsByClassName('radio');

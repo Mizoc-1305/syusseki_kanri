@@ -260,7 +260,7 @@ function openAna(element) {
 function openSet(element) {
   var headSet = document.getElementById('title');
   headSet.innerHTML = '設定 - 出席管理システム';
-  var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_setEx"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="menu_setEx"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの書き出し</p></div>'
+  var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMember" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_tile_2"><div class="menu_setEx"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="menu_dataEx"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの書き出し</p></div></div>'
   pageChange(html_set, element);
 }
 function openNew(){
@@ -293,7 +293,7 @@ function openAdd() {
   var html_add = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name"><p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p></div><button id="decide" onclick="new_member()">メンバーを追加</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_add;
-  
+
 }
 function openDel(){
   var html_del = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"><option value="">削除する人を選択してください</option><option value="徳川 家康">徳川 家康</option><option value="豊臣 秀吉">豊臣 秀吉</option></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'

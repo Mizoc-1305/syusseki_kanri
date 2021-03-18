@@ -187,7 +187,11 @@ hr{
   width: 100px;
 }
 .menu_tile{
-  margin-top: 30px;
+  margin-top: 50px;
+  display: flex;
+}
+.menu_tile_2{
+  margin-top: 80px;
   display: flex;
 }
 .menu_Text{
@@ -198,37 +202,37 @@ hr{
   text-align: center;
 }
 .menu_newList{
-  margin-left: 150px;
+  margin-left: 350px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
 }
 .menu_addMember{
-  margin-left: 50px;
+  margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
 }
-.menu_delMenber{
-  margin-left: 50px;
+.menu_delMember{
+  margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
 }
 .menu_setEx{
-  margin-left: 50px;
+  margin-left: 350px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
 }
 .menu_setIn{
-  margin-left: 50px;
+  margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
 }
 .menu_dataEx{
-  margin-left: 50px;
+  margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
@@ -414,6 +418,7 @@ select{
 }
 
 .copyright{
-  margin-top: 390px;
-  margin-left: 990px;
+  position: absolute;
+  margin-top: 550px;
+  margin-left: 980px;
 }

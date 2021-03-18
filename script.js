@@ -262,21 +262,19 @@ function openSet(element) {
   var html_set = '<div class="menu_tile"><form name="nameform"><input name="namefile" type="file"/></form><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openNew()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
   pageChange(html_set, element);
   var form = document.forms.nameform;
-
+  var reader = new FileReader();
   form.namefile.addEventListener('change', function (e) {
     var result = e.target.files[0];
-    var reader = new FileReader();
-    reader.readAsText( result );
-    reader.addEventListener( 'load', function() {
     
-      var csv_member = reader.result.split('\n')
+    reader.readAsText( result );
+  reader.addEventListener( 'load', function() { 
+    var csv_member = reader.result.split('\n')
     var changed_array  = []
     for (let index = 0; index < csv_member.length; index++) {
-      const element = csv_member[index];
-      element.replace(',', '","')
+      changed_array[index] = csv_member[index].split(',')
       
     }
-    localStorage.setItem("member",JSON.stringify(csv_member));
+    localStorage.setItem("member",JSON.stringify(changed_array));
   })
   })
 }

@@ -275,6 +275,8 @@ function new_people() {
       var value = new_grade[i].value ;
       break ;
     }
+  }
+  member[new_grade].push(new_name);
 }
 function check(element) {
   var id = element.id;

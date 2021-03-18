@@ -23,7 +23,6 @@ function get_time() {
   var month_date = month + "/" + date
   return [time, month_date];
 }
-
 function side_tab(id) {
   var grade = document.getElementById(id);
   grade.style.backgroundColor = '#000B70';
@@ -260,8 +259,20 @@ function openAna(element) {
 function openSet(element) {
   var headSet = document.getElementById('title');
   headSet.innerHTML = '設定 - 出席管理システム';
-  var html_set = '<div class="menu_tile"><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openNew()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
+  var html_set = '<div class="menu_tile"><form name="nameform"><input name="namefile" type="file"/></form><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openNew()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
   pageChange(html_set, element);
+  var form = document.forms.nameform;
+
+  form.namefile.addEventListener('change', function (e) {
+    var result = e.target.files[0];
+    var reader = new FileReader();
+    reader.readAsText( result );
+    reader.addEventListener( 'load', function() {
+    
+      var csv_member = reader.result.split('\n')
+    localStorage.setItem("member",JSON.stringify(csv_member));
+  })
+  })
 }
 function openNew() {
   var html_new = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name"></div><button id="decide" onclick="new_member()">メンバーを追加</button></div>'
@@ -276,26 +287,29 @@ function set(num) {
   return ret;
 }
 
+function new_namelist(params) {
+
+}
 function new_member() {
   var new_name = document.getElementById('form_name').value;
-  var new_grade = document.getElementsByClassName ('radio');
-  for ( var value="", i=new_grade.length; i--;) {
-    if ( new_grade[i].checked ) {
-      var value = new_grade[i].value ;
-      break ;
+  var new_grade = document.getElementsByClassName('radio');
+  for (var value = "", i = new_grade.length; i--;) {
+    if (new_grade[i].checked) {
+      var value = new_grade[i].value;
+      break;
     }
   }
 
   member = JSON.parse(localStorage.getItem("member"))
   member[value].push(new_name);
-  localStorage.setItem("member",JSON.stringify(member));
+  localStorage.setItem("member", JSON.stringify(member));
   document.getElementById('decide').disabled = true;
   document.getElementById('decide').style.backgroundColor = '#BFBFBF';
   if (value == 0) {
     var new_tab_where = 'one';
-  }else if (value == 1) {
+  } else if (value == 1) {
     var new_tab_where = 'two';
-  }else{
+  } else {
     var new_tab_where = 'three';
   }
   var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';

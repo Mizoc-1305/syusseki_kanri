@@ -268,7 +268,7 @@ function set(num) {
   return ret;
 }
 function new_people() {
-  var new_name = document.getElementById('')
+  
 }
 function check(element) {
   var id = element.id;

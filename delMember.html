@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title id="title">ホーム - 出席管理システム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="side">
+    <div id="side_home" class="side_home" onclick="openHome(this.id)">
+      <img class="side_icon" src="home.png" alt="">
+      <p class="index" id="home">ホーム</p>
+    </div>
+    <div id="side_analyze" class="side_analyze" onclick="openAna(this.id)">
+      <img class="side_icon" src="analyze.png" alt="">
+      <p class="index" id="analyze">分析</p>
+    </div>
+    <div id="side_setting" class="side_setting" onclick="openSet(this.id)">
+      <img class="side_icon" src="setting.png" alt="">
+      <p class="index" id="setting">設定</p>
+    </div>
+    <p id="ClockArea"></p>
+  </div>
+
+  <div id="change_area">
+      <div class="form">
+          <h2 class="text">メンバーの削除</h2>
+          <h4 class="choiceGrade">学年を選択</h4>
+          <label class="container">１年
+              <input type="radio" checked="checked" name="radio" value="0" class="radio">
+              <span class="checkmark"></span>
+          </label>
+          <label class="container">２年
+              <input type="radio" name="radio" value="1" class="radio">
+              <span class="checkmark"></span>
+          </label>
+          <label class="container">３年
+              <input type="radio" name="radio" value="2" class="radio">
+              <span class="checkmark"></span>
+          </label>
+          <div class="pullDown">
+            <select class="" name="memberName">
+              <option value="">削除する人を選択してください</option>
+              <option value="徳川 家康">徳川 家康</option>
+              <option value="豊臣 秀吉">豊臣 秀吉</option>
+            </select>
+          </div>
+
+          <button id="delete" onclick="del_member()">選択したメンバーを削除</button>
+      </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

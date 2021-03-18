@@ -259,7 +259,7 @@ function openAna(element) {
 function openSet(element) {
   var headSet = document.getElementById('title');
   headSet.innerHTML = '設定 - 出席管理システム';
-  var html_set = '<div class="menu_tile"><form name="nameform"><input name="namefile" type="file"/></form><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openNew()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber" onlick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
+  var html_set = '<div class="menu_tile"><form name="nameform"><input name="namefile" type="file"/></form><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openNew()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
   pageChange(html_set, element);
   var form = document.forms.nameform;
 
@@ -270,6 +270,12 @@ function openSet(element) {
     reader.addEventListener( 'load', function() {
     
       var csv_member = reader.result.split('\n')
+    var changed_array  = []
+    for (let index = 0; index < csv_member.length; index++) {
+      const element = csv_member[index];
+      element.replace(',', '","')
+      
+    }
     localStorage.setItem("member",JSON.stringify(csv_member));
   })
   })

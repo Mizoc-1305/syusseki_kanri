@@ -265,7 +265,7 @@ function setting_export() {
 	while ( i-- ) {
 		values.push( keys[i] + ': ' + localStorage.getItem(keys[i]));
 	}
-  console.log(values);
+  console.log(values)
 }
 function openSet(element) {
   var headSet = document.getElementById('title');

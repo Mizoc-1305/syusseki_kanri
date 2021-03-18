@@ -281,15 +281,22 @@ function new_list() {
     changed_array[index] = csv_member[index].split(',')
   }
   localStorage.setItem("member",JSON.stringify(changed_array));
+  document.getElementById('load').disabled = true;
+  document.getElementById('load').style.backgroundColor = '#BFBFBF';
+  openHome('side_home');
 }
-
+function select_box() {
+  var del_grade
+  var select_box = document.getElementsByClassName("")
+}
 function openAdd() {
   var html_add = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name"><p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p></div><button id="decide" onclick="new_member()">メンバーを追加</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_add;
+  
 }
 function openDel(){
-  var html_del = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="pullDown"><select class="" name="memberName"><option value="">削除する人を選択してください</option><option value="徳川 家康">徳川 家康</option><option value="豊臣 秀吉">豊臣 秀吉</option></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'
+  var html_del = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"><option value="">削除する人を選択してください</option><option value="徳川 家康">徳川 家康</option><option value="豊臣 秀吉">豊臣 秀吉</option></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_del;
 }

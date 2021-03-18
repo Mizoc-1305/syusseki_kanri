@@ -270,7 +270,7 @@ function openNew(){
   var reader = new FileReader();
   form.namefile.addEventListener('change', function (e) {
     var result = e.target.files[0];
-    
+
     reader.readAsText(result);
   })
   function new_list() {

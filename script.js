@@ -231,14 +231,16 @@ function pageChange(html, id) {
 }
 function openHome(element) {
   var headHome = document.getElementById('title');
-  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
   headHome.innerHTML = 'ホーム - 出席管理システム';
+  member = JSON.parse(localStorage.getItem('member'));
+  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
   pageChange(html_home, element);
   tab(tab_where);
   reload_NoA('count');
   reload_people();
 }
 window.onload = function () {
+  member = JSON.parse(localStorage.getItem('member'));
   tab('one');
   reload_people();
   reload_tab();
@@ -246,8 +248,8 @@ window.onload = function () {
 }
 function openAna(element) {
   var headAna = document.getElementById('title');
-  var html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
   headAna.innerHTML = '分析 - 出席管理システム';
+  var html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
   pageChange(html_ana, element);
   day_lentgh = JSON.parse(localStorage.getItem("day")).length;
   day_index = day_lentgh - 1;
@@ -257,8 +259,8 @@ function openAna(element) {
 }
 function openSet(element) {
   var headSet = document.getElementById('title');
-  var html_set = '<div class="menu_tile"><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openNew()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
   headSet.innerHTML = '設定 - 出席管理システム';
+  var html_set = '<div class="menu_tile"><div class="menu_newList"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openNew()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
   pageChange(html_set, element);
 }
 function openNew() {

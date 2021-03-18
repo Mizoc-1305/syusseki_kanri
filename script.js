@@ -4,7 +4,7 @@ var tab_where;
 var day_array = [];
 var day_lentgh = JSON.parse(localStorage.getItem("day")).length;
 var day_index = day_lentgh - 1;
-var member = [["徳川 家康", "豊臣 秀吉", "南方 熊楠", "黒田 官兵衛", "溝上 幸太"], ["ナポレオン", "織田 信長", "武田 信玄", "源 頼朝", "岸田 健吾"], ["大久保 利通", "西郷 隆盛", "足利 尊氏", "ペリー", "木戸 孝允"]];
+var member = [];
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
 }, false);*/ //リロード前に確認ダイアログを表示
@@ -267,6 +267,7 @@ function set(num) {
   else { ret = num; }
   return ret;
 }
+
 function new_people() {
   var new_name = document.getElementById('form_name').value;
   var new_grade = document.getElementsByClassName ('radio');
@@ -276,7 +277,24 @@ function new_people() {
       break ;
     }
   }
+  
+  member = JSON.parse(localStorage.getItem("member"))
   member[value].push(new_name);
+  localStorage.setItem("member",JSON.stringify(member));
+  document.getElementById('decide').disabled = true;
+  document.getElementById('decide').style.backgroundColor = '#BFBFBF';
+  if (value == 0) {
+    var new_tab_where = 'one';
+  }else if (value == 1) {
+    var new_tab_where = 'two';
+  }else{
+    var new_tab_where = 'three';
+  }
+  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
+  pageChange(html_home, 'side_home');
+  tab(new_tab_where);
+  reload_NoA('count');
+  reload_people();
 
 }
 function check(element) {

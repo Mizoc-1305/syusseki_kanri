@@ -416,11 +416,16 @@ select{
   border-radius: 7px;
   border: none;
 }
+.form_file{
+  height: 50px;
+  width: 300px;
+  border-radius: 3px;
+}
 
 .copyright{
   position: absolute;
-  margin-top: 530px;
-  margin-left: 980px;
+  margin-top: 60%;
+  margin-left: 78%;
 }
 .menu_tile{
 margin-top: 50px;

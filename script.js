@@ -276,7 +276,11 @@ function new_people() {
       break ;
     }
   }
-  member[new_grade].push(new_name);
+  alert(member[Number(new_grade)]);
+  var new_people_appended = member[new_grade];
+  new_people_appended.push(new_name);
+  member[new_grade] = new_people_appended;
+
 }
 function check(element) {
   var id = element.id;

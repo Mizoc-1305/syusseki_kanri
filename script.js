@@ -260,7 +260,7 @@ function openAna(element) {
 function openSet(element) {
   var headSet = document.getElementById('title');
   headSet.innerHTML = '設定 - 出席管理システム';
-  var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div>'
+  var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMenber" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_setEx"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="menu_setEx"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの書き出し</p></div>'
   pageChange(html_set, element);
 }
 function openNew(){

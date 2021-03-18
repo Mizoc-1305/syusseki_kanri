@@ -215,6 +215,24 @@ hr{
   height: 180px;
   background-color: #BDD7EE;
 }
+.menu_setEx{
+  margin-left: 50px;
+  width: 180px;
+  height: 180px;
+  background-color: #BDD7EE;
+}
+.menu_setIn{
+  margin-left: 50px;
+  width: 180px;
+  height: 180px;
+  background-color: #BDD7EE;
+}
+.menu_dataEx{
+  margin-left: 50px;
+  width: 180px;
+  height: 180px;
+  background-color: #BDD7EE;
+}
 .menu_icon{
   margin-top: 15px;
   margin-left: 40px;
@@ -230,7 +248,6 @@ hr{
   font-size: 20px;
   font-family: BIZ UDPゴシック;
   text-align: center;
-
 }
 #dateArea{
   margin-top: 30px;
@@ -394,4 +411,9 @@ select{
   font-family: BIZ UDPゴシック;
   border-radius: 7px;
   border: none;
+}
+
+.copyright{
+  margin-top: 390px;
+  margin-left: 990px;
 }

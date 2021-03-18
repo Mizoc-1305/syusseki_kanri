@@ -268,7 +268,7 @@ function set(num) {
   return ret;
 }
 function new_people() {
-  var new_name = document.getElementById('form_name');
+  var new_name = document.getElementById('form_name').value;
   var new_grade = document.getElementsByClassName ('radio');
   for ( var value="", i=new_grade.length; i--;) {
     if ( new_grade[i].checked ) {
@@ -276,10 +276,7 @@ function new_people() {
       break ;
     }
   }
-  alert(member[Number(new_grade)]);
-  var new_people_appended = member[new_grade];
-  new_people_appended.push(new_name);
-  member[new_grade] = new_people_appended;
+  member[value].push(new_name);
 
 }
 function check(element) {

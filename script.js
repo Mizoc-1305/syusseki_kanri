@@ -4,7 +4,7 @@ var tab_where;
 var day_array = [];
 var day_lentgh = JSON.parse(localStorage.getItem("day")).length;
 var day_index = day_lentgh - 1;
-var member = [["徳川 家康", "豊臣 秀吉", "南方 熊楠", "黒田 官兵衛", "溝上 幸太"], ["ナポレオン", "織田 信長", "武田 信玄", "源 頼朝", "岸田 健吾"], ["大久保 利通", "西郷 隆盛", "足利 尊氏", "ペリー", "木戸 孝允"]]
+var member = [["徳川 家康", "豊臣 秀吉", "南方 熊楠", "黒田 官兵衛", "溝上 幸太"], ["ナポレオン", "織田 信長", "武田 信玄", "源 頼朝", "岸田 健吾"], ["大久保 利通", "西郷 隆盛", "足利 尊氏", "ペリー", "木戸 孝允"]];
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
 }, false);*/ //リロード前に確認ダイアログを表示
@@ -187,6 +187,7 @@ function before() {
     }
   }
 }
+
 function tab(id) {
   var grade = document.getElementById(id);
   grade.style.backgroundColor = '#BDD7EE';
@@ -229,7 +230,7 @@ function pageChange(html, id) {
   side_tab(id);
 }
 function openHome(element) {
-  html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
+  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
   pageChange(html_home, element);
   tab(tab_where);
   reload_NoA('count');
@@ -242,7 +243,7 @@ window.onload = function () {
   reload_NoA('count');
 }
 function openAna(element) {
-  html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
+  var html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
   pageChange(html_ana, element);
   day_lentgh = JSON.parse(localStorage.getItem("day")).length;
   day_index = day_lentgh - 1;
@@ -255,7 +256,7 @@ function openSet(element) {
   pageChange(html_set, element);
 }
 function openNew() {
-  html_set = '<div class="form"><h2>メンバーの追加</h2><h4>学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text"></div><button id="decide" onclick="new_people()">メンバーを追加</button></div>'
+  html_new = '<div class="form"><h2>メンバーの追加</h2><h4>学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text"></div><button id="decide" onclick="new_people()">メンバーを追加</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_set;
 }
@@ -267,7 +268,7 @@ function set(num) {
   return ret;
 }
 function new_people() {
-  
+
 }
 function check(element) {
   var id = element.id;

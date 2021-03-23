@@ -5,6 +5,7 @@ var day_array = [];
 var day_lentgh = [];
 var day_index = day_lentgh - 1;
 var member = [];
+var array = [];
 var reader = new FileReader();
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
@@ -291,6 +292,39 @@ function setting_export() {
   download.download = filename;
   download.click();
   (window.URL || window.webkitURL).revokeObjectURL(url);
+}
+function excel_input() {
+  var first_index = ["名前"];
+  first_index = JSON.parse(localStorage.getItem('day'));
+}
+function sheet_to_workbook(sheet, opts){
+  var n = opts && opts.sheet ? opts.sheet : "Sheet1";
+  var sheets = {}; sheets[n] = sheet;
+  return { SheetNames: [n], Sheets: sheets };
+}
+
+function aoa_to_workbook(data, opts){
+  return sheet_to_workbook(XLSX.utils.aoa_to_sheet(data, opts), opts);
+}
+
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  return buf;
+}
+
+function excel_output() {
+  excel_input();
+  var write_opts = {
+      type: 'binary'
+  };
+
+  var wb = aoa_to_workbook(array);
+  var wb_out = XLSX.write(wb, write_opts);
+
+  var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
+  saveAs(blob, 'information.xlsx');
 }
 function openSet(element) {
   var headSet = document.getElementById('title');

@@ -556,22 +556,30 @@ function settingFunc(id) {
     excel_output();
   } else if (id_FS == 'listEx') {
     listEx();
-  }else if (id_FS == 'dataReset'){
+  } else if (id_FS == 'dataReset') {
     var checkReset = window.confirm('全てのデータを削除します。よろしいですか？\nなお、この作業は取り消すことができません。事前にデータの書き出し等を行ってください。')
-    if (checkReset){
-      
+    if (checkReset) {
+
     }
   }
 
 }
 function setting_import() {
   var csv_arrays = reader2.result.split('\n');
-  var each_csv_arrays = [];
-  console.log(csv_arrays);
+  var targetStr = '"';
+  var regExp = new RegExp(targetStr, "g");
   for (let index = 0; index < csv_arrays.length; index++) {
-    each_csv_arrays[index] = csv_arrays[index].split(',')
-    localStorage.setItem(each_csv_arrays[0], JSON.stringify(each_csv_arrays[1]));
+    var each_array = csv_arrays[index].replace(regExp, '');
+    each_array = each_array.split(',');
+    console.log(each_array);
   }
+
+  /*  var temp_array = [];
+    for (let index2 = 1; index2 < each_array.length; index2++) {
+      temp_array.push(each_array[index2]);
+    }
+    localStorage.setItem(each_array[0], temp_array);
+  }*/
 }
 
 function new_list() {  //指定されたCSVファイルを読み込み、名簿に追加する

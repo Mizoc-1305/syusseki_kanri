@@ -247,6 +247,12 @@ hr{
   height: 180px;
   background-color: #BDD7EE;
 }
+.menu_dataReset{
+  margin-left: 100px;
+  width: 180px;
+  height: 180px;
+  background-color: #BDD7EE;
+}
 .menu_icon{
   margin-top: 15px;
   margin-left: 40px;

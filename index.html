@@ -64,17 +64,44 @@
 
   <div id="setting_main">
     <div class="menu_tile">
-      <div class="menu_newList" onclick="openNew()">
+      <div id="new" class="menu_newList" onclick="funcSetting(this)">
         <img class="menu_icon" src="newList.png" alt="">
         <p class="menu_Text">名簿の新規作成</p>
       </div>
-      <div class="menu_addMember" onclick="openAdd()">
+      <div id="add" class="menu_addMember" onclick="funcSetting(this)">
         <img class="menu_icon" src="addMember.png" alt="">
         <p class="menu_Text">メンバーの追加</p>
       </div>
-      <div class="menu_delMember" onclick="openDel()">
+      <div id="del" class="menu_delMember" onclick="funcSetting(this)">
         <img class="menu_icon" src="delMember.png" alt="">
         <p class="menu_Text">メンバーの削除</p>
+      </div>
+    </div>
+    <div class="menu_tile_2">
+      <div class="menu_setEx" onclick="setting_export()">
+        <img class="menu_icon" src="setEx.png" alt="">
+        <p class="menu_Text">設定の書き出し</p>
+      </div>
+      <div class="menu_setIn" onclick="setting_import()">
+        <img class="menu_icon" src="setIn.png" alt="">
+        <p class="menu_Text">設定の読み込み</p>
+      </div>
+      <div class="menu_dataEx" onclick="data_export()">
+        <img class="menu_icon" src="dataEx.png" alt="">
+        <p class="menu_Text">出席データの出力</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="new_list">
+    <div class="form">
+      <h2 class="text">名簿の新規作成</h2>
+      <h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4>
+      <div class="fileInput">
+        <p for="name">読み込むCSVファイルを選択してください。</p>
+        <form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile">
+        </div>
+        <button id="load" onclick="new_list()">名簿を読み込み</button>
       </div>
     </div>
     <div class="menu_tile_2">

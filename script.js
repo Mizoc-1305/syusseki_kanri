@@ -338,6 +338,95 @@ function settingFunc(ele){
 
 }
 
+function new_list() {  //指定されたCSVファイルを読み込み、名簿に追加する
+  var csv_member = reader.result.split('\n')
+  var changed_array = []
+  for (let index = 0; index < csv_member.length; index++) {
+    changed_array[index] = csv_member[index].split(',')
+  }
+  localStorage.setItem("member", JSON.stringify(changed_array));
+  document.getElementById('load').disabled = true;
+  document.getElementById('load').style.backgroundColor = '#BFBFBF';
+  open_tab('side_home');
+}
+function select_box(value) {
+  var select_box = document.getElementsByClassName("select")[0];
+  var grade_people = JSON.parse(localStorage.getItem("member"))[value];
+  select_box.innerHTML = "";
+  var default_element = document.createElement('option');
+  default_element.value = "";
+  default_element.textContent = "削除する人を選択してください";
+  select_box.appendChild(default_element);
+  for (let index = 0; index < grade_people.length; index++) {
+    var new_element = document.createElement('option');
+    new_element.value = grade_people[index];
+    new_element.textContent = grade_people[index];
+    select_box.appendChild(new_element);
+  }
+}
+
+function del_member() { //指定されたメンバーを削除する
+
+  var del_name = document.getElementsByClassName('select')[0].value;
+  var checkDel = window.confirm(del_name + 'さんを削除してよろしいですか？');
+  var del_grade = document.getElementsByClassName('radio');
+  if (checkDel) {
+    for (var value = "", i = del_grade.length; i--;) {
+      if (del_grade[i].checked) {
+        var value = del_grade[i].value;
+        break;
+      }
+    }
+  }
+  member = JSON.parse(localStorage.getItem("member"))
+  member[value].splice(member[value].indexOf(del_name), 1);
+  localStorage.setItem("member", JSON.stringify(member));
+  document.getElementById('delete').disabled = true;
+  document.getElementById('delete').style.backgroundColor = '#BFBFBF';
+  if (value == 0) {
+    var del_tab_where = 'one';
+  } else if (value == 1) {
+    var del_tab_where = 'two';
+  } else {
+    var del_tab_where = 'three';
+  }
+  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
+  pageChange(html_home, 'side_home');
+  tab(del_tab_where);
+  reload_NoA('count');
+  reload_people();
+}
+
+function add_member() { //入力されたメンバーを追加する
+  var new_name = document.getElementById('form_name').value;
+  var new_grade = document.getElementsByClassName('radio');
+  for (var value = "", i = new_grade.length; i--;) {
+    if (new_grade[i].checked) {
+      var value = new_grade[i].value;
+      break;
+    }
+  }
+
+  member = JSON.parse(localStorage.getItem("member"))
+  member[value].push(new_name);
+  localStorage.setItem("member", JSON.stringify(member));
+  document.getElementById('decide').disabled = true;
+  document.getElementById('decide').style.backgroundColor = '#BFBFBF';
+  if (value == 0) {
+    var new_tab_where = 'one';
+  } else if (value == 1) {
+    var new_tab_where = 'two';
+  } else {
+    var new_tab_where = 'three';
+  }
+  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
+  pageChange(html_home, 'side_home');
+  tab(new_tab_where);
+  reload_NoA('count');
+  reload_people();
+
+}
+
 /* function openHome(element) {
   var headHome = document.getElementById('title');
   headHome.innerHTML = 'ホーム - 出席管理システム';
@@ -487,7 +576,7 @@ function setting_export() {
   (new CSV(values)).save('setting.csv')
 }
 function setting_import() {
-  
+
 }
 function excel_input() {
   var first_index = ["項目"];
@@ -545,7 +634,7 @@ function excel_output() {
   saveAs(blob, 'information.xlsx');
 }
 
-function openNew() {
+/*function openNew() {
   var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile"></div><button id="load" onclick="new_list()">名簿を読み込み</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_new;
@@ -555,40 +644,12 @@ function openNew() {
 
     reader.readAsText(result);
   })
-}
-function new_list() {
-  var csv_member = reader.result.split('\n')
-  var changed_array = []
-  for (let index = 0; index < csv_member.length; index++) {
-    changed_array[index] = csv_member[index].split(',')
-  }
-  localStorage.setItem("member", JSON.stringify(changed_array));
-  document.getElementById('load').disabled = true;
-  document.getElementById('load').style.backgroundColor = '#BFBFBF';
-  openHome('side_home');
-}
-function select_box(value) {
-  var select_box = document.getElementsByClassName("select")[0];
-  var grade_people = JSON.parse(localStorage.getItem("member"))[value];
-  select_box.innerHTML = "";
-  var default_element = document.createElement('option');
-  default_element.value = "";
-  default_element.textContent = "削除する人を選択してください";
-  select_box.appendChild(default_element);
-  for (let index = 0; index < grade_people.length; index++) {
-    var new_element = document.createElement('option');
-    new_element.value = grade_people[index];
-    new_element.textContent = grade_people[index];
-    select_box.appendChild(new_element);
-  }
-}
-function openAdd() {
+}*/
+
+/*function openAdd() {
   var html_add = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name"><p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p></div><button id="decide" onclick="new_member()">メンバーを追加</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_add;
-
-}
-function del_member() {
 
   var del_name = document.getElementsByClassName('select')[0].value;
   var checkDel = window.confirm(del_name + 'さんを削除してよろしいですか？');
@@ -623,7 +684,7 @@ function openDel() {
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_del;
   select_box("0");
-}
+}*/
 
 function set(num) {
   var ret;
@@ -632,7 +693,8 @@ function set(num) {
   return ret;
 }
 
-function add_member() {
+
+function add_member() { //入力されたメンバーを追加する
   var new_name = document.getElementById('form_name').value;
   var new_grade = document.getElementsByClassName('radio');
   for (var value = "", i = new_grade.length; i--;) {
@@ -654,12 +716,14 @@ function add_member() {
   } else {
     var new_tab_where = 'three';
   }
-  open_tab('side_home');
+  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
+  pageChange(html_home, 'side_home');
   tab(new_tab_where);
   reload_NoA('count');
   reload_people();
 
 }
+
 function check(element) {
   var id = element.id;
   var nop = document.getElementById('count');

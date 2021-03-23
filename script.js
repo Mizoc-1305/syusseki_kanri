@@ -242,7 +242,6 @@ function pageChange(html, id) {
   document.getElementById('setting_main').style.display = "none";
 
 function open_tab(ele){
-
   var id = ele.id;
 
 
@@ -279,6 +278,15 @@ function open_tab(ele){
 
 }
 
+function funcSetting(ele){
+  var id_FS = ele.id;
+
+  if (id_FS == 'new'){
+
+  }
+
+}
+
 /* function openHome(element) {
   var headHome = document.getElementById('title');
   headHome.innerHTML = 'ホーム - 出席管理システム';
@@ -288,6 +296,23 @@ function open_tab(ele){
   tab(tab_where);
   reload_NoA('count');
   reload_people();
+} */
+/* function openAna(element) {
+  var headAna = document.getElementById('title');
+  headAna.innerHTML = '分析 - 出席管理システム';
+  var html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
+  pageChange(html_ana, element);
+  for_day_length();
+  day_index = day_lentgh - 1;
+  document.getElementById('dateArea').innerHTML = get_time()[1];
+  pull_array();
+  reload_NoA('people');
+} */
+/* function openSet(element) {
+  var headSet = document.getElementById('title');
+  headSet.innerHTML = '設定 - 出席管理システム';
+  var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMember" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_tile_2"><div class="menu_setEx" onclick="setting_export()"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn" onclick="setting_import()"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="menu_dataEx" onclick="data_export()"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの出力</p></div></div>'
+  pageChange(html_set, element);
 } */
 window.onload = function () {
   if (localStorage.hasOwnProperty('member')) {
@@ -312,17 +337,7 @@ window.onload = function () {
   reload_tab();
   reload_NoA('count');
 }
-function openAna(element) {
-  var headAna = document.getElementById('title');
-  headAna.innerHTML = '分析 - 出席管理システム';
-  var html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
-  pageChange(html_ana, element);
-  for_day_length();
-  day_index = day_lentgh - 1;
-  document.getElementById('dateArea').innerHTML = get_time()[1];
-  pull_array();
-  reload_NoA('people');
-}
+
 function setting_export() {
   var values = [];
   var current_values = [];
@@ -385,12 +400,7 @@ function excel_output() {
   var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
   saveAs(blob, 'information.xlsx');
 }
-function openSet(element) {
-  var headSet = document.getElementById('title');
-  headSet.innerHTML = '設定 - 出席管理システム';
-  var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMember" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_tile_2"><div class="menu_setEx" onclick="setting_export()"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn" onclick="setting_import()"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="menu_dataEx" onclick="data_export()"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの出力</p></div></div>'
-  pageChange(html_set, element);
-}
+
 function openNew() {
   var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile"></div><button id="load" onclick="new_list()">名簿を読み込み</button></div>'
   var change_area = document.getElementById('change_area');

@@ -6,9 +6,7 @@ var day_lentgh = JSON.parse(localStorage.getItem("day")).length;
 var day_index = day_lentgh - 1;
 var member = [];
 var reader = new FileReader();
-/*window.addEventListener('beforeunload', function (e) {
-  e.returnValue = '';
-}, false);*/ //リロード前に確認ダイアログを表示
+
 
 function get_time() {
   var now = new Date();
@@ -233,8 +231,8 @@ function openHome(element) {
   var headHome = document.getElementById('title');
   headHome.innerHTML = 'ホーム - 出席管理システム';
   member = JSON.parse(localStorage.getItem('member'));
-  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
-  pageChange(html_home, element);
+  //var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
+  //pageChange(html_home, element);
   tab(tab_where);
   reload_NoA('count');
   reload_people();
@@ -317,7 +315,7 @@ function openAdd() {
 
 }
 function del_member() {
-  
+
   var del_name = document.getElementsByClassName('select')[0].value;
   var checkDel = window.confirm(del_name + 'さんを削除してよろしいですか？');
   var del_grade = document.getElementsByClassName('radio');

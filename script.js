@@ -113,10 +113,11 @@ function setting_export() {
     current_values.push(JSON.parse(localStorage.getItem(keys[i])));
     values.push(current_values);
   }
-  (new CSV(values)).save('setting.csv')
+  (new CSV(values)).save('setting.csv');
 }
 function setting_import() {
   var csv_arrays = reader.result_setting.split('\n')
+  console.log(csv_arrays);
   var each_csv_arrays = [];
   for (let index = 0; index < csv_member.length; index++) {
     each_csv_arrays[index] = csv_arrays[index].split(',')
@@ -547,6 +548,12 @@ function settingFunc(id){
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'none';
     document.getElementById('set_In').style.display = 'block';
+    var form = document.forms.nameform2;
+    form.namefile2.addEventListener('change', function (e) {
+      var result_setting = e.target.files[0];
+
+      reader.readAsText(result_setting);
+    })
 
 
   }else if (id_FS == 'dataEx'){

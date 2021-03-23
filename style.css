@@ -163,24 +163,6 @@ hr{
   padding-left: 200px;
   width: 800px;
 }
-.menu_newList{
-  margin-left: 150px;
-  width: 180px;
-  height: 180px;
-  background-color: #BDD7EE;
-}
-.menu_addMember{
-  margin-left: 50px;
-  width: 180px;
-  height: 180px;
-  background-color: #BDD7EE;
-}
-.menu_delMenber{
-  margin-left: 50px;
-  width: 180px;
-  height: 180px;
-  background-color: #BDD7EE;
-}
 .menu_icon{
   margin-top: 15px;
   margin-left: 40px;
@@ -206,7 +188,7 @@ hr{
   text-align: center;
 }
 .menu_newList{
-  margin-left: 350px;
+  margin-left: 200px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
@@ -224,13 +206,13 @@ hr{
   background-color: #BDD7EE;
 }
 .menu_setEx{
-  margin-left: 350px;
+  margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
 }
 .menu_setIn{
-  margin-left: 100px;
+  margin-left: 200px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
@@ -242,7 +224,7 @@ hr{
   background-color: #BDD7EE;
 }
 .menu_listEx{
-  margin-left: 350px;
+  margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
@@ -454,51 +436,4 @@ select{
   position: absolute;
   margin-top: 60%;
   margin-left: 78%;
-}
-.menu_tile{
-margin-top: 50px;
-display: flex;
-}
-.menu_tile_2{
-margin-top: 80px;
-display: flex;
-}
-.menu_Text{
-text-align: center;
-}
-.menu_newList{
-margin-left: 350px;
-width: 180px;
-height: 180px;
-background-color: #BDD7EE;
-}
-.menu_addMember{
-margin-left: 100px;
-width: 180px;
-height: 180px;
-background-color: #BDD7EE;
-}
-.menu_delMember{
-margin-left: 100px;
-width: 180px;
-height: 180px;
-background-color: #BDD7EE;
-}
-.menu_setEx{
-margin-left: 350px;
-width: 180px;
-height: 180px;
-background-color: #BDD7EE;
-}
-.menu_setIn{
-margin-left: 100px;
-width: 180px;
-height: 180px;
-background-color: #BDD7EE;
-}
-.menu_dataEx{
-margin-left: 100px;
-width: 180px;
-height: 180px;
-background-color: #BDD7EE;
 }

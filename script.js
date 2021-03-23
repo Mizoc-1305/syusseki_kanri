@@ -345,7 +345,7 @@ function setting_export() {
   (window.URL || window.webkitURL).revokeObjectURL(url);
 }
 function excel_input() {
-  var first_index = ["名前"];
+  var first_index = ["項目"];
   var days = JSON.parse(localStorage.getItem('day'));
   for(var i = 0; i < days.length; i++){
     first_index.push(days[i]);

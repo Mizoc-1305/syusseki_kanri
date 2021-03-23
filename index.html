@@ -78,15 +78,15 @@
       </div>
     </div>
     <div class="menu_tile_2">
-      <div id="setEx" class="menu_setEx" onclick="setting_export()">
+      <div id="setEx" class="menu_setEx" onclick="settingfunc(this.id)">
         <img class="menu_icon" src="setEx.png" alt="">
         <p class="menu_Text">設定の書き出し</p>
       </div>
-      <div id="setIn" class="menu_setIn" onclick="setting_import()">
+      <div id="setIn" class="menu_setIn" onclick="settingfunc(this.id)">
         <img class="menu_icon" src="setIn.png" alt="">
         <p class="menu_Text">設定の読み込み</p>
       </div>
-      <div id="dataEx" class="menu_dataEx" onclick="data_export()">
+      <div id="dataEx" class="menu_dataEx" onclick="settingfunc(this.id)">
         <img class="menu_icon" src="dataEx.png" alt="">
         <p class="menu_Text">出席データの出力</p>
       </div>
@@ -99,7 +99,7 @@
       <h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4>
       <div class="fileInput">
         <p for="name">読み込むCSVファイルを選択してください。</p>
-        <form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile">
+        <form name="nameform"><input type="file" class="form_file" name="namefile">
         </div>
         <button id="load" onclick="new_list()">名簿を読み込み</button>
       </div>
@@ -109,6 +109,20 @@
   <div id="add_member"></div>
 
   <div id="del_member"></div>
+
+  <div id="set_In">
+    <div class="form">
+      <h2 class="text">設定のインポート</h2>
+      <h4 class="loadFile">設定（.csv）の読み込み</h4>
+      <div class="fileInput">
+        <p for="name">読み込むCSVファイルを選択してください。</p>
+        <form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile">
+        </div>
+        <button id="load" onclick="new_list()">設定を読み込み</button>
+      </div>
+    </div>
+  </div>
+
 
   <script src="script.js"></script>
 </body>

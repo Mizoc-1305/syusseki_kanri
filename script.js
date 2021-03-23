@@ -17,6 +17,168 @@ function for_day_length() {
   }
 }
 for_day_length()
+class CSV {
+  constructor(data, keys = false) {
+    this.ARRAY  = Symbol('ARRAY')
+    this.OBJECT = Symbol('OBJECT')
+
+    this.data = data
+
+    if (CSV.isArray(data)) {
+      if (0 == data.length) {
+        this.dataType = this.ARRAY
+      } else if (CSV.isObject(data[0])) {
+        this.dataType = this.OBJECT
+      } else if (CSV.isArray(data[0])) {
+        this.dataType = this.ARRAY
+      } else {
+        throw Error('Error: 未対応のデータ型です')
+      }
+    } else {
+      throw Error('Error: 未対応のデータ型です')
+    }
+
+    this.keys = keys
+  }
+
+  toString() {
+    if (this.dataType === this.ARRAY) {
+      return this.data.map((record) => (
+        record.map((field) => (
+          CSV.prepare(field)
+        )).join(',')
+      )).join('\n')
+    } else if (this.dataType === this.OBJECT) {
+      const keys = this.keys || Array.from(this.extractKeys(this.data))
+
+      const arrayData = this.data.map((record) => (
+        keys.map((key) => record[key])
+      ))
+
+      console.log([].concat([keys], arrayData))
+
+      return [].concat([keys], arrayData).map((record) => (
+        record.map((field) => (
+          CSV.prepare(field)
+        )).join(',')
+      )).join('\n')
+    }
+  }
+
+  save(filename = 'data.csv') {
+    if (!filename.match(/\.csv$/i)) { filename = filename + '.csv' }
+
+    console.info('filename:', filename)
+    console.table(this.data)
+
+    const csvStr = this.toString()
+
+    const bom     = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const blob    = new Blob([bom, csvStr], {'type': 'text/csv'});
+    const url     = window.URL || window.webkitURL;
+    const blobURL = url.createObjectURL(blob);
+
+    let a      = document.createElement('a');
+    a.download = decodeURI(filename);
+    a.href     = blobURL;
+    a.type     = 'text/csv';
+
+    a.click();
+  }
+
+  extractKeys(data) {
+    return new Set([].concat(...this.data.map((record) => Object.keys(record))))
+  }
+
+  static prepare(field) {
+    return '"' + (''+field).replace(/"/g, '""') + '"'
+  }
+
+  static isObject(obj) {
+    return '[object Object]' === Object.prototype.toString.call(obj)
+  }
+
+  static isArray(obj) {
+    return '[object Array]' === Object.prototype.toString.call(obj)
+  }
+}
+function setting_export() {
+  var values = [];
+  var current_values = [];
+  var keys = Object.keys(localStorage)
+
+  for (let i = 0; i < keys.length; i++) {
+    current_values = [];
+    current_values.push(keys[i]);
+    current_values.push(JSON.parse(localStorage.getItem(keys[i])));
+    values.push(current_values);
+  }
+  (new CSV(values)).save('setting.csv')
+}
+function setting_import() {
+  var csv_arrays = reader.result_setting.split('\n')
+  var each_csv_arrays = [];
+  for (let index = 0; index < csv_member.length; index++) {
+    each_csv_arrays[index] = csv_arrays[index].split(',')
+    localStorage.push(each_csv_arrays[0],JSON.stringify(each_csv_arrays[1]));
+  }
+}
+function excel_input() {
+  var first_index = ["項目"];
+  var days = JSON.parse(localStorage.getItem('day'));
+  for(var i = 0; i < days.length; i++){
+    first_index.push(days[i]);
+  }
+  main_array.push(first_index);
+  var excel_member = JSON.parse(localStorage.getItem('member'));
+  for (let index_1 = 0; index_1 < excel_member.length; index_1++) {
+    var excel_member_each = excel_member[index_1]
+    for (let index_2 = 0; index_2 < excel_member_each.length; index_2++) {
+      var someone = excel_member_each[index_2];
+      var came_day = [];
+      came_day.push(someone);
+      for(var a = 0; a < days.length; a++){
+        var came_member_day = JSON.parse(localStorage.getItem(days[a]));
+        if (came_member_day.indexOf(someone) == -1) {
+          came_day.push("");
+        }else{
+          came_day.push("〇")
+        }
+      }
+      main_array.push(came_day);
+    }
+  }
+}
+function sheet_to_workbook(sheet, opts) {
+  var n = opts && opts.sheet ? opts.sheet : "Sheet1";
+  var sheets = {}; sheets[n] = sheet;
+  return { SheetNames: [n], Sheets: sheets };
+}
+
+function aoa_to_workbook(data, opts) {
+  return sheet_to_workbook(XLSX.utils.aoa_to_sheet(data, opts), opts);
+}
+
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  return buf;
+}
+
+function excel_output() {
+  excel_input();
+  var write_opts = {
+    type: 'binary'
+  };
+
+  var wb = aoa_to_workbook(main_array);
+  var wb_out = XLSX.write(wb, write_opts);
+
+  var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
+  saveAs(blob, 'information.xlsx');
+}
+
 function get_time() {
   var now = new Date();
   var month = now.getMonth() + 1;
@@ -458,167 +620,6 @@ window.onload = function () {
   reload_NoA('count');
 }
 
-class CSV {
-  constructor(data, keys = false) {
-    this.ARRAY  = Symbol('ARRAY')
-    this.OBJECT = Symbol('OBJECT')
-
-    this.data = data
-
-    if (CSV.isArray(data)) {
-      if (0 == data.length) {
-        this.dataType = this.ARRAY
-      } else if (CSV.isObject(data[0])) {
-        this.dataType = this.OBJECT
-      } else if (CSV.isArray(data[0])) {
-        this.dataType = this.ARRAY
-      } else {
-        throw Error('Error: 未対応のデータ型です')
-      }
-    } else {
-      throw Error('Error: 未対応のデータ型です')
-    }
-
-    this.keys = keys
-  }
-
-  toString() {
-    if (this.dataType === this.ARRAY) {
-      return this.data.map((record) => (
-        record.map((field) => (
-          CSV.prepare(field)
-        )).join(',')
-      )).join('\n')
-    } else if (this.dataType === this.OBJECT) {
-      const keys = this.keys || Array.from(this.extractKeys(this.data))
-
-      const arrayData = this.data.map((record) => (
-        keys.map((key) => record[key])
-      ))
-
-      console.log([].concat([keys], arrayData))
-
-      return [].concat([keys], arrayData).map((record) => (
-        record.map((field) => (
-          CSV.prepare(field)
-        )).join(',')
-      )).join('\n')
-    }
-  }
-
-  save(filename = 'data.csv') {
-    if (!filename.match(/\.csv$/i)) { filename = filename + '.csv' }
-
-    console.info('filename:', filename)
-    console.table(this.data)
-
-    const csvStr = this.toString()
-
-    const bom     = new Uint8Array([0xEF, 0xBB, 0xBF]);
-    const blob    = new Blob([bom, csvStr], {'type': 'text/csv'});
-    const url     = window.URL || window.webkitURL;
-    const blobURL = url.createObjectURL(blob);
-
-    let a      = document.createElement('a');
-    a.download = decodeURI(filename);
-    a.href     = blobURL;
-    a.type     = 'text/csv';
-
-    a.click();
-  }
-
-  extractKeys(data) {
-    return new Set([].concat(...this.data.map((record) => Object.keys(record))))
-  }
-
-  static prepare(field) {
-    return '"' + (''+field).replace(/"/g, '""') + '"'
-  }
-
-  static isObject(obj) {
-    return '[object Object]' === Object.prototype.toString.call(obj)
-  }
-
-  static isArray(obj) {
-    return '[object Array]' === Object.prototype.toString.call(obj)
-  }
-}
-function setting_export() {
-  var values = [];
-  var current_values = [];
-  var keys = Object.keys(localStorage)
-
-  for (let i = 0; i < keys.length; i++) {
-    current_values = [];
-    current_values.push(keys[i]);
-    current_values.push(JSON.parse(localStorage.getItem(keys[i])));
-    values.push(current_values);
-  }
-  (new CSV(values)).save('setting.csv')
-}
-function setting_import() {
-  var csv_arrays = reader.result_setting.split('\n')
-  var each_csv_arrays = [];
-  for (let index = 0; index < csv_member.length; index++) {
-    each_csv_arrays[index] = csv_arrays[index].split(',')
-    localStorage.push(each_csv_arrays[0],JSON.stringify(each_csv_arrays[1]));
-  }
-}
-function excel_input() {
-  var first_index = ["項目"];
-  var days = JSON.parse(localStorage.getItem('day'));
-  for(var i = 0; i < days.length; i++){
-    first_index.push(days[i]);
-  }
-  main_array.push(first_index);
-  var excel_member = JSON.parse(localStorage.getItem('member'));
-  for (let index_1 = 0; index_1 < excel_member.length; index_1++) {
-    var excel_member_each = excel_member[index_1]
-    for (let index_2 = 0; index_2 < excel_member_each.length; index_2++) {
-      var someone = excel_member_each[index_2];
-      var came_day = [];
-      came_day.push(someone);
-      for(var a = 0; a < days.length; a++){
-        var came_member_day = JSON.parse(localStorage.getItem(days[a]));
-        if (came_member_day.indexOf(someone) == -1) {
-          came_day.push("");
-        }else{
-          came_day.push("〇")
-        }
-      }
-      main_array.push(came_day);
-    }
-  }
-}
-function sheet_to_workbook(sheet, opts) {
-  var n = opts && opts.sheet ? opts.sheet : "Sheet1";
-  var sheets = {}; sheets[n] = sheet;
-  return { SheetNames: [n], Sheets: sheets };
-}
-
-function aoa_to_workbook(data, opts) {
-  return sheet_to_workbook(XLSX.utils.aoa_to_sheet(data, opts), opts);
-}
-
-function s2ab(s) {
-  var buf = new ArrayBuffer(s.length);
-  var view = new Uint8Array(buf);
-  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-  return buf;
-}
-
-function excel_output() {
-  excel_input();
-  var write_opts = {
-    type: 'binary'
-  };
-
-  var wb = aoa_to_workbook(main_array);
-  var wb_out = XLSX.write(wb, write_opts);
-
-  var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
-  saveAs(blob, 'information.xlsx');
-}
 function set(num) {
   var ret;
   if (num < 10) { ret = "0" + num; }

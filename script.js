@@ -10,7 +10,7 @@ var reader = new FileReader();
   e.returnValue = '';
 }, false);*/ //リロード前に確認ダイアログを表示
 function for_day_length() {
-  if (JSON.parse(localStorage.getItem("day")).length == null) {
+  if (JSON.parse(localStorage.getItem("day")) == null) {
     day_lentgh = 0;
   } else {
     day_lentgh = JSON.parse(localStorage.getItem("day")).length;

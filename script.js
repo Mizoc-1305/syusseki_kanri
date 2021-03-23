@@ -245,6 +245,7 @@ function reload_tab() {
 
 function add_member() {
   var new_name = document.getElementById('form_name').value;
+  alert(new_name);
   var new_grade = document.getElementsByClassName('radio');
   for (var value = "", i = new_grade.length; i--;) {
     if (new_grade[i].checked) {
@@ -348,20 +349,26 @@ function settingFunc(id){
     var form = document.forms.nameform;
     form.namefile.addEventListener('change', function (e) {
       var result = e.target.files[0];
-  
+
       reader.readAsText(result);
     })
   }else if (id_FS == 'add'){
+    var overwriteAdd = document.getElementById('add_member');
+
     document.getElementById('setting_main').style.display = "none";
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'block';
     document.getElementById('del_member').style.display = 'none';
-    
+    overwriteAdd.innerHTML = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio"  checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" id="form_name" class="form_text"><p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p></div><button id="decide" onclick="add_member()">メンバーを追加</button></div>'
+
   }else if (id_FS == 'del'){
+    var overwriteDel = document.getElementById('del_member');
+
     document.getElementById('setting_main').style.display = "none";
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'block';
+    overwriteDel.innerHTML = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'
     select_box("0");
   }
 

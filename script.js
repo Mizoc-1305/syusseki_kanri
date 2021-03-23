@@ -571,15 +571,12 @@ function setting_import() {
   for (let index = 0; index < csv_arrays.length; index++) {
     var each_array = csv_arrays[index].replace(regExp, '');
     each_array = each_array.split(',');
-    console.log(each_array);
-  }
-
-  /*  var temp_array = [];
+    var temp_array = [];
     for (let index2 = 1; index2 < each_array.length; index2++) {
       temp_array.push(each_array[index2]);
     }
     localStorage.setItem(each_array[0], temp_array);
-  }*/
+  }
 }
 
 function new_list() {  //指定されたCSVファイルを読み込み、名簿に追加する

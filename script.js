@@ -251,6 +251,9 @@ function pageChange(html, id) {
 
   document.getElementById('analyze_main').style.display = "none";
   document.getElementById('setting_main').style.display = "none";
+  document.getElementById('new_list').style.display = 'none';
+  document.getElementById('add_member').style.display = 'none';
+  document.getElementById('del_member').style.display = 'none';
 
 function open_tab(ele){
   var id = ele.id;
@@ -262,6 +265,9 @@ function open_tab(ele){
     document.getElementById('home_main').style.display = "block";
     document.getElementById('analyze_main').style.display = "none";
     document.getElementById('setting_main').style.display = "none";
+    document.getElementById('new_list').style.display = 'none';
+    document.getElementById('add_member').style.display = 'none';
+    document.getElementById('del_member').style.display = 'none';
     tab(tab_where);
     reload_NoA('count');
     reload_people();
@@ -272,6 +278,9 @@ function open_tab(ele){
     document.getElementById('home_main').style.display = "none";
     document.getElementById('analyze_main').style.display = "block";
     document.getElementById('setting_main').style.display = "none";
+    document.getElementById('new_list').style.display = 'none';
+    document.getElementById('add_member').style.display = 'none';
+    document.getElementById('del_member').style.display = 'none';
     side_tab(id);
     for_day_length();
     day_index = day_lentgh - 1;
@@ -284,17 +293,47 @@ function open_tab(ele){
     document.getElementById('home_main').style.display = "none";
     document.getElementById('analyze_main').style.display = "none";
     document.getElementById('setting_main').style.display = "block";
+    document.getElementById('new_list').style.display = 'none';
+    document.getElementById('add_member').style.display = 'none';
+    document.getElementById('del_member').style.display = 'none';
     side_tab(id);
   }
 
 }
 
+  document.getElementById('new_list').style.display = 'none';
+  document.getElementById('add_member').style.display = 'none';
+  document.getElementById('del_member').style.display = 'none';
 
 function settingFunc(ele){
   var id_FS = ele.id;
 
   if (id_FS == 'new'){
+    document.getElementById('setting_main').style.display = "none";
+    document.getElementById('new_list').style.display = 'block';
+    document.getElementById('add_member').style.display = 'none';
+    document.getElementById('del_member').style.display = 'none';
 
+    var csv_member = reader.result.split('\n')
+    var changed_array = []
+    for (let index = 0; index < csv_member.length; index++) {
+      changed_array[index] = csv_member[index].split(',')
+    }
+    localStorage.setItem("member", JSON.stringify(changed_array));
+    document.getElementById('load').disabled = true;
+    document.getElementById('load').style.backgroundColor = '#BFBFBF';
+    openHome('side_home');
+  }else if (id_FS == 'add'){
+    document.getElementById('setting_main').style.display = "none";
+    document.getElementById('new_list').style.display = 'none';
+    document.getElementById('add_member').style.display = 'block';
+    document.getElementById('del_member').style.display = 'none';
+  }else if (id_FS == 'del'){
+    document.getElementById('setting_main').style.display = "none";
+    document.getElementById('new_list').style.display = 'none';
+    document.getElementById('add_member').style.display = 'none';
+    document.getElementById('del_member').style.display = 'block';
+    select_box("0");
   }
 
 }
@@ -594,7 +633,7 @@ function set(num) {
   return ret;
 }
 
-function new_member() {
+function add_member() {
   var new_name = document.getElementById('form_name').value;
   var new_grade = document.getElementsByClassName('radio');
   for (var value = "", i = new_grade.length; i--;) {

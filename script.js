@@ -654,8 +654,7 @@ function add_member() {
   } else {
     var new_tab_where = 'three';
   }
-  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
-  pageChange(html_home, 'side_home');
+  open_tab('side_home');
   tab(new_tab_where);
   reload_NoA('count');
   reload_people();

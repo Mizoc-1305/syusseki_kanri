@@ -233,15 +233,27 @@ function pageChange(html, id) {
   change_area.innerHTML = html;
   side_tab(id);
 }
-
+  console.log('Hello');
   document.getElementById('analyze_main').style.display = "none";
   document.getElementById('setting_main').style.display = "none";
 
-function open(id){
-  if (id = 'side_home'){
-    var document.getElementById('title');
-    title.innerHTML = 'ホーム - 出席管理システム';
+function open(ele){
+  alert('ran!');
 
+  var id = ele.id;
+
+  console.log(id);
+
+  if (id = 'side_home'){
+    var title = document.getElementById('title');
+    title.innerHTML = 'ホーム - 出席管理システム';
+    document.getElementById('home_main').style.display = "block";
+    document.getElementById('analyze_main').style.display = "none";
+    document.getElementById('setting_main').style.display = "none";
+    tab(tab_where);
+    reload_NoA('count');
+    reload_people();
+    side_tab(id);
   }
 }
 
@@ -268,6 +280,11 @@ window.onload = function () {
     day_array = [];
     localStorage.setItem('day', JSON.stringify(day_array));
   }
+  var title = document.getElementById('title');
+  title.innerHTML = 'ホーム - 出席管理システム';
+  document.getElementById('home_main').style.display = "block";
+  document.getElementById('analyze_main').style.display = "none";
+  document.getElementById('setting_main').style.display = "none";
   tab('one');
   reload_people();
   reload_tab();
@@ -278,7 +295,7 @@ function openAna(element) {
   headAna.innerHTML = '分析 - 出席管理システム';
   var html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
   pageChange(html_ana, element);
-  for_day_length;
+  for_day_length();
   day_index = day_lentgh - 1;
   document.getElementById('dateArea').innerHTML = get_time()[1];
   pull_array();

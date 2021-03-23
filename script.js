@@ -273,6 +273,7 @@ document.getElementById('setting_main').style.display = "none";
 document.getElementById('new_list').style.display = 'none';
 document.getElementById('add_member').style.display = 'none';
 document.getElementById('del_member').style.display = 'none';
+document.getElementById('set_In').style.display = 'none';
 
 function open_tab(id){
   if (id == 'side_home'){
@@ -285,6 +286,7 @@ function open_tab(id){
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'none';
+    document.getElementById('set_In').style.display = 'none';
     tab(tab_where);
     reload_NoA('count');
     reload_people();
@@ -298,6 +300,7 @@ function open_tab(id){
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'none';
+    document.getElementById('set_In').style.display = 'none';
     side_tab(id);
     for_day_length();
     day_index = day_lentgh - 1;
@@ -313,6 +316,7 @@ function open_tab(id){
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'none';
+    document.getElementById('set_In').style.display = 'none';
     side_tab(id);
   }
 
@@ -345,6 +349,7 @@ function settingFunc(id){
     document.getElementById('new_list').style.display = 'block';
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'none';
+    document.getElementById('set_In').style.display = 'none';
     var form = document.forms.nameform;
     form.namefile.addEventListener('change', function (e) {
       var result = e.target.files[0];
@@ -358,6 +363,7 @@ function settingFunc(id){
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'block';
     document.getElementById('del_member').style.display = 'none';
+    document.getElementById('set_In').style.display = 'none';
     overwriteAdd.innerHTML = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio"  checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" id="form_name" class="form_text"><p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p></div><button id="decide" onclick="add_member()">メンバーを追加</button></div>'
 
   }else if (id_FS == 'del'){
@@ -367,8 +373,21 @@ function settingFunc(id){
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'block';
+    document.getElementById('set_In').style.display = 'none';
     overwriteDel.innerHTML = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'
     select_box("0");
+  }else if (id_FS == setEx){
+    setting_export()
+  }else if (id_FS == setIn){
+    document.getElementById('setting_main').style.display = "none";
+    document.getElementById('new_list').style.display = 'none';
+    document.getElementById('add_member').style.display = 'none';
+    document.getElementById('del_member').style.display = 'none';
+    document.getElementById('set_In').style.display = 'block';
+
+
+  }else if (id_FS == dataEx){
+    excel_output();
   }
 
 }

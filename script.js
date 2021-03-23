@@ -52,7 +52,12 @@ function side_tab(id) {
 function reload_member(members) {
   var btn = document.getElementsByClassName("btn")[0];
   btn.innerHTML = "";
-  var number = members.length;
+  if (members == null) {
+    var number = 0;
+  }
+  else{
+    var number = members.length;
+  }
   var IDs = [];
   for (let index = 1; index < number + 1; index++) {
     IDs.push("btn_" + index);
@@ -92,7 +97,12 @@ function pull_array() {
   var when_people_arrive = localStorage.getItem(get_time()[1] + "_time");
   people_on_the_day = JSON.parse(people_on_the_day);
   when_people_arrive = JSON.parse(when_people_arrive);
-  for (let index = 0; index < people_on_the_day.length; index++) {
+  if (people_on_the_day == null) {
+    var people_on_the_day_length = 0;
+  }else{
+    var people_on_the_day_length = people_on_the_day.length;
+  }
+  for (let index = 0; index < people_on_the_day_length; index++) {
     var name = people_on_the_day[index];
     var time = when_people_arrive[index];
     append_people(time, name);
@@ -339,7 +349,91 @@ window.onload = function () {
   reload_tab();
   reload_NoA('count');
 }
+class CSV {
+  constructor(data, keys = false) {
+    this.ARRAY  = Symbol('ARRAY')
+    this.OBJECT = Symbol('OBJECT')
 
+    this.data = data
+
+    if (CSV.isArray(data)) {
+      if (0 == data.length) {
+        this.dataType = this.ARRAY
+      } else if (CSV.isObject(data[0])) {
+        this.dataType = this.OBJECT
+      } else if (CSV.isArray(data[0])) {
+        this.dataType = this.ARRAY
+      } else {
+        throw Error('Error: 未対応のデータ型です')
+      }
+    } else {
+      throw Error('Error: 未対応のデータ型です')
+    }
+
+    this.keys = keys
+  }
+
+  toString() {
+    if (this.dataType === this.ARRAY) {
+      return this.data.map((record) => (
+        record.map((field) => (
+          CSV.prepare(field)
+        )).join(',')
+      )).join('\n')
+    } else if (this.dataType === this.OBJECT) {
+      const keys = this.keys || Array.from(this.extractKeys(this.data))
+
+      const arrayData = this.data.map((record) => (
+        keys.map((key) => record[key])
+      ))
+
+      console.log([].concat([keys], arrayData))
+
+      return [].concat([keys], arrayData).map((record) => (
+        record.map((field) => (
+          CSV.prepare(field)
+        )).join(',')
+      )).join('\n')
+    }
+  }
+
+  save(filename = 'data.csv') {
+    if (!filename.match(/\.csv$/i)) { filename = filename + '.csv' }
+
+    console.info('filename:', filename)
+    console.table(this.data)
+
+    const csvStr = this.toString()
+
+    const bom     = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const blob    = new Blob([bom, csvStr], {'type': 'text/csv'});
+    const url     = window.URL || window.webkitURL;
+    const blobURL = url.createObjectURL(blob);
+
+    let a      = document.createElement('a');
+    a.download = decodeURI(filename);
+    a.href     = blobURL;
+    a.type     = 'text/csv';
+
+    a.click();
+  }
+
+  extractKeys(data) {
+    return new Set([].concat(...this.data.map((record) => Object.keys(record))))
+  }
+
+  static prepare(field) {
+    return '"' + (''+field).replace(/"/g, '""') + '"'
+  }
+
+  static isObject(obj) {
+    return '[object Object]' === Object.prototype.toString.call(obj)
+  }
+
+  static isArray(obj) {
+    return '[object Array]' === Object.prototype.toString.call(obj)
+  }
+}
 function setting_export() {
   var values = [];
   var current_values = [];
@@ -351,15 +445,10 @@ function setting_export() {
     current_values.push(JSON.parse(localStorage.getItem(keys[i])));
     values.push(current_values);
   }
-  const filename = "setting.csv";
-  const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
-  const blob = new Blob([bom, values], { type: "text/csv" });
-  const url = (window.URL || window.webkitURL).createObjectURL(blob);
-  const download = document.createElement("a");
-  download.href = url;
-  download.download = filename;
-  download.click();
-  (window.URL || window.webkitURL).revokeObjectURL(url);
+  (new CSV(values)).save('setting.csv')
+}
+function setting_import() {
+  
 }
 function excel_input() {
   var first_index = ["項目"];

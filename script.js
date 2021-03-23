@@ -9,17 +9,12 @@ var reader = new FileReader();
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
 }, false);*/ //リロード前に確認ダイアログを表示
-
 function get_time() {
   var now = new Date();
-  var year = now.getFullYear();
   var month = now.getMonth() + 1;
   var date = now.getDate();
-  var day_of_week = now.getDay()
-  var day = ["日", "月", "火", "水", "木", "金", "土"][day_of_week]
-  var hour = set(now.getHours());
-  var minute = set(now.getMinutes());
-  var second = set(now.getSeconds());
+  var hour = now.getHours();
+  var minute = now.getMinutes();
   var time = hour + ":" + minute;
   var month_date = month + "/" + date
   return [time, month_date];
@@ -259,13 +254,24 @@ function openAna(element) {
 }
 function setting_export() {
   var values = [];
+  var current_values = [];
 	var keys = Object.keys(localStorage)
-	var i = keys.length;
 
-	while ( i-- ) {
-		values.push( keys[i] + ': ' + localStorage.getItem(keys[i]));
-	}
-  console.log(values)
+	for (let i = 0; i < keys.length; i++) {
+    current_values = [];
+    current_values.push(keys[i]);
+    current_values.push(JSON.parse(localStorage.getItem(keys[i])));
+    values.push(current_values);
+  }    
+  const filename = "setting.csv";
+  const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
+  const blob = new Blob([bom, values], { type: "text/csv" });
+  const url = (window.URL || window.webkitURL).createObjectURL(blob);
+  const download = document.createElement("a");
+  download.href = url;
+  download.download = filename;
+  download.click();
+  (window.URL || window.webkitURL).revokeObjectURL(url);
 }
 function openSet(element) {
   var headSet = document.getElementById('title');
@@ -458,6 +464,4 @@ function time() {
   document.getElementById("ClockArea").innerHTML = msg;
 
 }
-
-
 setInterval('time()', 500);

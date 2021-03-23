@@ -278,7 +278,8 @@ function open_tab(ele){
 
 }
 
-function funcSetting(ele){
+
+function settingFunc(ele){
   var id_FS = ele.id;
 
   if (id_FS == 'new'){

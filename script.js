@@ -7,9 +7,8 @@ var day_index = day_lentgh - 1;
 var member = [];
 var array = [];
 var reader = new FileReader();
-/*window.addEventListener('beforeunload', function (e) {
-  e.returnValue = '';
-}, false);*/ //リロード前に確認ダイアログを表示
+
+
 function for_day_length() {
   if (JSON.parse(localStorage.getItem("day")) == null) {
     day_lentgh = 0;
@@ -233,23 +232,41 @@ function pageChange(html, id) {
   change_area.innerHTML = html;
   side_tab(id);
 }
-  console.log('Hello');
+
   document.getElementById('analyze_main').style.display = "none";
   document.getElementById('setting_main').style.display = "none";
 
-function open(ele){
-  alert('ran!');
+function open_tab(ele){
 
   var id = ele.id;
 
-  console.log(id);
 
-  if (id = 'side_home'){
+  if (id == 'side_home'){
     var title = document.getElementById('title');
     title.innerHTML = 'ホーム - 出席管理システム';
     document.getElementById('home_main').style.display = "block";
     document.getElementById('analyze_main').style.display = "none";
     document.getElementById('setting_main').style.display = "none";
+    tab(tab_where);
+    reload_NoA('count');
+    reload_people();
+    side_tab(id);
+  }else if (id == 'side_analyze'){
+    var title = document.getElementById('title');
+    title.innerHTML = '分析 - 出席管理システム';
+    document.getElementById('home_main').style.display = "none";
+    document.getElementById('analyze_main').style.display = "block";
+    document.getElementById('setting_main').style.display = "none";
+    tab(tab_where);
+    reload_NoA('count');
+    reload_people();
+    side_tab(id);
+  }else if (id == 'side_setting'){
+    var title = document.getElementById('title');
+    title.innerHTML = '設定 - 出席管理システム';
+    document.getElementById('home_main').style.display = "none";
+    document.getElementById('analyze_main').style.display = "none";
+    document.getElementById('setting_main').style.display = "block";
     tab(tab_where);
     reload_NoA('count');
     reload_people();

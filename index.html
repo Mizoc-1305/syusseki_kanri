@@ -9,15 +9,15 @@
 
 <body>
   <div class="side">
-    <div id="side_home" class="side_home" onclick="open(this);">
+    <div id="side_home" class="side_home" onclick="open_tab(this);">
       <img class="side_icon" src="home.png" alt="">
       <p class="index" id="home">ホーム</p>
     </div>
-    <div id="side_analyze" class="side_analyze" onclick="open(this);">
+    <div id="side_analyze" class="side_analyze" onclick="open_tab(this);">
       <img class="side_icon" src="analyze.png" alt="">
       <p class="index" id="analyze">分析</p>
     </div>
-    <div id="side_setting" class="side_setting" onclick="open(this);">
+    <div id="side_setting" class="side_setting" onclick="open_tab(this);">
       <img class="side_icon" src="setting.png" alt="">
       <p class="index" id="setting">設定</p>
     </div>
@@ -48,42 +48,45 @@
   <div id="analyze_main">
     <div class="main_analyze">
       <div class="anaHeader">
-        <p id="dateArea">3月12日</p>
+        <p id="dateArea"></p>
+      </div><div class="NoA"> <!--Number of attendeesの略-->
+        <p class="people">出席人数：<span id="people">0</span>人</p>
       </div>
-      <div class="NoA"> <!--Number of attendeesの略-->
-        <p class="people">出席人数：　　　　<span id="people">10</span>人</p>
-      </div>
+      <img src="before.png" class="before" onclick="before()">
+      <img src="next.png" class="next" onclick="next()">
+      <div id="syusseki_people"></div>
     </div>
   </div>
 
   <div id="setting_main">
-    <div class="menu_newList">
-      <img class="menu_icon" src="newList.png" alt="">
-      <p class="menu_Text">名簿の新規作成</p>
+    <div class="menu_tile">
+      <div class="menu_newList" onclick="openNew()">
+        <img class="menu_icon" src="newList.png" alt="">
+        <p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()">
+          <img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p>
+        </div>
+        <div class="menu_delMember" onclick="openDel()">
+          <img class="menu_icon" src="delMember.png" alt="">
+          <p class="menu_Text">メンバーの削除</p>
+        </div>
+      </div>
+      <div class="menu_tile_2">
+        <div class="menu_setEx" onclick="setting_export()">
+          <img class="menu_icon" src="setEx.png" alt="">
+          <p class="menu_Text">設定の書き出し</p>
+        </div>
+        <div class="menu_setIn" onclick="setting_import()">
+          <img class="menu_icon" src="setIn.png" alt="">
+          <p class="menu_Text">設定の読み込み</p>
+        </div>
+        <div class="menu_dataEx" onclick="data_export()">
+          <img class="menu_icon" src="dataEx.png" alt="">
+          <p class="menu_Text">出席データの出力</p>
+        </div>
+      </div>
     </div>
-    <div class="menu_addMember">
-      <img class="menu_icon" src="addMember.png" alt="">
-      <p class="menu_Text">メンバーの追加</p>
-    </div>
-    <div class="menu_delMenber">
-      <img class="menu_icon" src="delMember.png" alt="">
-      <p class="menu_Text">メンバーの削除</p>
-    </div>
-    <div class="menu_setEx">
-      <img class="menu_icon" src="setEx.png" alt="">
-      <p class="menu_Text">設定の書き出し</p>
-    </div>
-    <div class="menu_setIn">
-      <img class="menu_icon" src="setIn.png" alt="">
-      <p class="menu_Text">設定の読み込み</p>
-    </div>
-    <div class="menu_setEx">
-      <img class="menu_icon" src="dataEx.png" alt="">
-      <p class="menu_Text">出席データの書き出し</p>
-    </div>
-  </div>
 
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 
-</html>
+  </html>

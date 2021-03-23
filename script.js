@@ -539,9 +539,9 @@ function settingFunc(id){
     document.getElementById('set_In').style.display = 'none';
     overwriteDel.innerHTML = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'
     select_box("0");
-  }else if (id_FS == setEx){
+  }else if (id_FS == 'setEx'){
     setting_export()
-  }else if (id_FS == setIn){
+  }else if (id_FS == 'setIn'){
     document.getElementById('setting_main').style.display = "none";
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'none';
@@ -549,7 +549,7 @@ function settingFunc(id){
     document.getElementById('set_In').style.display = 'block';
 
 
-  }else if (id_FS == dataEx){
+  }else if (id_FS == 'dataEx'){
     excel_output();
   }
 

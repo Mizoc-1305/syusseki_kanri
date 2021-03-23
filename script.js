@@ -2,13 +2,21 @@ var value_array = [];
 var time_array = [];
 var tab_where;
 var day_array = [];
-var day_lentgh = JSON.parse(localStorage.getItem("day")).length;
+var day_lentgh = [];
 var day_index = day_lentgh - 1;
 var member = [];
 var reader = new FileReader();
 /*window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
 }, false);*/ //リロード前に確認ダイアログを表示
+function for_day_length() {
+  if (JSON.parse(localStorage.getItem("day")).length == null) {
+    day_lentgh = 0;
+  } else {
+    day_lentgh = JSON.parse(localStorage.getItem("day")).length;
+  }  
+}
+for_day_length()
 function get_time() {
   var now = new Date();
   var month = now.getMonth() + 1;
@@ -235,7 +243,18 @@ function openHome(element) {
   reload_people();
 }
 window.onload = function () {
-  member = JSON.parse(localStorage.getItem('member'));
+  if (localStorage.hasOwnProperty('member')) {
+    member = JSON.parse(localStorage.getItem('member'));
+  }else{
+    member = [];
+    localStorage.setItem('member', JSON.stringify(member));
+  }
+  if (localStorage.hasOwnProperty('day')) {
+
+  }else{
+    day_array = [];
+    localStorage.setItem('day', JSON.stringify(day_array));
+  }
   tab('one');
   reload_people();
   reload_tab();
@@ -246,7 +265,7 @@ function openAna(element) {
   headAna.innerHTML = '分析 - 出席管理システム';
   var html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
   pageChange(html_ana, element);
-  day_lentgh = JSON.parse(localStorage.getItem("day")).length;
+  for_day_length;
   day_index = day_lentgh - 1;
   document.getElementById('dateArea').innerHTML = get_time()[1];
   pull_array();

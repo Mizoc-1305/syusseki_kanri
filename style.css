@@ -194,6 +194,10 @@ hr{
   margin-top: 80px;
   display: flex;
 }
+.menu_tile_3{
+  margin-top: 80px;
+  display: flex;
+}
 .menu_Text{
   margin-top: 10px;
   width: 180px;
@@ -233,6 +237,12 @@ hr{
 }
 .menu_dataEx{
   margin-left: 100px;
+  width: 180px;
+  height: 180px;
+  background-color: #BDD7EE;
+}
+.menu_listEx{
+  margin-left: 350px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;

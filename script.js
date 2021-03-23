@@ -87,6 +87,7 @@ function append_people(time, name) {
   syusseki_people.appendChild(new_element_hr);
 }
 function pull_array() {
+  document.getElementById('syusseki_people').innerHTML = "";
   var people_on_the_day = localStorage.getItem(get_time()[1]);
   var when_people_arrive = localStorage.getItem(get_time()[1] + "_time");
   people_on_the_day = JSON.parse(people_on_the_day);

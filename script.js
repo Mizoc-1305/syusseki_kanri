@@ -277,6 +277,7 @@ function open_tab(ele){
     reload_people();
     side_tab(id);
   }
+
 }
 
 /* function openHome(element) {
@@ -346,8 +347,15 @@ function setting_export() {
 }
 function excel_input() {
   var first_index = ["名前"];
-  first_index.push(JSON.parse(localStorage.getItem('day')));
-  console.log(first_index);
+  var days = JSON.parse(localStorage.getItem('day'));
+  for(var i = 0; i < days.length; i++){
+    first_index.push(days[i]);
+  }
+  var excel_member = JSON.parse(localStorage.getItem('member'));
+  for (let index = 0; index < excel_member.length; index++) {
+    var someone = excel_member[index];
+
+  }
 }
 function sheet_to_workbook(sheet, opts) {
   var n = opts && opts.sheet ? opts.sheet : "Sheet1";

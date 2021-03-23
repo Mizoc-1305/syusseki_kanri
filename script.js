@@ -556,6 +556,11 @@ function settingFunc(id) {
     excel_output();
   } else if (id_FS == 'listEx') {
     listEx();
+  }else if (id_FS == 'dataReset'){
+    var checkReset = window.confirm('全てのデータを削除します。よろしいですか？\nなお、この作業は取り消すことができません。事前にデータの書き出し等を行ってください。')
+    if (checkReset){
+      
+    }
   }
 
 }

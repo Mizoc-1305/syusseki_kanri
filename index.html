@@ -5,11 +5,13 @@
   <meta charset="utf-8">
   <title id="title">ホーム - 出席管理システム</title>
   <link rel="stylesheet" href="style.css">
+  <script src="xlsx.full.min.js"></script>
+  <script src="FileSaver.min.js"></script>
 </head>
 
 <body>
   <div class="side">
-    <div id="side_home" class="side_home" onclick="open_tab(this);excel_input()">
+    <div id="side_home" class="side_home" onclick="open_tab(this)">
       <img class="side_icon" src="home.png" alt="">
       <p class="index" id="home">ホーム</p>
     </div>
@@ -23,7 +25,7 @@
     </div>
     <p id="ClockArea"></p>
   </div>
-  <p class="copyright">©2021  15期生  溝上 幸太  岸田 健吾</p>
+  <p class="copyright">©2021 15期生 溝上 幸太 岸田 健吾</p>
 
   <div id="home_main">
     <div class="header">
@@ -49,7 +51,9 @@
     <div class="main_analyze">
       <div class="anaHeader">
         <p id="dateArea"></p>
-      </div><div class="NoA"> <!--Number of attendeesの略-->
+      </div>
+      <div class="NoA">
+        <!--Number of attendeesの略-->
         <p class="people">出席人数：<span id="people">0</span>人</p>
       </div>
       <img src="before.png" class="before" onclick="before()">
@@ -62,31 +66,34 @@
     <div class="menu_tile">
       <div class="menu_newList" onclick="openNew()">
         <img class="menu_icon" src="newList.png" alt="">
-        <p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()">
-          <img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p>
-        </div>
-        <div class="menu_delMember" onclick="openDel()">
-          <img class="menu_icon" src="delMember.png" alt="">
-          <p class="menu_Text">メンバーの削除</p>
-        </div>
+        <p class="menu_Text">名簿の新規作成</p>
       </div>
-      <div class="menu_tile_2">
-        <div class="menu_setEx" onclick="setting_export()">
-          <img class="menu_icon" src="setEx.png" alt="">
-          <p class="menu_Text">設定の書き出し</p>
-        </div>
-        <div class="menu_setIn" onclick="setting_import()">
-          <img class="menu_icon" src="setIn.png" alt="">
-          <p class="menu_Text">設定の読み込み</p>
-        </div>
-        <div class="menu_dataEx" onclick="data_export()">
-          <img class="menu_icon" src="dataEx.png" alt="">
-          <p class="menu_Text">出席データの出力</p>
-        </div>
+      <div class="menu_addMember" onclick="openAdd()">
+        <img class="menu_icon" src="addMember.png" alt="">
+        <p class="menu_Text">メンバーの追加</p>
+      </div>
+      <div class="menu_delMember" onclick="openDel()">
+        <img class="menu_icon" src="delMember.png" alt="">
+        <p class="menu_Text">メンバーの削除</p>
       </div>
     </div>
+    <div class="menu_tile_2">
+      <div class="menu_setEx" onclick="setting_export()">
+        <img class="menu_icon" src="setEx.png" alt="">
+        <p class="menu_Text">設定の書き出し</p>
+      </div>
+      <div class="menu_setIn" onclick="setting_import()">
+        <img class="menu_icon" src="setIn.png" alt="">
+        <p class="menu_Text">設定の読み込み</p>
+      </div>
+      <div class="menu_dataEx" onclick="excel_output()">
+        <img class="menu_icon" src="dataEx.png" alt="">
+        <p class="menu_Text">出席データの出力</p>
+      </div>
+    </div>
+  </div>
 
-    <script src="script.js"></script>
-  </body>
+  <script src="script.js"></script>
+</body>
 
-  </html>
+</html>

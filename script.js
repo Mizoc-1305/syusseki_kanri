@@ -189,6 +189,10 @@ function get_time() {
   var month_date = month + "/" + date
   return [time, month_date];
 }
+function listEx(){
+  var exportList = JSON.parse(localStorage.getItem('member'));
+  (new CSV(exportList)).save('member.csv');
+}
 
 function side_tab(id) {
   var grade = document.getElementById(id);
@@ -547,10 +551,10 @@ function settingFunc(id){
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'none';
     document.getElementById('set_In').style.display = 'block';
-
-
   }else if (id_FS == 'dataEx'){
     excel_output();
+  }else if (id_FS == 'listEx'){
+    listEx();
   }
 
 }

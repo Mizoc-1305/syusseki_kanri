@@ -245,7 +245,6 @@ function reload_tab() {
 
 function add_member() {
   var new_name = document.getElementById('form_name').value;
-  alert(new_name);
   var new_grade = document.getElementsByClassName('radio');
   for (var value = "", i = new_grade.length; i--;) {
     if (new_grade[i].checked) {
@@ -537,10 +536,11 @@ function setting_export() {
   (new CSV(values)).save('setting.csv')
 }
 function setting_import() {
-  var csv_member = reader.result.split('\n')
-  var changed_array = []
+  var csv_arrays = reader.result_setting.split('\n')
+  var each_csv_arrays = [];
   for (let index = 0; index < csv_member.length; index++) {
-    changed_array[index] = csv_member[index].split(',')
+    each_csv_arrays[index] = csv_arrays[index].split(',')
+    localStorage.push(each_csv_arrays[0],JSON.stringify(each_csv_arrays[1]));
   }
 }
 function excel_input() {

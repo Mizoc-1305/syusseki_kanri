@@ -5,7 +5,7 @@ var day_array = [];
 var day_lentgh = [];
 var day_index = day_lentgh - 1;
 var member = [];
-var array = [];
+var main_array = [];
 var reader = new FileReader();
 
 
@@ -365,10 +365,24 @@ function excel_input() {
   for(var i = 0; i < days.length; i++){
     first_index.push(days[i]);
   }
+  main_array.push(first_index);
   var excel_member = JSON.parse(localStorage.getItem('member'));
-  for (let index = 0; index < excel_member.length; index++) {
-    var someone = excel_member[index];
-
+  for (let index_1 = 0; index_1 < excel_member.length; index_1++) {
+    var excel_member_each = excel_member[index_1]
+    for (let index_2 = 0; index_2 < excel_member_each.length; index_2++) {
+      var someone = excel_member_each[index_2];
+      var came_day = [];
+      came_day.push(someone);
+      for(var a = 0; a < days.length; a++){
+        var came_member_day = JSON.parse(localStorage.getItem(days[a]));
+        if (came_member_day.indexOf(someone) == -1) {
+          came_day.push("");
+        }else{
+          came_day.push("〇")
+        }
+      }
+      main_array.push(came_day);
+    }
   }
 }
 function sheet_to_workbook(sheet, opts) {
@@ -394,7 +408,7 @@ function excel_output() {
     type: 'binary'
   };
 
-  var wb = aoa_to_workbook(array);
+  var wb = aoa_to_workbook(main_array);
   var wb_out = XLSX.write(wb, write_opts);
 
   var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });

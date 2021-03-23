@@ -116,9 +116,14 @@ function reload_people() {
   }
   var attended_people = localStorage.getItem(get_time()[1]);
   attended_people = JSON.parse(attended_people);
+  if (attended_people == null) {
+    var attended_people_length = 0;
+  }else{
+    var attended_people_length = attended_people.length;
+  }
   for (let index2 = 0; index2 < buttons_length; index2++) {
     var values = document.getElementById(IDs[index2]).value;
-    for (let index3 = 0; index3 < attended_people.length; index3++) {
+    for (let index3 = 0; index3 < attended_people_length; index3++) {
       var attended_person = attended_people[index3];
       if (values == attended_person) {
         document.getElementById(IDs[index2]).disabled = true;
@@ -287,13 +292,13 @@ function open_tab(ele){
 window.onload = function () {
   if (localStorage.hasOwnProperty('member')) {
     member = JSON.parse(localStorage.getItem('member'));
-  }else{
+  } else {
     member = [];
     localStorage.setItem('member', JSON.stringify(member));
   }
   if (localStorage.hasOwnProperty('day')) {
 
-  }else{
+  } else {
     day_array = [];
     localStorage.setItem('day', JSON.stringify(day_array));
   }
@@ -321,9 +326,9 @@ function openAna(element) {
 function setting_export() {
   var values = [];
   var current_values = [];
-	var keys = Object.keys(localStorage)
+  var keys = Object.keys(localStorage)
 
-	for (let i = 0; i < keys.length; i++) {
+  for (let i = 0; i < keys.length; i++) {
     current_values = [];
     current_values.push(keys[i]);
     current_values.push(JSON.parse(localStorage.getItem(keys[i])));
@@ -341,15 +346,16 @@ function setting_export() {
 }
 function excel_input() {
   var first_index = ["名前"];
-  first_index = JSON.parse(localStorage.getItem('day'));
+  first_index.push(JSON.parse(localStorage.getItem('day')));
+  console.log(first_index);
 }
-function sheet_to_workbook(sheet, opts){
+function sheet_to_workbook(sheet, opts) {
   var n = opts && opts.sheet ? opts.sheet : "Sheet1";
   var sheets = {}; sheets[n] = sheet;
   return { SheetNames: [n], Sheets: sheets };
 }
 
-function aoa_to_workbook(data, opts){
+function aoa_to_workbook(data, opts) {
   return sheet_to_workbook(XLSX.utils.aoa_to_sheet(data, opts), opts);
 }
 
@@ -363,7 +369,7 @@ function s2ab(s) {
 function excel_output() {
   excel_input();
   var write_opts = {
-      type: 'binary'
+    type: 'binary'
   };
 
   var wb = aoa_to_workbook(array);
@@ -378,7 +384,7 @@ function openSet(element) {
   var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMember" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_tile_2"><div class="menu_setEx" onclick="setting_export()"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn" onclick="setting_import()"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="menu_dataEx" onclick="data_export()"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの出力</p></div></div>'
   pageChange(html_set, element);
 }
-function openNew(){
+function openNew() {
   var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile"></div><button id="load" onclick="new_list()">名簿を読み込み</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_new;
@@ -391,11 +397,11 @@ function openNew(){
 }
 function new_list() {
   var csv_member = reader.result.split('\n')
-　var changed_array  = []
+  var changed_array = []
   for (let index = 0; index < csv_member.length; index++) {
     changed_array[index] = csv_member[index].split(',')
   }
-  localStorage.setItem("member",JSON.stringify(changed_array));
+  localStorage.setItem("member", JSON.stringify(changed_array));
   document.getElementById('load').disabled = true;
   document.getElementById('load').style.backgroundColor = '#BFBFBF';
   openHome('side_home');
@@ -426,16 +432,16 @@ function del_member() {
   var del_name = document.getElementsByClassName('select')[0].value;
   var checkDel = window.confirm(del_name + 'さんを削除してよろしいですか？');
   var del_grade = document.getElementsByClassName('radio');
-  if (checkDel){
+  if (checkDel) {
     for (var value = "", i = del_grade.length; i--;) {
       if (del_grade[i].checked) {
         var value = del_grade[i].value;
         break;
       }
-  }
+    }
   }
   member = JSON.parse(localStorage.getItem("member"))
-  member[value].splice(member[value].indexOf(del_name),1);
+  member[value].splice(member[value].indexOf(del_name), 1);
   localStorage.setItem("member", JSON.stringify(member));
   document.getElementById('delete').disabled = true;
   document.getElementById('delete').style.backgroundColor = '#BFBFBF';
@@ -452,7 +458,7 @@ function del_member() {
   reload_NoA('count');
   reload_people();
 }
-function openDel(){
+function openDel() {
   var html_del = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_del;

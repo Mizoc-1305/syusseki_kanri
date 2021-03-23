@@ -242,14 +242,9 @@ function pageChange(html, id) {
   document.getElementById('analyze_main').style.display = "none";
   document.getElementById('setting_main').style.display = "none";
 
-function open(ele){
-  alert('ran!');
-
+function open_tab(ele){
   var id = ele.id;
-
-  console.log(id);
-
-  if (id = 'side_home'){
+  if (id == 'side_home'){
     var title = document.getElementById('title');
     title.innerHTML = 'ホーム - 出席管理システム';
     document.getElementById('home_main').style.display = "block";
@@ -259,7 +254,27 @@ function open(ele){
     reload_NoA('count');
     reload_people();
     side_tab(id);
+  }else if (id == 'side_analyze') {
+    var title = document.getElementById('title');
+    title.innerHTML = '分析 - 出席管理システム';
+    document.getElementById('home_main').style.display = "none";
+    document.getElementById('analyze_main').style.display = "block";
+    document.getElementById('setting_main').style.display = "none";
+    side_tab(id);
+    for_day_length();
+    day_index = day_lentgh - 1;
+    document.getElementById('dateArea').innerHTML = get_time()[1];
+    pull_array();
+    reload_NoA('people');
+  }else if (id == 'side_setting') {
+    var title = document.getElementById('title');
+    title.innerHTML = '設定 - 出席管理システム';
+    document.getElementById('home_main').style.display = "none";
+    document.getElementById('analyze_main').style.display = "none";
+    document.getElementById('setting_main').style.display = "block";
+    side_tab(id);
   }
+  
 }
 
 /* function openHome(element) {
@@ -329,8 +344,15 @@ function setting_export() {
 }
 function excel_input() {
   var first_index = ["名前"];
-  first_index.push(JSON.parse(localStorage.getItem('day')));
-  console.log(first_index);
+  var days = JSON.parse(localStorage.getItem('day'));
+  for(var i = 0; i < days.length; i++){
+    first_index.push(days[i]);
+  }
+  var excel_member = JSON.parse(localStorage.getItem('member'));
+  for (let index = 0; index < excel_member.length; index++) {
+    var someone = excel_member[index];
+    
+  }
 }
 function sheet_to_workbook(sheet, opts) {
   var n = opts && opts.sheet ? opts.sheet : "Sheet1";

@@ -52,7 +52,12 @@ function side_tab(id) {
 function reload_member(members) {
   var btn = document.getElementsByClassName("btn")[0];
   btn.innerHTML = "";
-  var number = members.length;
+  if (members == null) {
+    var number = 0;
+  }
+  else{
+    var number = members.length;
+  }
   var IDs = [];
   for (let index = 1; index < number + 1; index++) {
     IDs.push("btn_" + index);
@@ -87,11 +92,17 @@ function append_people(time, name) {
   syusseki_people.appendChild(new_element_hr);
 }
 function pull_array() {
+  document.getElementById('syusseki_people').innerHTML = "";
   var people_on_the_day = localStorage.getItem(get_time()[1]);
   var when_people_arrive = localStorage.getItem(get_time()[1] + "_time");
   people_on_the_day = JSON.parse(people_on_the_day);
   when_people_arrive = JSON.parse(when_people_arrive);
-  for (let index = 0; index < people_on_the_day.length; index++) {
+  if (people_on_the_day == null) {
+    var people_on_the_day_length = 0;
+  }else{
+    var people_on_the_day_length = people_on_the_day.length;
+  }
+  for (let index = 0; index < people_on_the_day_length; index++) {
     var name = people_on_the_day[index];
     var time = when_people_arrive[index];
     append_people(time, name);
@@ -466,7 +477,91 @@ window.onload = function () {
   reload_tab();
   reload_NoA('count');
 }
+class CSV {
+  constructor(data, keys = false) {
+    this.ARRAY  = Symbol('ARRAY')
+    this.OBJECT = Symbol('OBJECT')
 
+    this.data = data
+
+    if (CSV.isArray(data)) {
+      if (0 == data.length) {
+        this.dataType = this.ARRAY
+      } else if (CSV.isObject(data[0])) {
+        this.dataType = this.OBJECT
+      } else if (CSV.isArray(data[0])) {
+        this.dataType = this.ARRAY
+      } else {
+        throw Error('Error: 未対応のデータ型です')
+      }
+    } else {
+      throw Error('Error: 未対応のデータ型です')
+    }
+
+    this.keys = keys
+  }
+
+  toString() {
+    if (this.dataType === this.ARRAY) {
+      return this.data.map((record) => (
+        record.map((field) => (
+          CSV.prepare(field)
+        )).join(',')
+      )).join('\n')
+    } else if (this.dataType === this.OBJECT) {
+      const keys = this.keys || Array.from(this.extractKeys(this.data))
+
+      const arrayData = this.data.map((record) => (
+        keys.map((key) => record[key])
+      ))
+
+      console.log([].concat([keys], arrayData))
+
+      return [].concat([keys], arrayData).map((record) => (
+        record.map((field) => (
+          CSV.prepare(field)
+        )).join(',')
+      )).join('\n')
+    }
+  }
+
+  save(filename = 'data.csv') {
+    if (!filename.match(/\.csv$/i)) { filename = filename + '.csv' }
+
+    console.info('filename:', filename)
+    console.table(this.data)
+
+    const csvStr = this.toString()
+
+    const bom     = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const blob    = new Blob([bom, csvStr], {'type': 'text/csv'});
+    const url     = window.URL || window.webkitURL;
+    const blobURL = url.createObjectURL(blob);
+
+    let a      = document.createElement('a');
+    a.download = decodeURI(filename);
+    a.href     = blobURL;
+    a.type     = 'text/csv';
+
+    a.click();
+  }
+
+  extractKeys(data) {
+    return new Set([].concat(...this.data.map((record) => Object.keys(record))))
+  }
+
+  static prepare(field) {
+    return '"' + (''+field).replace(/"/g, '""') + '"'
+  }
+
+  static isObject(obj) {
+    return '[object Object]' === Object.prototype.toString.call(obj)
+  }
+
+  static isArray(obj) {
+    return '[object Array]' === Object.prototype.toString.call(obj)
+  }
+}
 function setting_export() {
   var values = [];
   var current_values = [];
@@ -478,18 +573,13 @@ function setting_export() {
     current_values.push(JSON.parse(localStorage.getItem(keys[i])));
     values.push(current_values);
   }
-  const filename = "setting.csv";
-  const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
-  const blob = new Blob([bom, values], { type: "text/csv" });
-  const url = (window.URL || window.webkitURL).createObjectURL(blob);
-  const download = document.createElement("a");
-  download.href = url;
-  download.download = filename;
-  download.click();
-  (window.URL || window.webkitURL).revokeObjectURL(url);
+  (new CSV(values)).save('setting.csv')
+}
+function setting_import() {
+
 }
 function excel_input() {
-  var first_index = ["名前"];
+  var first_index = ["項目"];
   var days = JSON.parse(localStorage.getItem('day'));
   for(var i = 0; i < days.length; i++){
     first_index.push(days[i]);
@@ -563,7 +653,35 @@ function excel_output() {
 
 }*/
 
-/*function openDel() {
+  var del_name = document.getElementsByClassName('select')[0].value;
+  var checkDel = window.confirm(del_name + 'さんを削除してよろしいですか？');
+  var del_grade = document.getElementsByClassName('radio');
+  if (checkDel) {
+    for (var value = "", i = del_grade.length; i--;) {
+      if (del_grade[i].checked) {
+        var value = del_grade[i].value;
+        break;
+      }
+    }
+  }
+  member = JSON.parse(localStorage.getItem("member"))
+  member[value].splice(member[value].indexOf(del_name), 1);
+  localStorage.setItem("member", JSON.stringify(member));
+  document.getElementById('delete').disabled = true;
+  document.getElementById('delete').style.backgroundColor = '#BFBFBF';
+  if (value == 0) {
+    var del_tab_where = 'one';
+  } else if (value == 1) {
+    var del_tab_where = 'two';
+  } else {
+    var del_tab_where = 'three';
+  }
+  open_tab('side_home');
+  tab(del_tab_where);
+  reload_NoA('count');
+  reload_people();
+}
+function openDel() {
   var html_del = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'
   var change_area = document.getElementById('change_area');
   change_area.innerHTML = html_del;

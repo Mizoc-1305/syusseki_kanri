@@ -262,19 +262,18 @@ function open_tab(ele){
     document.getElementById('home_main').style.display = "none";
     document.getElementById('analyze_main').style.display = "block";
     document.getElementById('setting_main').style.display = "none";
-    tab(tab_where);
-    reload_NoA('count');
-    reload_people();
     side_tab(id);
+    for_day_length();
+    day_index = day_lentgh - 1;
+    document.getElementById('dateArea').innerHTML = get_time()[1];
+    pull_array();
+    reload_NoA('people');
   }else if (id == 'side_setting'){
     var title = document.getElementById('title');
     title.innerHTML = '設定 - 出席管理システム';
     document.getElementById('home_main').style.display = "none";
     document.getElementById('analyze_main').style.display = "none";
     document.getElementById('setting_main').style.display = "block";
-    tab(tab_where);
-    reload_NoA('count');
-    reload_people();
     side_tab(id);
   }
 

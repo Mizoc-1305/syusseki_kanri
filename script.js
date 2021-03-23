@@ -14,7 +14,7 @@ function for_day_length() {
     day_lentgh = 0;
   } else {
     day_lentgh = JSON.parse(localStorage.getItem("day")).length;
-  }  
+  }
 }
 for_day_length()
 function get_time() {
@@ -236,8 +236,8 @@ function openHome(element) {
   var headHome = document.getElementById('title');
   headHome.innerHTML = 'ホーム - 出席管理システム';
   member = JSON.parse(localStorage.getItem('member'));
-  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
-  pageChange(html_home, element);
+  //var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
+  //pageChange(html_home, element);
   tab(tab_where);
   reload_NoA('count');
   reload_people();
@@ -281,7 +281,7 @@ function setting_export() {
     current_values.push(keys[i]);
     current_values.push(JSON.parse(localStorage.getItem(keys[i])));
     values.push(current_values);
-  }    
+  }
   const filename = "setting.csv";
   const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
   const blob = new Blob([bom, values], { type: "text/csv" });
@@ -342,7 +342,7 @@ function openAdd() {
 
 }
 function del_member() {
-  
+
   var del_name = document.getElementsByClassName('select')[0].value;
   var checkDel = window.confirm(del_name + 'さんを削除してよろしいですか？');
   var del_grade = document.getElementsByClassName('radio');

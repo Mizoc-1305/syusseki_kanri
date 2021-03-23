@@ -7,6 +7,7 @@ var day_index = day_lentgh - 1;
 var member = [];
 var main_array = [];
 var reader = new FileReader();
+var reader2 = new FileReader();
 
 
 function for_day_length() {
@@ -19,7 +20,7 @@ function for_day_length() {
 for_day_length()
 class CSV {
   constructor(data, keys = false) {
-    this.ARRAY  = Symbol('ARRAY')
+    this.ARRAY = Symbol('ARRAY')
     this.OBJECT = Symbol('OBJECT')
 
     this.data = data
@@ -73,15 +74,15 @@ class CSV {
 
     const csvStr = this.toString()
 
-    const bom     = new Uint8Array([0xEF, 0xBB, 0xBF]);
-    const blob    = new Blob([bom, csvStr], {'type': 'text/csv'});
-    const url     = window.URL || window.webkitURL;
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const blob = new Blob([bom, csvStr], { 'type': 'text/csv' });
+    const url = window.URL || window.webkitURL;
     const blobURL = url.createObjectURL(blob);
 
-    let a      = document.createElement('a');
+    let a = document.createElement('a');
     a.download = decodeURI(filename);
-    a.href     = blobURL;
-    a.type     = 'text/csv';
+    a.href = blobURL;
+    a.type = 'text/csv';
 
     a.click();
   }
@@ -91,7 +92,7 @@ class CSV {
   }
 
   static prepare(field) {
-    return '"' + (''+field).replace(/"/g, '""') + '"'
+    return '"' + ('' + field).replace(/"/g, '""') + '"'
   }
 
   static isObject(obj) {
@@ -116,18 +117,18 @@ function setting_export() {
   (new CSV(values)).save('setting.csv');
 }
 function setting_import() {
-  var csv_arrays = reader.result_setting.split('\n')
-  console.log(csv_arrays);
+  var csv_arrays = reader2.result_setting.split('\n');
   var each_csv_arrays = [];
+  console.log(csv_arrays);
   for (let index = 0; index < csv_member.length; index++) {
     each_csv_arrays[index] = csv_arrays[index].split(',')
-    localStorage.push(each_csv_arrays[0],JSON.stringify(each_csv_arrays[1]));
+    localStorage.push(each_csv_arrays[0], JSON.stringify(each_csv_arrays[1]));
   }
 }
 function excel_input() {
   var first_index = ["項目"];
   var days = JSON.parse(localStorage.getItem('day'));
-  for(var i = 0; i < days.length; i++){
+  for (var i = 0; i < days.length; i++) {
     first_index.push(days[i]);
   }
   main_array.push(first_index);
@@ -138,11 +139,11 @@ function excel_input() {
       var someone = excel_member_each[index_2];
       var came_day = [];
       came_day.push(someone);
-      for(var a = 0; a < days.length; a++){
+      for (var a = 0; a < days.length; a++) {
         var came_member_day = JSON.parse(localStorage.getItem(days[a]));
         if (came_member_day.indexOf(someone) == -1) {
           came_day.push("");
-        }else{
+        } else {
           came_day.push("〇")
         }
       }
@@ -190,7 +191,7 @@ function get_time() {
   var month_date = month + "/" + date
   return [time, month_date];
 }
-function listEx(){
+function listEx() {
   var exportList = JSON.parse(localStorage.getItem('member'));
   (new CSV(exportList)).save('member.csv');
 }
@@ -223,7 +224,7 @@ function reload_member(members) {
   if (members == null) {
     var number = 0;
   }
-  else{
+  else {
     var number = members.length;
   }
   var IDs = [];
@@ -267,7 +268,7 @@ function pull_array() {
   when_people_arrive = JSON.parse(when_people_arrive);
   if (people_on_the_day == null) {
     var people_on_the_day_length = 0;
-  }else{
+  } else {
     var people_on_the_day_length = people_on_the_day.length;
   }
   for (let index = 0; index < people_on_the_day_length; index++) {
@@ -297,7 +298,7 @@ function reload_people() {
   attended_people = JSON.parse(attended_people);
   if (attended_people == null) {
     var attended_people_length = 0;
-  }else{
+  } else {
     var attended_people_length = attended_people.length;
   }
   for (let index2 = 0; index2 < buttons_length; index2++) {
@@ -443,8 +444,8 @@ document.getElementById('add_member').style.display = 'none';
 document.getElementById('del_member').style.display = 'none';
 document.getElementById('set_In').style.display = 'none';
 
-function open_tab(id){
-  if (id == 'side_home'){
+function open_tab(id) {
+  if (id == 'side_home') {
     var title = document.getElementById('title');
     title.innerHTML = 'ホーム - 出席管理システム';
     member = JSON.parse(localStorage.getItem('member'));
@@ -459,7 +460,7 @@ function open_tab(id){
     reload_NoA('count');
     reload_people();
     side_tab(id);
-  }else if (id == 'side_analyze'){
+  } else if (id == 'side_analyze') {
     var title = document.getElementById('title');
     title.innerHTML = '分析 - 出席管理システム';
     document.getElementById('home_main').style.display = "none";
@@ -475,7 +476,7 @@ function open_tab(id){
     document.getElementById('dateArea').innerHTML = get_time()[1];
     pull_array();
     reload_NoA('people');
-  }else if (id == 'side_setting'){
+  } else if (id == 'side_setting') {
     var title = document.getElementById('title');
     title.innerHTML = '設定 - 出席管理システム';
     document.getElementById('home_main').style.display = "none";
@@ -509,10 +510,10 @@ function select_box(value) {
     select_box.appendChild(new_element);
   }
 }
-function settingFunc(id){
+function settingFunc(id) {
   var id_FS = id;
 
-  if (id_FS == 'new'){
+  if (id_FS == 'new') {
     document.getElementById('setting_main').style.display = "none";
     document.getElementById('new_list').style.display = 'block';
     document.getElementById('add_member').style.display = 'none';
@@ -524,7 +525,7 @@ function settingFunc(id){
 
       reader.readAsText(result);
     })
-  }else if (id_FS == 'add'){
+  } else if (id_FS == 'add') {
     var overwriteAdd = document.getElementById('add_member');
 
     document.getElementById('setting_main').style.display = "none";
@@ -534,7 +535,7 @@ function settingFunc(id){
     document.getElementById('set_In').style.display = 'none';
     overwriteAdd.innerHTML = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio"  checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" id="form_name" class="form_text"><p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p></div><button id="decide" onclick="add_member()">メンバーを追加</button></div>'
 
-  }else if (id_FS == 'del'){
+  } else if (id_FS == 'del') {
     var overwriteDel = document.getElementById('del_member');
 
     document.getElementById('setting_main').style.display = "none";
@@ -544,25 +545,23 @@ function settingFunc(id){
     document.getElementById('set_In').style.display = 'none';
     overwriteDel.innerHTML = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'
     select_box("0");
-  }else if (id_FS == 'setEx'){
+  } else if (id_FS == 'setEx') {
     setting_export()
-  }else if (id_FS == 'setIn'){
+  } else if (id_FS == 'setIn') {
     document.getElementById('setting_main').style.display = "none";
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'none';
     document.getElementById('set_In').style.display = 'block';
-    var form = document.forms.nameform2;
-    form.namefile2.addEventListener('change', function (e) {
+    var form2 = document.forms.nameform2;
+    form2.namefile2.addEventListener('change', function (e) {
       var result_setting = e.target.files[0];
 
-      reader.readAsText(result_setting);
+      reader2.readAsText(result_setting);
     })
-
-
-  }else if (id_FS == 'dataEx'){
+  } else if (id_FS == 'dataEx') {
     excel_output();
-  }else if (id_FS == 'listEx'){
+  } else if (id_FS == 'listEx') {
     listEx();
   }
 

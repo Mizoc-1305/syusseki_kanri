@@ -243,25 +243,43 @@ function reload_tab() {
   grade.style.backgroundColor = '#000B70';
 }
 
-function pageChange(html, id) {
-  var change_area = document.getElementById('change_area');
-  change_area.innerHTML = html;
-  side_tab(id);
+function add_member() {
+  alert('hello');
+  var new_name = document.getElementById('form_name').value;
+  var new_grade = document.getElementsByClassName('radio');
+  for (var value = "", i = new_grade.length; i--;) {
+    if (new_grade[i].checked) {
+      var value = new_grade[i].value;
+      break;
+    }
+  }
+  member = JSON.parse(localStorage.getItem("member"))
+  member[value].push(new_name);
+  localStorage.setItem("member", JSON.stringify(member));
+  document.getElementById('decide').disabled = true;
+  document.getElementById('decide').style.backgroundColor = '#BFBFBF';
+  if (value == 0) {
+    var new_tab_where = 'one';
+  } else if (value == 1) {
+    var new_tab_where = 'two';
+  } else {
+    var new_tab_where = 'three';
+  }
+  open_tab('side_home');
+  tab(new_tab_where);
 }
 
-  document.getElementById('analyze_main').style.display = "none";
-  document.getElementById('setting_main').style.display = "none";
-  document.getElementById('new_list').style.display = 'none';
-  document.getElementById('add_member').style.display = 'none';
-  document.getElementById('del_member').style.display = 'none';
+document.getElementById('analyze_main').style.display = "none";
+document.getElementById('setting_main').style.display = "none";
+document.getElementById('new_list').style.display = 'none';
+document.getElementById('add_member').style.display = 'none';
+document.getElementById('del_member').style.display = 'none';
 
-function open_tab(ele){
-  var id = ele.id;
-
-
+function open_tab(id){
   if (id == 'side_home'){
     var title = document.getElementById('title');
     title.innerHTML = 'ホーム - 出席管理システム';
+    member = JSON.parse(localStorage.getItem('member'));
     document.getElementById('home_main').style.display = "block";
     document.getElementById('analyze_main').style.display = "none";
     document.getElementById('setting_main').style.display = "none";
@@ -301,33 +319,45 @@ function open_tab(ele){
 
 }
 
-  document.getElementById('new_list').style.display = 'none';
-  document.getElementById('add_member').style.display = 'none';
-  document.getElementById('del_member').style.display = 'none';
+document.getElementById('new_list').style.display = 'none';
+document.getElementById('add_member').style.display = 'none';
+document.getElementById('del_member').style.display = 'none';
 
-function settingFunc(ele){
-  var id_FS = ele.id;
+function select_box(value) {
+  var select_box = document.getElementsByClassName("select")[0];
+  var grade_people = JSON.parse(localStorage.getItem("member"))[value];
+  select_box.innerHTML = "";
+  var default_element = document.createElement('option');
+  default_element.value = "";
+  default_element.textContent = "削除する人を選択してください";
+  select_box.appendChild(default_element);
+  for (let index = 0; index < grade_people.length; index++) {
+    var new_element = document.createElement('option');
+    new_element.value = grade_people[index];
+    new_element.textContent = grade_people[index];
+    select_box.appendChild(new_element);
+  }
+}
+function settingFunc(id){
+  var id_FS = id;
 
   if (id_FS == 'new'){
     document.getElementById('setting_main').style.display = "none";
     document.getElementById('new_list').style.display = 'block';
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'none';
-
-    var csv_member = reader.result.split('\n')
-    var changed_array = []
-    for (let index = 0; index < csv_member.length; index++) {
-      changed_array[index] = csv_member[index].split(',')
-    }
-    localStorage.setItem("member", JSON.stringify(changed_array));
-    document.getElementById('load').disabled = true;
-    document.getElementById('load').style.backgroundColor = '#BFBFBF';
-    open_tab('side_home');
+    var form = document.forms.nameform;
+    form.namefile.addEventListener('change', function (e) {
+      var result = e.target.files[0];
+  
+      reader.readAsText(result);
+    })
   }else if (id_FS == 'add'){
     document.getElementById('setting_main').style.display = "none";
     document.getElementById('new_list').style.display = 'none';
     document.getElementById('add_member').style.display = 'block';
     document.getElementById('del_member').style.display = 'none';
+    
   }else if (id_FS == 'del'){
     document.getElementById('setting_main').style.display = "none";
     document.getElementById('new_list').style.display = 'none';
@@ -349,21 +379,7 @@ function new_list() {  //指定されたCSVファイルを読み込み、名簿�
   document.getElementById('load').style.backgroundColor = '#BFBFBF';
   open_tab('side_home');
 }
-function select_box(value) {
-  var select_box = document.getElementsByClassName("select")[0];
-  var grade_people = JSON.parse(localStorage.getItem("member"))[value];
-  select_box.innerHTML = "";
-  var default_element = document.createElement('option');
-  default_element.value = "";
-  default_element.textContent = "削除する人を選択してください";
-  select_box.appendChild(default_element);
-  for (let index = 0; index < grade_people.length; index++) {
-    var new_element = document.createElement('option');
-    new_element.value = grade_people[index];
-    new_element.textContent = grade_people[index];
-    select_box.appendChild(new_element);
-  }
-}
+
 
 function del_member() { //指定されたメンバーを削除する
 
@@ -390,70 +406,9 @@ function del_member() { //指定されたメンバーを削除する
   } else {
     var del_tab_where = 'three';
   }
-  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
-  pageChange(html_home, 'side_home');
+  open_tab('side_home');
   tab(del_tab_where);
-  reload_NoA('count');
-  reload_people();
 }
-
-function add_member() { //入力されたメンバーを追加する
-  var new_name = document.getElementById('form_name').value;
-  var new_grade = document.getElementsByClassName('radio');
-  for (var value = "", i = new_grade.length; i--;) {
-    if (new_grade[i].checked) {
-      var value = new_grade[i].value;
-      break;
-    }
-  }
-
-  member = JSON.parse(localStorage.getItem("member"))
-  member[value].push(new_name);
-  localStorage.setItem("member", JSON.stringify(member));
-  document.getElementById('decide').disabled = true;
-  document.getElementById('decide').style.backgroundColor = '#BFBFBF';
-  if (value == 0) {
-    var new_tab_where = 'one';
-  } else if (value == 1) {
-    var new_tab_where = 'two';
-  } else {
-    var new_tab_where = 'three';
-  }
-  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
-  pageChange(html_home, 'side_home');
-  tab(new_tab_where);
-  reload_NoA('count');
-  reload_people();
-
-}
-
-/* function openHome(element) {
-  var headHome = document.getElementById('title');
-  headHome.innerHTML = 'ホーム - 出席管理システム';
-  member = JSON.parse(localStorage.getItem('member'));
-  //var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
-  //pageChange(html_home, element);
-  tab(tab_where);
-  reload_NoA('count');
-  reload_people();
-} */
-/* function openAna(element) {
-  var headAna = document.getElementById('title');
-  headAna.innerHTML = '分析 - 出席管理システム';
-  var html_ana = '<div class="main_analyze"><div class="anaHeader"><p id="dateArea"></p></div><div class="NoA"> <!--Number of attendeesの略--><p class="people">出席人数：<span id="people">0</span>人</p></div><image src="before.png" class="before" onclick="before()"><image src="next.png" class="next" onclick="next()"><div id="syusseki_people"></div></div>'
-  pageChange(html_ana, element);
-  for_day_length();
-  day_index = day_lentgh - 1;
-  document.getElementById('dateArea').innerHTML = get_time()[1];
-  pull_array();
-  reload_NoA('people');
-} */
-/* function openSet(element) {
-  var headSet = document.getElementById('title');
-  headSet.innerHTML = '設定 - 出席管理システム';
-  var html_set = '<div class="menu_tile"><div class="menu_newList" onclick="openNew()"><img class="menu_icon" src="newList.png" alt=""><p class="menu_Text">名簿の新規作成</p></div><div class="menu_addMember" onclick="openAdd()"><img class="menu_icon" src="addMember.png" alt=""><p class="menu_Text">メンバーの追加</p></div><div class="menu_delMember" onclick="openDel()"><img class="menu_icon" src="delMember.png" alt=""><p class="menu_Text">メンバーの削除</p></div></div><div class="menu_tile_2"><div class="menu_setEx" onclick="setting_export()"><img class="menu_icon" src="setEx.png" alt=""><p class="menu_Text">設定の書き出し</p></div><div class="menu_setIn" onclick="setting_import()"><img class="menu_icon" src="setIn.png" alt=""><p class="menu_Text">設定の読み込み</p></div><div class="menu_dataEx" onclick="data_export()"><img class="menu_icon" src="dataEx.png" alt=""><p class="menu_Text">出席データの出力</p></div></div>'
-  pageChange(html_set, element);
-} */
 window.onload = function () {
   if (localStorage.hasOwnProperty('member')) {
     member = JSON.parse(localStorage.getItem('member'));
@@ -634,94 +589,11 @@ function excel_output() {
   saveAs(blob, 'information.xlsx');
 }
 
-/*function openNew() {
-  var html_new = '<div class="form"><h2 class="text">名簿の新規作成</h2><h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4><div class="fileInput"><p for="name">読み込むCSVファイルを選択してください。</p><form name="nameform"><input type="file" class="form_file" id="form_name" name="namefile"></div><button id="load" onclick="new_list()">名簿を読み込み</button></div>'
-  var change_area = document.getElementById('change_area');
-  change_area.innerHTML = html_new;
-  var form = document.forms.nameform;
-  form.namefile.addEventListener('change', function (e) {
-    var result = e.target.files[0];
-
-    reader.readAsText(result);
-  })
-}*/
-
-/*function openAdd() {
-  var html_add = '<div class="form"><h2 class="text">メンバーの追加</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio"><span class="checkmark"></span></label><div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name"><p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p></div><button id="decide" onclick="new_member()">メンバーを追加</button></div>'
-  var change_area = document.getElementById('change_area');
-  change_area.innerHTML = html_add;
-
-  var del_name = document.getElementsByClassName('select')[0].value;
-  var checkDel = window.confirm(del_name + 'さんを削除してよろしいですか？');
-  var del_grade = document.getElementsByClassName('radio');
-  if (checkDel) {
-    for (var value = "", i = del_grade.length; i--;) {
-      if (del_grade[i].checked) {
-        var value = del_grade[i].value;
-        break;
-      }
-    }
-  }
-  member = JSON.parse(localStorage.getItem("member"))
-  member[value].splice(member[value].indexOf(del_name), 1);
-  localStorage.setItem("member", JSON.stringify(member));
-  document.getElementById('delete').disabled = true;
-  document.getElementById('delete').style.backgroundColor = '#BFBFBF';
-  if (value == 0) {
-    var del_tab_where = 'one';
-  } else if (value == 1) {
-    var del_tab_where = 'two';
-  } else {
-    var del_tab_where = 'three';
-  }
-  open_tab('side_home');
-  tab(del_tab_where);
-  reload_NoA('count');
-  reload_people();
-}
-function openDel() {
-  var html_del = '<div class="form"><h2 class="text">メンバーの削除</h2><h4 class="choiceGrade">学年を選択</h4><label class="container">１年<input type="radio" checked="checked" name="radio" value="0" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">２年<input type="radio" name="radio" value="1" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><label class="container">３年<input type="radio" name="radio" value="2" class="radio" onclick="select_box(this.value)"><span class="checkmark"></span></label><div class="pullDown"><select class="select" name="memberName"></select></div><button id="delete" onclick="del_member()">選択したメンバーを削除</button></div>'
-  var change_area = document.getElementById('change_area');
-  change_area.innerHTML = html_del;
-  select_box("0");
-}*/
-
 function set(num) {
   var ret;
   if (num < 10) { ret = "0" + num; }
   else { ret = num; }
   return ret;
-}
-
-
-function add_member() { //入力されたメンバーを追加する
-  var new_name = document.getElementById('form_name').value;
-  var new_grade = document.getElementsByClassName('radio');
-  for (var value = "", i = new_grade.length; i--;) {
-    if (new_grade[i].checked) {
-      var value = new_grade[i].value;
-      break;
-    }
-  }
-
-  member = JSON.parse(localStorage.getItem("member"))
-  member[value].push(new_name);
-  localStorage.setItem("member", JSON.stringify(member));
-  document.getElementById('decide').disabled = true;
-  document.getElementById('decide').style.backgroundColor = '#BFBFBF';
-  if (value == 0) {
-    var new_tab_where = 'one';
-  } else if (value == 1) {
-    var new_tab_where = 'two';
-  } else {
-    var new_tab_where = 'three';
-  }
-  var html_home = '<div class="header"><div class="name"><p id="name"></p></div><p id="day"></p><div class="count"><p>本日の出席人数：　<span id="count">0</span>人</p>  <!--Number of peopleの略--></div></div><div class="tab"><p class="grade" id="one" onclick="tab(this.id)">１年</p><p class="grade" id="two" onclick="tab(this.id)">２年</p><p class="grade" id="three" onclick="tab(this.id)">３年</p></div><div class="btn"></div>';
-  pageChange(html_home, 'side_home');
-  tab(new_tab_where);
-  reload_NoA('count');
-  reload_people();
-
 }
 
 function check(element) {

@@ -11,15 +11,15 @@
 
 <body>
   <div class="side">
-    <div id="side_home" class="side_home" onclick="open_tab(this)">
+    <div id="side_home" class="side_home" onclick="open_tab(this.id)">
       <img class="side_icon" src="home.png" alt="">
       <p class="index" id="home">ホーム</p>
     </div>
-    <div id="side_analyze" class="side_analyze" onclick="open_tab(this)">
+    <div id="side_analyze" class="side_analyze" onclick="open_tab(this.id)">
       <img class="side_icon" src="analyze.png" alt="">
       <p class="index" id="analyze">分析</p>
     </div>
-    <div id="side_setting" class="side_setting" onclick="open_tab(this)">
+    <div id="side_setting" class="side_setting" onclick="open_tab(this.id)">
       <img class="side_icon" src="setting.png" alt="">
       <p class="index" id="setting">設定</p>
     </div>
@@ -64,15 +64,15 @@
 
   <div id="setting_main">
     <div class="menu_tile">
-      <div id="new" class="menu_newList" onclick="settingFunc(this)">
+      <div id="new" class="menu_newList" onclick="settingFunc(this.id)">
         <img class="menu_icon" src="newList.png" alt="">
         <p class="menu_Text">名簿の新規作成</p>
       </div>
-      <div id="add" class="menu_addMember" onclick="settingFunc(this)">
+      <div id="add" class="menu_addMember" onclick="settingFunc(this.id)">
         <img class="menu_icon" src="addMember.png" alt="">
         <p class="menu_Text">メンバーの追加</p>
       </div>
-      <div id="del" class="menu_delMember" onclick="settingFunc(this)">
+      <div id="del" class="menu_delMember" onclick="settingFunc(this.id)">
         <img class="menu_icon" src="delMember.png" alt="">
         <p class="menu_Text">メンバーの削除</p>
       </div>
@@ -122,7 +122,7 @@
         <input type="radio" name="radio" value="2" class="radio">
         <span class="checkmark"></span>
       </label>
-      <div class="textbox"><label for="name">名前:</label><input type="text" class="form_text" id="form_name">
+      <div class="textbox"><label for="name">名前:</label><input type="text" id="form_name" class="form_text">
         <p class="instruction">※姓と名のあいだに半角スペースを入力してください。</p>
       </div>
       <button id="decide" onclick="add_member()">メンバーを追加</button></div>

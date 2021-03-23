@@ -232,7 +232,19 @@ function pageChange(html, id) {
   change_area.innerHTML = html;
   side_tab(id);
 }
-function openHome(element) {
+
+  document.getElementById('analyze_main').style.display = "none";
+  document.getElementById('setting_main').style.display = "none";
+
+function open(id){
+  if (id = 'side_home'){
+    var document.getElementById('title');
+    title.innerHTML = 'ホーム - 出席管理システム';
+
+  }
+}
+
+/* function openHome(element) {
   var headHome = document.getElementById('title');
   headHome.innerHTML = 'ホーム - 出席管理システム';
   member = JSON.parse(localStorage.getItem('member'));
@@ -241,7 +253,7 @@ function openHome(element) {
   tab(tab_where);
   reload_NoA('count');
   reload_people();
-}
+} */
 window.onload = function () {
   if (localStorage.hasOwnProperty('member')) {
     member = JSON.parse(localStorage.getItem('member'));

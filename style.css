@@ -426,6 +426,18 @@ select{
   border-radius: 7px;
   border: none;
 }
+
+#setting_load{
+  margin-top: 30px;
+  margin-left: 0px;
+  height: 50px;
+  width: 280px;
+  background-color: #BDD7EE;
+  font-size: 20px;
+  font-family: BIZ UDPゴシック;
+  border-radius: 7px;
+  border: none;
+}
 .form_file{
   height: 50px;
   width: 300px;

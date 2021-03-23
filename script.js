@@ -8,6 +8,8 @@ var member = [];
 var main_array = [];
 var reader = new FileReader();
 var reader2 = new FileReader();
+var result_setting;
+var result;
 
 
 function for_day_length() {
@@ -116,15 +118,7 @@ function setting_export() {
   }
   (new CSV(values)).save('setting.csv');
 }
-function setting_import() {
-  var csv_arrays = reader2.result_setting.split('\n');
-  var each_csv_arrays = [];
-  console.log(csv_arrays);
-  for (let index = 0; index < csv_member.length; index++) {
-    each_csv_arrays[index] = csv_arrays[index].split(',')
-    localStorage.push(each_csv_arrays[0], JSON.stringify(each_csv_arrays[1]));
-  }
-}
+
 function excel_input() {
   var first_index = ["項目"];
   var days = JSON.parse(localStorage.getItem('day'));
@@ -521,7 +515,7 @@ function settingFunc(id) {
     document.getElementById('set_In').style.display = 'none';
     var form = document.forms.nameform;
     form.namefile.addEventListener('change', function (e) {
-      var result = e.target.files[0];
+      result = e.target.files[0];
 
       reader.readAsText(result);
     })
@@ -553,10 +547,9 @@ function settingFunc(id) {
     document.getElementById('add_member').style.display = 'none';
     document.getElementById('del_member').style.display = 'none';
     document.getElementById('set_In').style.display = 'block';
-    var form2 = document.forms.nameform2;
-    form2.namefile2.addEventListener('change', function (e) {
-      var result_setting = e.target.files[0];
-
+    var form2 = document.forms.settingform;
+    form2.settingfile.addEventListener('change', function (f) {
+      result_setting = f.target.files[0];
       reader2.readAsText(result_setting);
     })
   } else if (id_FS == 'dataEx') {
@@ -566,9 +559,18 @@ function settingFunc(id) {
   }
 
 }
+function setting_import() {
+  var csv_arrays = reader2.result.split('\n');
+  var each_csv_arrays = [];
+  console.log(csv_arrays);
+  for (let index = 0; index < csv_arrays.length; index++) {
+    each_csv_arrays[index] = csv_arrays[index].split(',')
+    localStorage.setItem(each_csv_arrays[0], JSON.stringify(each_csv_arrays[1]));
+  }
+}
 
 function new_list() {  //指定されたCSVファイルを読み込み、名簿に追加する
-  var csv_member = reader.result.split('\n')
+  var csv_member = reader.result.split('\n');
   var changed_array = []
   for (let index = 0; index < csv_member.length; index++) {
     changed_array[index] = csv_member[index].split(',')

@@ -105,11 +105,11 @@
       <h4 class="loadFile">名簿ファイル（.csv）の読み込み</h4>
       <div class="fileInput">
         <p for="name">読み込むCSVファイルを選択してください。</p>
-        <form name="nameform"><input type="file" class="form_file" name="namefile">
-        </div>
-        <button id="load" onclick="new_list()">名簿を読み込み</button>
+        <form name="nameform"><input type="file" class="form_file" name="namefile"></form>
       </div>
+      <button id="load" onclick="new_list()">名簿を読み込み</button>
     </div>
+  </div>
   </div>
 
   <div id="add_member"></div>
@@ -122,10 +122,9 @@
       <h4 class="loadFile">設定（.csv）の読み込み</h4>
       <div class="fileInput">
         <p for="name">読み込むCSVファイルを選択してください。</p>
-        <form name="nameform2"><input type="file" class="form_file" name="namefile2">
-        </div>
-        <button id="load" onclick="setting_import()">設定を読み込み</button>
+        <form name="settingform"><input type="file" class="form_file" name="settingfile"></form>
       </div>
+      <button id="setting_load" onclick="setting_import()">設定を読み込み</button>
     </div>
   </div>
 

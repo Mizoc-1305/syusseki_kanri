@@ -113,7 +113,14 @@ function setting_export() {
   for (let i = 0; i < keys.length; i++) {
     current_values = [];
     current_values.push(keys[i]);
-    current_values.push(JSON.parse(localStorage.getItem(keys[i])));
+    if (keys[i] == 'member') {
+      for (let index = 0; index < 3; index++) {
+        var temp_member = JSON.parse(localStorage.getItem('member'))[index];
+        current_values.push(temp_member);
+      }
+    } else {
+      current_values.push(JSON.parse(localStorage.getItem(keys[i])));
+    }
     values.push(current_values);
   }
   (new CSV(values)).save('setting.csv');
@@ -566,17 +573,29 @@ function settingFunc(id) {
 }
 function setting_import() {
   var csv_arrays = reader2.result.split('\n');
-  var targetStr = '"';
-  var regExp = new RegExp(targetStr, "g");
   for (let index = 0; index < csv_arrays.length; index++) {
-    var each_array = csv_arrays[index].replace(regExp, '');
-    each_array = each_array.split(',');
-    var temp_array = [];
-    for (let index2 = 1; index2 < each_array.length; index2++) {
-      temp_array.push(each_array[index2]);
+    var each_array = csv_arrays[index].split('","');
+    for (let index2 = 0; index2 < each_array.length; index2++) {
+      var targetStr = '"';
+      var regExp = new RegExp(targetStr, "g");
+      each_array[index2] = each_array[index2].replace(regExp, '');
     }
-    localStorage.setItem(each_array[0], temp_array);
+    var temp_array = [];
+    console.log(each_array);
+    for (let index3 = 1; index3 < each_array.length; index3++) {
+      temp_array.push(each_array[index3].split(','));
+    }
+    if (temp_array.length > 1) {
+      localStorage.setItem(each_array[0],JSON.stringify(temp_array));
+    } else{
+      var first = String(JSON.stringify(temp_array)).slice(1);
+      var second = first.slice(0,-1);
+      localStorage.setItem(each_array[0],second);
+    }
   }
+  document.getElementById('load').disabled = true;
+  document.getElementById('load').style.backgroundColor = '#BFBFBF';
+  open_tab('side_home');
 }
 
 function new_list() {  //指定されたCSVファイルを読み込み、名簿に追加する

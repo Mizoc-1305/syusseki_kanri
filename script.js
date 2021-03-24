@@ -566,7 +566,8 @@ function settingFunc(id) {
   } else if (id_FS == 'dataReset') {
     var checkReset = window.confirm('全てのデータを削除します。よろしいですか？\nなお、この作業は取り消すことができません。事前にデータの書き出し等を行ってください。')
     if (checkReset) {
-
+      localStorage.clear();
+      window.location.reload();
     }
   }
 
@@ -581,16 +582,15 @@ function setting_import() {
       each_array[index2] = each_array[index2].replace(regExp, '');
     }
     var temp_array = [];
-    console.log(each_array);
     for (let index3 = 1; index3 < each_array.length; index3++) {
       temp_array.push(each_array[index3].split(','));
     }
     if (temp_array.length > 1) {
-      localStorage.setItem(each_array[0],JSON.stringify(temp_array));
-    } else{
+      localStorage.setItem(each_array[0], JSON.stringify(temp_array));
+    } else {
       var first = String(JSON.stringify(temp_array)).slice(1);
-      var second = first.slice(0,-1);
-      localStorage.setItem(each_array[0],second);
+      var second = first.slice(0, -1);
+      localStorage.setItem(each_array[0], second);
     }
   }
   document.getElementById('load').disabled = true;
@@ -602,7 +602,13 @@ function new_list() {  //指定されたCSVファイルを読み込み、名簿�
   var csv_member = reader.result.split('\n');
   var changed_array = []
   for (let index = 0; index < csv_member.length; index++) {
-    changed_array[index] = csv_member[index].split(',')
+    var targetStr = '"';
+    var regExp = new RegExp(targetStr, "g");
+    var temp_change = csv_member[index].split(',');
+    for (let index2 = 0; index2 < temp_change.length; index2++) {
+      temp_change[index2] = temp_change[index2].replace(regExp, '');
+    }
+    changed_array[index] = temp_change;
   }
   localStorage.setItem("member", JSON.stringify(changed_array));
   document.getElementById('load').disabled = true;

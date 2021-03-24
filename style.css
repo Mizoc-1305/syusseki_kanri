@@ -430,7 +430,7 @@ select{
 }
 
 .copyright{
-  position: absolute;
-  margin-top: 60%;
+  position:fixed;
+  bottom:0px;
   margin-left: 78%;
 }

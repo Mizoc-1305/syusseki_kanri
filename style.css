@@ -210,14 +210,14 @@ hr{
   cursor: pointer;
 }
 .menu_setEx{
-  margin-left: 100px;
+  margin-left: 200px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
   cursor: pointer;
 }
 .menu_setIn{
-  margin-left: 200px;
+  margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;

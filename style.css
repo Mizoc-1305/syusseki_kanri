@@ -189,48 +189,56 @@ hr{
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
+  cursor: pointer;
 }
 .menu_addMember{
   margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
+  cursor: pointer;
 }
 .menu_delMember{
   margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
+  cursor: pointer;
 }
 .menu_setEx{
   margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
+  cursor: pointer;
 }
 .menu_setIn{
   margin-left: 200px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
+  cursor: pointer;
 }
 .menu_dataEx{
   margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
+  cursor: pointer;
 }
 .menu_listEx{
   margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
+  cursor: pointer;
 }
 .menu_dataReset{
   margin-left: 100px;
   width: 180px;
   height: 180px;
   background-color: #FF8888;
+  cursor: pointer;1
 }
 .menu_icon{
   margin-top: 15px;

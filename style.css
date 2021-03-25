@@ -15,6 +15,7 @@
   color: #FFF;
   background-color: #000B70;
   position: absolute;
+  cursor: pointer;
 }
 .side_analyze{
   z-index: 1;
@@ -24,6 +25,7 @@
   margin-top: 100px;
   color: #FFF;
   position: absolute;
+  cursor: pointer;
 }
 .side_setting{
   z-index: 1;
@@ -33,6 +35,7 @@
   margin-top:210px;
   color: #FFF;
   position: absolute;
+  cursor: pointer;
 }
 .side_icon{
   margin-top: 10px;
@@ -100,6 +103,7 @@
   display: flex;
   background-color: #BFBFBF;
   width: 100;
+  cursor: pointer;
 }
 .grade{
   margin-top: 0px;
@@ -189,7 +193,7 @@ hr{
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
-  cursor: pointer;
+  cursor: wait;
 }
 .menu_addMember{
   margin-left: 100px;

@@ -616,6 +616,8 @@ function new_list() {  //指定されたCSVファイルを読み込み、名簿�
   document.getElementById('load').disabled = true;
   document.getElementById('load').style.backgroundColor = '#BFBFBF';
   open_tab('side_home');
+  document.getElementById('load').disabled = false;
+  document.getElementById('load').style.backgroundColor = '#BDD7EE';
 }
 
 

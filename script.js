@@ -575,11 +575,6 @@ function settingFunc(id) {
 function setting_import() {
   var csv_arrays = reader2.result.split('"\n');
   for (let index = 0; index < csv_arrays.length; index++) {
-    var mergeing = "";
-    var now_value = [];
-    var new_array = [];
-    var there = 0;
-    var new_value = [];
     var each_array = csv_arrays[index].split('","');
     for (let index2 = 0; index2 < each_array.length; index2++) {
       var targetStr = '"';
@@ -590,46 +585,15 @@ function setting_import() {
     for (let index3 = 1; index3 < each_array.length; index3++) {
       temp_array.push(each_array[index3].split(','));
     }
-
     if (temp_array.length > 1) {
       var set_array = temp_array;
     } else {
-      var set_array = [];
+      var set_array = []
       for (let index_h = 0; index_h < temp_array[0].length; index_h++) {
         set_array.push(temp_array[0][index_h]);
       }
     }
-    if (localStorage.hasOwnProperty(each_array[0])) {
-      if (temp_array.length > 1) {
-        for (let index_t = 0; index_t < temp_array.length; index_t++) {
-          now_value = JSON.parse(localStorage.getItem(each_array[0]));
-          new_value = JSON.parse(localStorage.getItem(each_array[0]));
-          new_array = set_array[index_t];
-          for (let index_y = 0; index_y < new_array.length; index_y++) {
-            mergeing = new_array[index_y];
-            there = now_value[index_t].indexOf(mergeing);
-            if (there == -1) {
-              new_value[index_t].unshift(mergeing);
-            }
-          }
-        }
-      } else {
-        now_value = JSON.parse(localStorage.getItem(each_array[0]));
-        new_value = JSON.parse(localStorage.getItem(each_array[0]));
-        new_array = set_array;
-        for (let index_x = 0; index_x < new_array.length; index_x++) {
-          mergeing = new_array[index_x];
-          there = now_value.indexOf(mergeing);
-          if (there == -1) {
-            new_value.unshift(mergeing);
-          } 
-        }
-      }
-      localStorage.setItem(each_array[0],JSON.stringify(new_value));
-    } else {
-      localStorage.setItem(each_array[0],JSON.stringify(temp_array));
-    }
-
+    localStorage.setItem(each_array[0],JSON.stringify(set_array));
   }
   document.getElementById('load').disabled = true;
   document.getElementById('load').style.backgroundColor = '#BFBFBF';

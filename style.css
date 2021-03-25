@@ -193,7 +193,7 @@ hr{
   width: 180px;
   height: 180px;
   background-color: #BDD7EE;
-  cursor: wait;
+  cursor: pointer;
 }
 .menu_addMember{
   margin-left: 100px;

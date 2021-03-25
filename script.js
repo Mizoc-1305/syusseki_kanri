@@ -181,13 +181,12 @@ function excel_output() {
   var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
   saveAs(blob, 'information.xlsx');
 }
-
 function get_time() {
   var now = new Date();
   var month = now.getMonth() + 1;
   var date = now.getDate();
   var hour = now.getHours();
-  var minute = now.getMinutes();
+  var minute = set(now.getMinutes());
   var time = hour + ":" + minute;
   var month_date = month + "/" + date
   return [time, month_date];
